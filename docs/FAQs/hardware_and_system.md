@@ -97,7 +97,7 @@ System version explanation:
 
 One end of the serial cable (white) is connected to the RDK X3. Since the interface has a groove, the correct orientation is usually maintained. The other end is connected to the serial port adapter board. Pay close attention to the connection diagram below:
 
-![](./image/hardware_and_system/connect.png)
+![](./image/hardware_and_system/connect.jpg)
 
 ## What are the power requirements for RDK X3?
 
@@ -117,7 +117,7 @@ SanDisk: <https://item.jd.com/1875992.html#crumb-wrap>
 
 The F37 and GC4663 camera modules are connected to the development board via a 24-pin FPC cable with opposite side connectors. **Note that the blue side of the cable should be facing up when inserting it into the connector**. The connection diagram for the F37 camera is shown below:
 
-![](./image/hardware_and_system/image-X3-PI-Camera.png)
+![](./image/hardware_and_system/image-X3-PI-Camera.jpg)
 
 After a successful connection, power on the board and execute the following command:
 

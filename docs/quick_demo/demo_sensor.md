@@ -215,7 +215,7 @@ Code repository: <https://github.com/HorizonRDK/hobot_mipi_cam.git>
 
 1. Confirm that the camera is correctly connected to Horizon RDK. For example, the connection between the F37 camera and RDK X3 is shown in the following figure:
 
-    ![image-X3-PI-Camera](./image/demo_sensor/image-X3-PI-Camera.png)
+    ![image-X3-PI-Camera](./image/demo_sensor/image-X3-PI-Camera.jpg)
 
 2. Horizon RDK is flashed with the Ubuntu 20.04 system image provided by Horizon
 
@@ -373,7 +373,7 @@ Code Repository: <https://github.com/HorizonRDK/hobot_rgbd_cam.git>
 
 1. Make sure the camera is correctly connected to the Horizon RDK. The connection for RGBD module to RDK X3 is shown as below:
 
-    ![hobot_rgbd](./image/demo_sensor/hobot_rgbd.png)
+    ![hobot_rgbd](./image/demo_sensor/hobot_rgbd.jpg)
 
     **Note: The RGBD module needs an additional adapter board to connect to Horizon RDK X3**.
 2. Horizon RDK has been flashed with the Ubuntu 20.04 system image provided by Horizon.
