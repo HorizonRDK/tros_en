@@ -47,32 +47,6 @@ Connection steps:
 
 2. Connect the power supply, network cable, etc.
 
-#### Linear Microphone Array
-
-The linear microphone array consists of an audio adapter board and a linear microphone board. The physical diagram and connection instructions are as follows:
-
-Audio adapter board:
-
-![connect_board](./image/box_adv/connect_board.jpg)
-
-Linear microphone board:
-
-![line_mic](./image/box_adv/line_mic.jpg)
-
-1. First, connect the Horizon RDK X3 to the audio adapter board, aligning the pins of both devices. The connection is shown in the following figure:
-
-   ![link](./image/box_adv/link.jpg)
-
-2. Next, connect the Horizon RDK X3 to the microphone array board. The adapter board FPC interface is connected to the microphone array board with a 15-pin FFC cable.The connection is shown in the following figure:
-
-   ![link_mic](./image/box_adv/link_mic.jpg)
-
-3. Connect the AEC line.
-
-   ![mic_line](./image/box_adv/mic_line.jpg)
-
-4. Connect the power supply, network cable, etc.
-
 #### Power Check
 
 After connecting the Horizon RDK to the microphone array, power it on. Use the command `i2cdetect -r -y 0` to check the device connection. If the connection is successful, three addresses should be read on the I2C bus. See the following figure:
@@ -116,9 +90,6 @@ The relative position relationship of the angles is closely related to the insta
 DOA angle diagram for circular microphone array:
 ![doa_circle](./image/box_adv/doa_circle.jpg)
 
-DOA angle diagram for linear microphone array:
-![doa_line](./image/box_adv/doa_line.jpg)
-
 To run the hobot_audio package on the Horizon RDK:
 
 1. Copy the configuration file
@@ -144,7 +115,7 @@ To run the hobot_audio package on the Horizon RDK:
       "voip_mode": 0,
       "mic_type": 0,
       "asr_mode": 0,
-   ```"asr_channel": 3,
+      "asr_channel": 3,
       "save_audio": 0
    }
    ```
