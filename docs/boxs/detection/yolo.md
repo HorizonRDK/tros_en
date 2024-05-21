@@ -18,8 +18,6 @@ Use cases: As a representative algorithm in single-stage object detection, the Y
 | Platform              | System | Supported Algorithms | Function                                            |
 | --------------------- | ---------------- | -------------------- | ------------------------------------------------------------ |
 | RDK X3, RDK X3 Module | Ubuntu 20.04     | yolov2/yolov3/yolov5 | · Start MIPI/USB cameras and display results through web<br/>· Use local data offline, and save results |
-| RDK Ultra             | Ubuntu 20.04     | yolov5x              | · Start MIPI/USB cameras and display inference rendering results through web<br/>· Use local data offline, and save results |
-| X86                   | Ubuntu 20.04     | yolov2/yolov3        | · Use local data offline, and save results |
 
 ## Preparations
 
@@ -32,12 +30,6 @@ Use cases: As a representative algorithm in single-stage object detection, the Y
 3. Horizon RDK has installed MIPI or USB cameras. If there is no camera available, the algorithm can be experienced offline by local JPEG/PNG images or MP4, H.264, and H.265 videos.
 
 4. Confirm that the PC can access the Horizon RDK through the network.
-
-### X86
-
-1. X86 environment has been configured with the Ubuntu 20.04 system image.
-
-2. X86 environment has successfully installed tros.b.
 
 ## Usage
 
@@ -86,65 +78,6 @@ ros2 launch dnn_node_example dnn_node_example_feedback.launch.py dnn_example_con
 ```
 
 In addition to the YOLOv2, YOLOv3 and YOLOv5 are also supported. The algorithm can be switched using the config_file parameter in the startup command. For example, to use the YOLOv3, the startup configuration should be `dnn_example_config_file:="config/yolov3workconfig.json"`, and for the YOLOv5 algorithm, the startup configuration should be `dnn_example_config_file:="config/yolov5workconfig.json"`.
-
-### Horizon RDK Ultra
-
-#### Use MIPI Camera to Publish Images
-
-YOLOv5x detection algorithm example subscribes to images published by MIPI camera, publishes msg after Inference, and displays images and corresponding results on PC browsers through the websocket package.
-
-```shell
-# Configure the tros.b environmentsource /opt/tros/setup.bash
-
-# Configuring MIPI camera
-export CAM_TYPE=mipi
-
-# Launching the launch file
-ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:=config/yolov5xworkconfig.json dnn_example_image_width:=672 dnn_example_image_height:=672
-```
-
-#### Use USB Camera to Publish Images
-
-The YOLOv5x detection algorithm example subscribes to images published by a USB camera, performs inference, and publishes algorithm messages. The websocket package is used to display the images and corresponding results on a PC browser.
-
-```shell
-# Configuring the tros.b environment
-source /opt/tros/setup.bash
-
-# Configuring the USB camera
-export CAM_TYPE=usb
-
-# Launching the launch file
-ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:=config/yolov5xworkconfig.json dnn_example_image_width:=672 dnn_example_image_height:=672
-```
-
-#### Use Local Data Offline
-
-The YOLOv5x object detection algorithm example uses local JPEG/PNG images for inference. After inference, the algorithm are rendered and stored in the local runtime path.
-
-```shell
-# Configuring the tros.b environment
-source /opt/tros/setup.bash
-
-# Launching the launch file
-ros2 launch dnn_node_example dnn_node_example_feedback.launch.py dnn_example_config_file:=config/yolov5xworkconfig.json dnn_example_image:=config/target.jpg
-```
-
-### X86
-
-#### Use Local Data Offline
-
-The YOLOv2 detection algorithm example uses local JPEG/PNG images for inference. After inference, the algorithm results are rendered and stored in the local runtime path.
-
-```shell
-# Configuring the tros.b environment
-source /opt/tros/setup.bash
-
-# Launching the launch file
-ros2 launch dnn_node_example dnn_node_example_feedback.launch.py dnn_example_config_file:=config/yolov2workconfig.json dnn_example_image:=config/target.jpg
-```
-
-In addition to the YOLOv2 algorithm, the YOLOv3 algorithm is also supported, but the YOLOv5 algorithm is not supported for now. The algorithm can be switched by using the parameter "config_file" in the startup command. For example, the startup configuration for using the YOLOv3 algorithm is `dnn_example_config_file:="config/yolov3workconfig.json"`.
 
 ## Result Analysis
 

@@ -13,10 +13,7 @@ Code repository: [https://github.com/HorizonRDK/hobot_dnn](https://github.com/Ho
 
 | Platform    | System     |
 | ------------ | ---------------- |
-| RDK X3, RDK X3 Module| Ubuntu 20.04 |
-| X86     | Ubuntu 20.04 |
-
-***For experience of RDK Ultra model inference, please refer to [3. Boxs algorithm repository](../category/boxs/)***
+| RDK X3, RDK X3 Module| Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble) |
 
 ## Prerequisites
 
@@ -25,10 +22,6 @@ Code repository: [https://github.com/HorizonRDK/hobot_dnn](https://github.com/Ho
 1. The Horizon RDK is already burned with the provided Ubuntu 20.04 system image.
 
 2. The TogetheROS.Bot has been successfully installed on the Horizon RDK.
-
-### X86
-
-1. Confirm that the X86 platform system is Ubuntu 20.04, and TogetheROS.Bot has been successfully installed.
 
 ## Usage
 

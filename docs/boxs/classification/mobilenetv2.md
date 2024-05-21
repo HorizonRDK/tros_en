@@ -17,8 +17,7 @@ Applications: mobilenetv2 is capable of predicting the category of a given image
 
 | Platform   | System | Function                   |
 | ---------- | ---------------- | --------------------------------------- |
-| RDK X3, RDK X3 Module, RDK Ultra | Ubuntu 20.04 | · Start MIPI/USB camera and display inference results on the web<br/>· Use local data to save rendering results offline |
-| X86        | Ubuntu 20.04 | · Use local data to save rendering results offline |
+| RDK X3, RDK X3 Module  | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble) | · Start MIPI/USB camera and display inference results on the web<br/>· Use local data to save rendering results offline |
 
 ## Preparation
 
@@ -31,12 +30,6 @@ Applications: mobilenetv2 is capable of predicting the category of a given image
 3. MIPI or USB camera has been installed on Horizon RDK. If there is no camera available, algorithm effects can be experienced by local JPEG/PNG images or MP4, H.264, and H.265 videos offline.
 
 4. Ensure the PC can access Horizon RDK through the network.
-
-### X86
-
-1. The X86 environment has been configured with Ubuntu 20.04 system image.
-
-2. The tros.b has been successfully installed on the X86.
 
 ## Usage
 
@@ -73,20 +66,6 @@ ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:
 #### Use Local Images Offline
 
 The mobilenetv2 image classification algorithm example can use local JPEG/PNG format images offline. After inference, the algorithm renders the resulting image and saves it in the local path.
-
-```shell
-# Configure TogetheROS environment
-source /opt/tros/setup.bash
-
-# Launch the launch file
-ros2 launch dnn_node_example dnn_node_example_feedback.launch.py dnn_example_config_file:=config/mobilenetv2workconfig.json dnn_example_image:=config/target_class.jpg
-```
-
-### X86
-
-#### Use Local Images Offline
-
-The mobilenetv2 image classification algorithm example use local JPEG/PNG images. After inference, the algorithm renders the resulting image and saves it in the local path.
 
 ```shell
 # Configure TogetheROS environment

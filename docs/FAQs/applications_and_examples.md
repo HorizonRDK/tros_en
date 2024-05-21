@@ -55,7 +55,7 @@ The examples in the manual are introduced using the Ubuntu system as an example.
 
 On a Linux image, these three steps are as follows:
 
-1. Configure the `tros.b` environment by using the command `export LD_LIBRARY_PATH`.
+1. Configure the `tros.b` environment by using the command `export LD_LIBRARY_PATH`, and use the `export ROS_LOG_DIR` command to modify the path to store the log file.
 
 2. Copy the necessary configuration files to the execution path.
 
@@ -159,6 +159,7 @@ Execute the previously found executable program and include the `parameters` par
 ```shell
 # Configure the tros.b environment
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/tros/lib/
+export ROS_LOG_DIR=/userdata/
 
 # Copy the configuration files needed to run the example from the tros.b installation path. The config directory contains the model used by example and the local images used for backtracking
 cp -r /opt/tros/lib/dnn_node_example/config/ .
@@ -166,6 +167,20 @@ cp -r /opt/tros/lib/dnn_node_example/config/ .
 # Perform backtracking prediction using local jpg format images and store the rendered images
 /opt/tros/lib/dnn_node_example/example --ros-args -p feed_type:=0 -p image_type:=0 -p dump_render_img:=1
 ```
+
+:::tip Note
+In addition to using the environment variable `ROS_LOG_DIR` to set the log path, you can also use the startup parameter `--ros-args --disable-external-lib-logs` to prevent the node from outputting logs to
+document.
+
+Usage examples:
+```bash
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/tros/lib/
+cp -r /opt/tros/${TROS_DISTRO}/lib/dnn_node_example/config/ .
+/opt/tros/lib/dnn_node_example/example --ros-args --disable-external-lib-logs --ros-args -p feed_type:=0 -p image_type:=0 -p dump_render_img:=1
+```
+
+Detailed description reference[About-Logging](https://docs.ros.org/en/humble/Concepts/Intermediate/About-Logging.html).
+:::
 
 ## How to find the path of the launch script
 
@@ -270,52 +285,6 @@ root@ubuntu:~#
 
 ```
 
-For version 1.x (taking 1.1.6 version as an example), the tros.b information is as follows:
-
-```shell
-root@ubuntu:~# apt show tros
-Package: tros
-Version: 1.1.6
-Section: utils
-Maintainer: kairui.wang <kairui.wang@horizon.ai>
-Installed-Size: 1,536 MB
-Pre-Depends: hhp-verify
-Depends: symlinks, locales, hhp-verify, hobot-models-basic, hobot-arm64-libs (>= 1.1.6)
-Apt-Sources: http://sunrise.horizon.cc/ubuntu-ports focal/main arm64 Packages
-Date: 2023-03-24_17-29-12
-Download-Size: 116 MB
-APT-Manual-Installed: yes
-Description: TogetherROS
-
-N: There are 7 additional records. Please use the '-a' switch to see them.
-root@ubuntu:~#
-
-```
-
-## Explanation of tros.b versions 1.x and 2.x
-
-**Corresponding relationship with system versions and RDK platform hardware**
-
-- tros.b version 2.x: Only supports system version 2.x; supports the entire series of RDK X3 hardware, such as RDK X3 and RDK X3 Module; future updates and new features of tros.b will be released in version 2.x; the code is hosted on GitHub.
-
-- [tros.b version 1.x](https://developer.horizon.cc/api/v1/fileData/TogetherROS/index.html): Historical version; only supports system version 1.x and RDK X3; future updates and new features of tros.b version 1.x will only be issue fixes; the code is hosted on GitLab.
-
-:::caution **Note**
-Upgrading from tros.b version 1.x to 2.x cannot be done directly through the apt command. You need to reinstall the system using a burning image and then install tros.b version 2.x. [Here](https://developer.horizon.cc/documents_rdk/installation/install_os) are the instructions for installing the system.
-:::
-
-**Functional differences**
-
-- Basic functionalities are the same. Future updates and new features of tros.b will only be based on version 2.x.
-
-- Package management methods are different. tros.b version 1.x has only one installation package file, while tros.b version 2.x packages and releases installation packages separately based on functionality. Developers do not need to worry about the changes in package management methods.
-
-**Usage differences**
-
-- apt installation and upgrade, as well as source code compilation methods, remain the same (see the **System Installation** chapter for details).
-
-- **Launch scripts for examples are different**. The file names and dependencies of the launch scripts have been optimized. Application examples should reference the launch scripts of dependent modules and configure the parameters accordingly. Please refer to this manual for the launch scripts of tros.b version 2.x examples.
-
 ## Failed to open the webpage in a web browser
 
 Symptom: After entering the URL http://IP:8000 (IP is the IP address of RDK) in the web browser, the webpage fails to open. The possible reasons are as follows:
@@ -335,3 +304,119 @@ Solution: Kill the running nginx process on RDK or restart RDK.
 3. Use the command `ros2 topic echo [topic name]` to confirm if perception result data is present.
 
 4. Use the command `ps -x` to check if multiple web nodes are running. If there are any, use the `kill` command to stop all web node processes before restarting.
+
+## TROS Humble version uses zero copy
+
+**Ubuntu system**
+
+Reference [hobot_shm](https://github.com/HorizonRDK/hobot_shm/blob/develop/README_cn.md
+) instructions for use.
+
+**Linux system**
+
+Set up a zero-copy environment using the following command:
+
+```bash
+export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+export FASTRTPS_DEFAULT_PROFILES_FILE=/opt/tros/humble/lib/hobot_shm/config/shm_fastdds.xml
+export RMW_FASTRTPS_USE_QOS_FROM_XML=1
+export ROS_DISABLE_LOANED_MESSAGES=0
+```
+
+The above commands also apply to Ubuntu systems.
+
+For the description of environment variables, please refer to [ROS 2 using Fast DDS middleware](https://fast-dds.docs.eprosima.com/en/latest/fastdds/ros2/ros2.html).
+
+**Check if zero copy is used to transfer data**
+
+After starting the program, use the command to check whether a memory mapped file is generated. If there is, it means that zero copy has been used to transfer data:
+
+```bash
+ll -thr /dev/shm/fast_datasharing* /dev/shm/fastrtps_*
+```
+
+Usage examples:
+
+- Set up a zero-copy environment
+
+```bash
+root@ubuntu:~# source /opt/tros/humble/setup.bash
+root@ubuntu:~# export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+root@ubuntu:~# export FASTRTPS_DEFAULT_PROFILES_FILE=/opt/tros/humble/lib/hobot_shm/config/shm_fastdds.xml
+root@ubuntu:~# export RMW_FASTRTPS_USE_QOS_FROM_XML=1
+root@ubuntu:~# export ROS_DISABLE_LOANED_MESSAGES=0
+root@ubuntu:~# ll -thr /dev/shm/fast_datasharing* /dev/shm/fastrtps_*
+ls: cannot access '/dev/shm/fast_datasharing*': No such file or directory
+ls: cannot access '/dev/shm/fastrtps_*': No such file or directory
+```
+
+It can be seen that no memory mapped file is generated when only a zero-copy environment is set, because the memory mapped file needs to be created by the program.
+
+- Run mipi_cam node to publish data through zero copy
+
+```bash
+source /opt/tros/humble/setup.bash
+ros2 launch mipi_cam mipi_cam.launch.py mipi_video_device:=F37
+```
+
+- View memory mapped files again
+
+```bash
+root@ubuntu:~# ll -thr /dev/shm/fast_datasharing* /dev/shm/fastrtps_*
+-rw-r--r-- 1 root root 0 Mar 26 14:01 /dev/shm/fastrtps_311b4cf8328b77f9_el
+-rw-r--r-- 1 root root 537K Mar 26 14:01 /dev/shm/fastrtps_311b4cf8328b77f9
+-rw-r--r-- 1 root root 36M Mar 26 14:01 /dev/shm/fast_datasharing_01.0f.1d.90.d8.ac.a8.ff.01.00.00.00_0.0.1f.3
+-rw-r--r-- 1 root root 0 Mar 26 14:17 /dev/shm/fastrtps_eef6d2045292439c_el
+-rw-r--r-- 1 root root 537K Mar 26 14:17 /dev/shm/fastrtps_eef6d2045292439c
+-rw-r--r-- 1 root root 0 Mar 26 14:17 /dev/shm/fastrtps_port17913_el
+-rw-r--r-- 1 root root 52K Mar 26 14:17 /dev/shm/fastrtps_port17913
+-rw-r--r-- 1 root root 36M Mar 26 14:17 /dev/shm/fast_datasharing_01.0f.1d.90.21.42.cb.90.01.00.00.00_0.0.1f.3
+```
+
+The above log shows that after enabling the zero-copy function and running mipi_cam node, multiple files appear in the /dev/shm directory, indicating that mipi_cam node** supports the use of zero-copy** to publish data.
+
+- Start zero-copy message subscription
+
+```bash
+source /opt/tros/humble/setup.bash
+ros2 launch hobot_codec hobot_codec.launch.py codec_in_mode:=shared_mem codec_in_format:=nv12 codec_out_mode:=ros codec_out_format:=jpeg codec_sub_topic:=/hbmem_img codec_pub_topic:=/image_jpeg
+```
+
+- View memory mapped files again
+
+```bash
+root@ubuntu:~# ll -thr /dev/shm/fast_datasharing* /dev/shm/fastrtps_*
+-rw-r--r-- 1 root root 0 Mar 26 14:01 /dev/shm/fastrtps_311b4cf8328b77f9_el
+-rw-r--r-- 1 root root 537K Mar 26 14:01 /dev/shm/fastrtps_311b4cf8328b77f9
+-rw-r--r-- 1 root root 36M Mar 26 14:01 /dev/shm/fast_datasharing_01.0f.1d.90.d8.ac.a8.ff.01.00.00.00_0.0.1f.3
+-rw-r--r-- 1 root root 0 Mar 26 14:17 /dev/shm/fastrtps_eef6d2045292439c_el
+-rw-r--r-- 1 root root 537K Mar 26 14:17 /dev/shm/fastrtps_eef6d2045292439c
+-rw-r--r-- 1 root root 0 Mar 26 14:17 /dev/shm/fastrtps_port17913_el
+-rw-r--r-- 1 root root 52K Mar 26 14:17 /dev/shm/fastrtps_port17913
+-rw-r--r-- 1 root root 36M Mar 26 14:17 /dev/shm/fast_datasharing_01.0f.1d.90.21.42.cb.90.01.00.00.00_0.0.1f.3
+-rw-r--r-- 1 root root 0 Mar 26 14:19 /dev/shm/fastrtps_dbda9faf3f77dee0_el
+-rw-r--r-- 1 root root 537K Mar 26 14:19 /dev/shm/fastrtps_dbda9faf3f77dee0
+-rw-r--r-- 1 root root 0 Mar 26 14:19 /dev/shm/fastrtps_port17915_el
+-rw-r--r-- 1 root root 52K Mar 26 14:19 /dev/shm/fastrtps_port17915
+-rw-r--r-- 1 root root 22K Mar 26 14:19 /dev/shm/fast_datasharing_01.0f.1d.90.23.5d.bd.63.01.00.00.00_0.0.1e.4
+root@ubuntu:~#
+root@ubuntu:~# lsof /dev/shm/fast_datasharing*
+COMMAND PID USER FD TYPE DEVICE SIZE/OFF NODE NAME
+mipi_cam 2507297 root mem REG 0,17 37327756 18131245 /dev/shm/fast_datasharing_01.0f.1d.90.21.42.cb.90.01.00.00.00_0.0.1f.3
+mipi_cam 2507297 root mem REG 0,17 21656 18149313 /dev/shm/fast_datasharing_01.0f.1d.90.23.5d.bd.63.01.00.00.00_0.0.1e.4
+hobot_cod 2514211 root mem REG 0,17 37327756 18131245 /dev/shm/fast_datasharing_01.0f.1d.90.21.42.cb.90.01.00.00.00_0.0.1f.3
+hobot_cod 2514211 root mem REG 0,17 21656 18149313 /dev/shm/fast_datasharing_01.0f.1d.90.23.5d.bd.63.01.00.00.00_0.0.1e.4
+```
+
+It can be seen that new memory mapped files have appeared in the /dev/shm directory, and these files are occupied by the mipi_cam and hobot_codec processes, indicating that the hobot_codec node is subscribing to the data published by the mipi_cam node through zero copy.
+
+
+**Disable zero copy functionality**
+
+Disable the zero-copy function through the environment variable `ROS_DISABLE_LOANED_MESSAGES`, which has the highest control priority:
+
+```bash
+export ROS_DISABLE_LOANED_MESSAGES=1
+```
+
+For detailed instructions on disabling the zero-copy function configuration, refer to [how-to-disable-loaned-messages](https://docs.ros.org/en/humble/How-To-Guides/Configure-ZeroCopy-loaned-messages.html#how-to-disable-loaned-messages).

@@ -27,7 +27,7 @@ Code repository: <https://github.com/HorizonRDK/gesture_control>
 
 | Platform                            | System | Function                                                                                                                                                                                                                                                                                                                                                 |
 | ----------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| RDK X3, RDK X3 Module, RDK Ultra     | Ubuntu 20.04   | Start MIPI/USB camera to capture images, perform gesture recognition and control, and finally show the control effect through Gazebo           |
+| RDK X3, RDK X3 Module      | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)   | Start MIPI/USB camera to capture images, perform gesture recognition and control, and finally show the control effect through Gazebo           |
 
 ## Preparation
 

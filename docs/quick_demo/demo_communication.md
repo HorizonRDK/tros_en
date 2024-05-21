@@ -20,9 +20,7 @@ Code repositories: [https://github.com/HorizonRDK/rclcpp](https://github.com/Hor
 
 | Platform    | System      | Function                       |
 | ------- | ------------ | ------------------------------ |
-| RDK X3, RDK X3 Module | Ubuntu 20.04 | Show zero-copy performance test results |
-
-***RDK Ultra supports zero-copy communication but does not provide an installation package for zero-copy performance testing.***
+| RDK X3, RDK X3 Module | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble) | Show zero-copy performance test results |
 
 ### Preparation
 

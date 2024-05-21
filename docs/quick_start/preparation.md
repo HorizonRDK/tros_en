@@ -3,9 +3,9 @@ sidebar_position: 1
 ---
 # 1.1 Environment Setup
 
-TogetheROS.Bot supports installation on the Horizon RDK and X86 platforms with Ubuntu 20.04 system. Installing through DEB packages on Ubuntu system is simple and recommended for users who want to experience it initially.
+TogetheROS.Bot supports installation on the Horizon RDK with Ubuntu 20.04 system. Installing through DEB packages on Ubuntu system is simple and recommended for users who want to experience it initially.
 
-Next, we will introduce the environment setup details for Horizon RDK and X86 platforms respectively.
+Next, we will introduce the environment setup details for Horizon RDK.
 
 ## Horizon RDK
 
@@ -14,12 +14,6 @@ Next, we will introduce the environment setup details for Horizon RDK and X86 pl
 Before installing tros.b, it is recommended to upgrade the Horizon RDK system image to the latest version. Here is the method of burning Ubuntu 20.04 image: [Ubuntu Image Burning Method](https://developer.horizon.cc/documents_rdk/installation/install_os)
 
 If the image has already been installed, you can upgrade it by running the commands `sudo apt update` and `sudo apt upgrade`.
-
-**Note:**
-
-- **If you have installed the 1.x version of the system, you need to upgrade it to the 2.x version.**
-
-- **For the method of checking the system version , please refer to the [FAQs](../FAQs/hardware_and_system.md).**
 
 ### Configuration
 
@@ -79,7 +73,3 @@ Welcome to Ubuntu 20.04.4 LTS (GNU/Linux 4.14.87 aarch64)
 Last login: Sat Apr  2 05:57:05 2022 from 10.64.37.219
 root@ubuntu:~#
 ```
-
-## X86
-
-Install Ubuntu 20.04 64-bit system on a physical machine using X86 platform and configure the network environment. You can also use virtual machine or Docker, but the running efficiency may be lower.

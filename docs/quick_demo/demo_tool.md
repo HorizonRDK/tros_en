@@ -19,12 +19,7 @@ Code repository: <https://github.com/HorizonRDK/hobot_image_publisher.git>
 
 | Platform | System |
 | ---------| ----------------|
-| RDK X3, RDK X3 Module, RDK Ultra | Ubuntu 20.04 |
-| X86      | Ubuntu 20.04 |
-
-***The X86 does not support decoding H.264 and H.265 videos into NV12, so the H.264 and H.265 video publishing cannot be displayed on the X86.***
-
-***RDK Ultra does not support decoding H.264 videos into NV12, so the H.264 video publishing cannot be displayed on the RDK Ultra.***
+| RDK X3, RDK X3 Module  | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble) |
 
 ### Preparations
 
@@ -36,17 +31,11 @@ Code repository: <https://github.com/HorizonRDK/hobot_image_publisher.git>
 
 3. The Horizon RDK can be accessed via network from a PC.
 
-#### X86
-
-1. The X86 environment has been configured with the Ubuntu 20.04 system image.
-
-2. The X86 environment has installed the X86 version of tros.b.
-
 ### Usage of a image
 
 Read a local NV12 image in a loop and publish it. Use the image codec module to compress the image and encode it into JPEG format, and display the image on the PC's web interface.
 
-#### Horizon RDK/X86 Platform
+#### Horizon RDK
 
 ```bash
 # Configure tros.b environment
@@ -74,7 +63,7 @@ webserver has launch
 
 The log output shows that the webserver has been started, and hobot_image_pub, hobot_codec_republish, and websocket are all running properly.
 
-To view the image display effect, open a web browser on the PC and enter <http://IP:8000> (where IP is the IP address of the Horizon RDK/X86 device):
+To view the image display effect, open a web browser on the PC and enter <http://IP:8000> (where IP is the IP address of the Horizon RDK):
 
 ![hobot_img_pub](./image/demo_tool/show.png )
 
@@ -95,19 +84,6 @@ cp -r /opt/tros/lib/hobot_image_publisher/config/ .
 ros2 launch hobot_image_publisher hobot_image_publisher_videolist_demo.launch.py
 ```
 
-#### X86
-
-```shell
-# Configure the tros.b environment
-source /opt/tros/setup.bash
-
-# Copy the required image files for running the demo from the installation path of tros.b
-cp -r /opt/tros/lib/hobot_image_publisher/config/ .
-
-# Start the image publisher node and publish using local MP4 format video files (parameters can be configured according to your needs), web display is currently not supported
-/opt/tros/lib/hobot_image_publisher/hobot_image_pub --ros-args -p image_source:=./config/video.list -p fps:=30 -p image_format:=mp4
-```
-
 ### Result Analysis
 
 The following information is displayed in the terminal output during execution:
@@ -124,7 +100,7 @@ webserver has launched
 
 The output log shows that the webserver has started and hobot_image_pub, hobot_codec_republish, and websocket are all running normally.
 
-To view the image display effect, enter `<http://IP:8000>` in the browser on the PC (where IP is the IP address of the Horizon RDK/X86 device):
+To view the image display effect, enter `<http://IP:8000>` in the browser on the PC (where IP is the IP address of the Horizon RDK):
 
 ![hobot_img_pub](./image/demo_tool/mp4show.jpg )
 
@@ -147,7 +123,7 @@ Application Scenarios: data closed-loop link, robot Trigger event reporting scen
 
 | Platform | System | Function |
 | --- | --- | --- |
-| RDK X3, RDK X3 Module| Ubuntu 20.04 | Start MIPI/USB camera, trigger recording, and record rosbag data |
+| RDK X3, RDK X3 Module| Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble) | Start MIPI/USB camera, trigger recording, and record rosbag data |
 
 ### Usage
 

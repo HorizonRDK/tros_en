@@ -24,7 +24,7 @@ SLAM Mapping Example: [4.1 SLAM Mapping](../../apps/slam)
 
 | Platform                      | System |
 | ----------------------------- | -------------- |
-| RDK X3, RDK X3 Module, RDK Ultra | Ubuntu 20.04  |
+| RDK X3, RDK X3 Module  | Ubuntu 20.04  |
 
 **Note**: SuperPoint optimization only supports RDK X3 and RDK X3 Module platforms.
 

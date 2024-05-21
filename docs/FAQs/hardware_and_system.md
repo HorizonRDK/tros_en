@@ -9,7 +9,7 @@ For more details, please refer to the [Frequently Asked Questions](https://devel
 
 ## What is Horizon Robotics Developer Kit (RDK)?
 
-Horizon Robotics Developer Kit [RDK](https://developer.horizon.cc/documents_rdk/), is a developer kit for robotics based on Horizon's intelligent chips, including **RDK X3**, **RDK X3 Module**, and **RDK Ultra**.
+Horizon Robotics Developer Kit [RDK](https://developer.horizon.cc/documents_rdk/), is a developer kit for robotics based on Horizon's intelligent chips, including **RDK X3**, **RDK X3 Module**.
 
 ## How to check the system version number?
 
@@ -46,48 +46,6 @@ root@ubuntu:~# cat /etc/version
 root@ubuntu:~#
 
 ```
-
-The system information for version x (using version 1.1.6 as an example) is as follows:
-
-```shell
-root@ubuntu:~# apt list --installed | grep hobot
-
-WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-
-hobot-arm64-bins/unknown,now 1.1.5 arm64 [installed]
-hobot-arm64-boot/unknown,now 1.1.6 arm64 [installed]
-hobot-arm64-configs/unknown,now 1.1.6 arm64 [installed]
-hobot-arm64-desktop/unknown,now 1.1.5 arm64 [installed]
-hobot-arm64-dnn-python/unknown,now 1.1.6 arm64 [installed]
-hobot-arm64-gpiopy/unknown,now 1.1.5 arm64 [installed]
-hobot-arm64-hdmi-sdb/unknown,now 1.1.5 arm64 [installed]
-hobot-arm64-includes/unknown,now 1.1.5 arm64 [installed]
-hobot-arm64-libs/unknown,now 1.1.6 arm64 [installed]
-hobot-arm64-modules/unknown,now 1.1.6 arm64 [installed]
-hobot-arm64-sdb-ap6212/unknown,now 1.1.6 arm64 [installed]
-hobot-arm64-srcampy/unknown,now 1.1.5 arm64 [installed]
-hobot-linux-headers/unknown,now 1.1.5 arm64 [installed]
-hobot-models-basic/unknown,now 1.0.1 arm64 [installed]
-hobot-sp-cdev/unknown,now 1.1.6 arm64 [installed]
-root@ubuntu:~#
-root@ubuntu:~# cat /etc/version
-x3_ubuntu_v1.1.6
-root@ubuntu:~#
-```
-
-System version and RDK platform hardware compatibility:
-
-System version explanation:
-
-- Version 2.x system: Based on the RDK Linux open-source code package, it supports the full range of RDK X3, RDK X3 Module, and other hardware.
-
-- Version 1.x system: Based on a closed-source Linux system, it is a historical version and only supports RDK X3 hardware.
-
-**Note:**
-
-- **The 1.x version system cannot be directly upgraded to the 2.x version system using the apt command. It needs to be reinstalled the system by burning the image. Please refer to the [system installation guide](https://developer.horizon.cc/documents_rdk/installation/install_os).**
-
-- **The 2.x version of tros.b only supports the 2.x version system, and the 1.x version of tros.b only supports the 1.x version system.**
 
 ## Considerations for plugging and unplugging the camera:
 

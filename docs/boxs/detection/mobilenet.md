@@ -18,7 +18,6 @@ Application scenarios: MobileNet_SSD is an object detection algorithm based on M
 | Platform                 | System | Function                                             |
 | ------------------------ | ---------------- | ------------------------------------------------------------ |
 | RDK X3, RDK X3 Module    | Ubuntu 20.04     | · Start the MIPI/USB camera and display the inference through the web<br/>· Use local data to save the results offline |
-| X86                      | Ubuntu 20.04     | · Use local data to save the results offline    |
 
 ## Preparation
 
@@ -31,12 +30,6 @@ Application scenarios: MobileNet_SSD is an object detection algorithm based on M
 3. Horizon RDK has installed a MIPI or USB camera. If there is no camera available, the algorithm can be experienced by local JPEG/PNG images or MP4, H.264, and H.265 videos offline.
 
 4. Confirm that the PC can access the Horizon RDK through the network.
-
-### X86
-
-1. The X86 environment has been configured with the Ubuntu 20.04 system image.
-
-2. The X86 environment system has successfully installed tros.b.
 
 ## Usage
 
@@ -73,20 +66,6 @@ ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:
 #### Use Local Images offline
 
 The MobileNet_SSD detection algorithm example uses local JPEG/PNG images offline. After inference, the results are stored in the local path.
-
-```shell
-# Configure the tros.b environment
-source /opt/tros/setup.bash
-
-# Start the launch file
-ros2 launch dnn_node_example dnn_node_example_feedback.launch.py dnn_example_config_file:=config/mobilenet_ssd_workconfig.json dnn_example_image:=config/target.jpg
-```
-
-### X86
-
-#### Use Local Images offline
-
-The MobileNet_SSD detection algorithm example uses local JPEG/PNG images offline. After running the inference, the resultS are stored in the local path.
 
 ```shell
 # Configure the tros.b environment

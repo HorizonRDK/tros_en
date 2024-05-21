@@ -5,7 +5,7 @@ sidebar_position: 1
 
 ## Introduction
 
-The human detection and tracking algorithm example subscribes to images and utilizes BPU for inference. It publishes messages containing detection results for human bodies, heads, faces, hand boxes, and body keypoints, and achieves tracking of detection boxes through the multi-target tracking (MOT). The X86 does not currently support multi-target tracking and web-based display.
+The human detection and tracking algorithm example subscribes to images and utilizes BPU for inference. It publishes messages containing detection results for human bodies, heads, faces, hand boxes, and body keypoints, and achieves tracking of detection boxes through the multi-target tracking (MOT).
 
 The supported detection categories and their corresponding data types in the algorithm are as follows:
 
@@ -34,8 +34,7 @@ Game Character Control Example based on Human Pose Analysis and Gesture Recognit
 
 | Platform                            | System | Function                                     |
 | ----------------------------------- | -------------- | -------------------------------------------------------- |
-| RDK X3, RDK X3 Module, RDK Ultra    | Ubuntu 20.04   | · Start MIPI/USB camera/local video and display inference rendering results via web      |
-| X86                                 | Ubuntu 20.04   | · Start local video offline and display inference rendering results via web                |
+| RDK X3, RDK X3 Module tu 20.04   | · Start MIPI/USB camera/local video and display inference rendering results via web      |
 
 ## Preparation
 
@@ -48,12 +47,6 @@ Game Character Control Example based on Human Pose Analysis and Gesture Recognit
 3. Horizon RDK has installed the MIPI or USB camera.
 
 4. Confirm that the PC is able to access the Horizon RDK via the network.
-
-### X86 Platform
-
-1. X86 environment has been configured with Ubuntu 20.04 system image.
-
-2. The tros.b has been successfully installed in X86.
 
 ## Usage
 
@@ -106,28 +99,6 @@ export CAM_TYPE=fb
 
 # Start the launch file.
 ros2 launch mono2d_body_detection mono2d_body_detection.launch.py
-
-# For RDK Ultra, specify the playback image, for example:
-# ros2 launch mono2d_body_detection mono2d_body_detection.launch.py picture:=./config/target.jpg
-```
-
-### X86
-
-**Use Local Image Offline**
-
-```shell
-# Configure the tros.b environment
-source /opt/tros/setup.bash
-
-# Copy the configuration files required for running the example from the installation path of tros.b.
-cp -r /opt/tros/lib/mono2d_body_detection/config/ .
-cp -r /opt/tros/lib/dnn_node_example/config/ .
-
-# Configure the local playback image.
-export CAM_TYPE=fb
-
-# Start the launch file.
-ros2 launch mono2d_body_detection mono2d_body_detection.launch.py
 ```
 
 ## Result analysis
@@ -171,6 +142,6 @@ The following information is outputted in the terminal:
 
 The log shows that frame rates of the algorithm during inference are 30fps, and the statistics are refreshed every second.
 
-On the PC browser, enter http://IP:8000 to view the rendering effect of the image and the algorithm (body, head, face, and hand detection boxes, detection box type and target tracking ID, and human body keypoints) (IP is the IP address of the Horizon RDK/X86 device):
+On the PC browser, enter http://IP:8000 to view the rendering effect of the image and the algorithm (body, head, face, and hand detection boxes, detection box type and target tracking ID, and human body keypoints) (IP is the IP address of the Horizon RDK):
 
 ![](./image/box_adv/body_render.jpeg)

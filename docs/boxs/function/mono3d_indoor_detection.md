@@ -25,7 +25,6 @@ Applications: The monocular 3D indoor detection algorithm can directly identify 
 | Platform              | System | Function                                       |
 | --------------------- | ---------------- | ----------------------------------------------------- |
 | RDK X3, RDK X3 Module | Ubuntu 20.04     | · Start MIPI/USB camera/local data and save the inference rendering result locally |
-| X86                   | Ubuntu           | · Start local data offline and save the inference rendering result locally                  |
 
 ## Preparation
 
@@ -34,12 +33,6 @@ Applications: The monocular 3D indoor detection algorithm can directly identify 
 1. Horizon RDK has been flashed with the Ubuntu 20.04 system image provided by Horizon.
 
 2. TogetheROS.Bot has been successfully installed on the Horizon RDK.
-
-### X86
-
-1. X86 environment has been configured with Ubuntu 20.04 system image.
-
-2. Tros.b has been successfully installed on the X86 environment.
 
 ## Usage
 
@@ -51,19 +44,6 @@ The mono3d_indoor_detection algorithm package uses local image input for inferen
 
 ```shell
 # Configure tros environment
-source /opt/tros/setup.bash
-
-# Copy the required configuration files from the installation path of tros.b.
-cp -r /opt/tros/lib/mono3d_indoor_detection/config/ .
-
-# Launch the launch file
-ros2 launch mono3d_indoor_detection mono3d_indoor_detection.launch.py 
-```
-
-### X86
-
-```shell
-# Configure ROS2 environment
 source /opt/tros/setup.bash
 
 # Copy the required configuration files from the installation path of tros.b.

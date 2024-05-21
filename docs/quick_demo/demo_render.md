@@ -16,8 +16,7 @@ Code Repository: <https://github.com/HorizonRDK/hobot_websocket>
 
 | Platform    | System      | Function                       |
 | ------- | ------------- | ------------------------------ |
-| RDK X3, RDK X3 Module, RDK Ultra| Ubuntu 20.04  | Start MIPI camera human detection and display images and algorithm results through web|
-| X86     | Ubuntu 20.04  | Start USB camera and display images through web|
+| RDK X3, RDK X3 Module | Ubuntu 20.04  | Start MIPI camera human detection and display images and algorithm results through web|
 
 ### Preparation
 
@@ -28,12 +27,6 @@ Code Repository: <https://github.com/HorizonRDK/hobot_websocket>
 2. Confirm that the PC can access the Horizon RDK through the network.
 
 3. Confirm that TogetheROS.Bot has been successfully installed.
-
-#### X86
-
-1. Confirm that the X86 platform is running Ubuntu 20.04 and TogetheROS.Bot has been successfully installed.
-
-2. Confirm that the USB camera is connected to the USB port of the host and can be recognized normally.
 
 ### Usage
 
@@ -68,27 +61,6 @@ Code Repository: <https://github.com/HorizonRDK/hobot_websocket>
 
    ![websocket](./image/demo_render/websocket.png "Preview Image")
 
-#### X86
-
-1. Launch the hobot_usb_cam node
-
-    ```shell
-    source /opt/tros/setup.bash
-    
-    # usb_video_device needs to be changed to the actual USB camera video node
-    ros2 launch hobot_usb_cam hobot_usb_cam.launch.py usb_image_width:=1280 usb_image_height:=720 usb_video_device:=/dev/video0
-    ```
-
-2. Launch the WebSocket node
-
-    ```shell
-    source /opt/tros/setup.bash
-    
-    ros2 launch websocket websocket.launch.py websocket_image_topic:=/image websocket_only_show_image:=true
-    ```
-
-3. Open a PC browser (Chrome/Firefox/Edge) and enter <http://IP:8000> to view the image effect. IP refers to the PC IP address. If accessing on the local machine, you can also use localhost.
-
 ### Notes
 
 1. WebSocket uses port 8000. If the port is already in use, the launch will fail. Here are some solutions:
@@ -109,7 +81,7 @@ Code Repository: <https://github.com/HorizonRDK/hobot_hdmi>
 
 | Platform | System | Function                    |
 | -------- | ------------ | ----------------------------------- |
-| RDK X3, RDK X3 Module | Ubuntu 20.04 | Start MIPI camera and display image through HDMI |
+| RDK X3, RDK X3 Module | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble) | Start MIPI camera and display image through HDMI |
 
 ### Preparation
 
@@ -159,7 +131,7 @@ TogetheROS.Bot is compatible with ROS2 Foxy version. To conveniently preview ima
 
 | Platform | System | Sample Function                                        |
 | -------- | -------------- | ------------------------------------------------------ |
-| RDK X3, RDK X3 Module, RDK Ultra | Ubuntu 20.04 | Start the MIPI camera to capture images and use RViz2 to preview on PC |
+| RDK X3, RDK X3 Module  | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble) | Start the MIPI camera to capture images and use RViz2 to preview on PC |
 
 ### Preparation
 
@@ -280,7 +252,7 @@ TogetheROS.Bot is compatible with ROS2 Foxy and supports previewing compressed f
 
 | Platform       | System | Function           |
 | -------------- | ------------ | ------------------------------- |
-| RDK X3, RDK X3 Module, RDK Ultra| Ubuntu 20.04 | Start MIPI camera to capture images and use RQt to preview on PC |
+| RDK X3, RDK X3 Module | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble) | Start MIPI camera to capture images and use RQt to preview on PC |
 
 ### Preparation
 
@@ -387,7 +359,6 @@ Code repository: <https://github.com/HorizonRDK/hobot_visualization>
 | Platform | System | Function                                     |
 | -------- | -------------- | -------------------------------------------------------- |
 | RDK X3, RDK X3 Module      | Ubuntu 20.04   | Offline object detection, and display images and algorithm effects using Foxglove |
-| X86      | Ubuntu 20.04   | Offline object detection, and display images and algorithm effects using Foxglove |
 
 ### Preparation
 
@@ -397,15 +368,11 @@ Code repository: <https://github.com/HorizonRDK/hobot_visualization>
 
 2. Confirm that the PC can access the X3 board via the network3. 
 
-#### X86 platform
-
-1. Confirm that the X86 platform system is Ubuntu 20.04 and tros.b has been successfully installed.
-
 ### Usage
 
-#### Horizon RDK / X86
+#### Horizon RDK
 
-1. Log in to the Horizon RDK or X86 via SSH and start the relevant programs on the board side:
+1. Log in to the Horizon RDK via SSH and start the relevant programs on the board side:
 
 ```shell
 source /opt/tros/setup.bash

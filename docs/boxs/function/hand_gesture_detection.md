@@ -35,7 +35,7 @@ Example of game character control based on gesture recognition and human pose an
 
 | Platform                             | System | Function                                 |
 | ------------------------------------ | ---------------- | ------------------------------------------------ |
-| RDK X3, RDK X3 Module, RDK Ultra     | Ubuntu 20.04     | · Start MIPI/USB camera and display inference results via web |
+| RDK X3, RDK X3 Module      | Ubuntu 20.04     | · Start MIPI/USB camera and display inference results via web |
 
 ## Preparations
 

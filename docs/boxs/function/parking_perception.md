@@ -42,7 +42,6 @@ Car parking space search case: [4.8. Car Parking Space Search](../../apps/parkin
 | Platform             | System | Function                                            |
 | -------------------- | ---------------- | ------------------------------------------------------------|
 | RDK X3, RDK X3 Module| Ubuntu 20.04     | · Start MIPI/USB camera/local image offline, inference rendering results displayed/saved locally on the Web| 
-| X86                  | Ubuntu 20.04     | · Start local image offline, inference rendering results displayed/saved locally on the Web|
 
 ## Preparation
 
@@ -51,12 +50,6 @@ Car parking space search case: [4.8. Car Parking Space Search](../../apps/parkin
 1. The Horizon RDK has burned the Ubuntu 20.04 system image provided by Horizon.
 
 2. The Horizon RDK has successfully installed TogetheROS.Bot.
-
-### X86
-
-1. The X86 has been configured with the Ubuntu 20.04 system image.
-
-2. The X86 has successfully installed tros.b.
 
 ## Usage
 
@@ -95,24 +88,6 @@ export CAM_TYPE=usb
 # Launch the launch file
 ros2 launch parking_perception parking_perception.launch.py 
 ```
-
-**Using a single image offline**
-
-```shell
-# Configuring ROS2 environment
-source /opt/tros/setup.bash
-
-# Copying the required configuration files for running the example from the installation path of tros.
-cp -r /opt/tros/lib/parking_perception/config/ .
-
-# Configuring the image for feedback
-export CAM_TYPE=fb
-
-# Launching the launch file
-ros2 launch parking_perception parking_perception.launch.py 
-```
-
-### X86
 
 **Using a single image offline**
 

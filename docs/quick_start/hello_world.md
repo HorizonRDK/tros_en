@@ -5,7 +5,7 @@ sidebar_position: 4
 
 Prerequisite: TogetheROS.Bot has been successfully installed via deb package or source code.
 
-Open two terminals and ssh login to the horizon RDK or X86 platform device.
+Open two terminals and ssh login to the horizon RDK device.
 
 In the first terminal, run:
 

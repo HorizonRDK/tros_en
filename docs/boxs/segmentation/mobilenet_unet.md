@@ -17,8 +17,7 @@ Applications: mobilenet_unet, composed of MobileNet and UNet, can segment images
 
 | Platform | System | Function                     |
 | -------- | ------------ | ---------------------------------------- |
-| RDK X3, RDK X3 Module | Ubuntu 20.04 | - Start MIPI/USB cameras or local image and save the rendered results offline. |
-| X86      | Ubuntu 20.04 | - Use local image and save the rendered results offline. |
+| RDK X3, RDK X3 Module | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble) | - Start MIPI/USB cameras or local image and save the rendered results offline. |
 
 ## Preparation
 
@@ -29,12 +28,6 @@ Applications: mobilenet_unet, composed of MobileNet and UNet, can segment images
 2. TogetheROS.Bot has been successfully installed on the Horizon RDK platform.
 
 3. A MIPI or USB camera has been installed on the Horizon RDK platform. If there is no camera available, the algorithm's effects can be experienced by using local JPEG/PNG images offline.
-
-### X86
-
-1. The X86 environment has been configured with the Ubuntu 20.04 system image.
-
-2. The tros.b has been successfully installed on the X86 environment.
 
 ## Usage
 
@@ -73,20 +66,6 @@ ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_dump_render_
 #### Use local images offline
 
 The mobilenet_unet segmentation example uses local JPEG/PNG format images for feedback. After inference, the rendered images of the algorithm results are stored in the local running path.
-
-```shell
-# Configure tros.b environment
-source /opt/tros/setup.bash
-
-# Start launch file
-ros2 launch dnn_node_example dnn_node_example_feedback.launch.py dnn_example_config_file:=config/mobilenet_unet_workconfig.json dnn_example_image:=config/raw_unet.jpeg
-```
-
-### X86 platform
-
-#### Use local images for feedback
-
-The mobilenet_unet segmentation example uses local JPEG/PNG images. After inference, the rendered images of the algorithm results are stored in the local path.
 
 ```shell
 # Configure tros.b environment

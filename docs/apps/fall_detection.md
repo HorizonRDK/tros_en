@@ -18,7 +18,7 @@ Code Repository: <https://github.com/HorizonRDK/hobot_falldown_detection>
 
 | Platform     | System     | Function                       |
 | -------- | ------------ | ------------------------------ |
-| RDK X3, RDK X3 Module, RDK Ultra | Ubuntu 20.04 | Start MIPI/USB camera to capture images, perform human body key point detection and pose detection, and finally display images and algorithm effects through web, and publish pose events |
+| RDK X3, RDK X3 Module  | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble) | Start MIPI/USB camera to capture images, perform human body key point detection and pose detection, and finally display images and algorithm effects through web, and publish pose events |
 
 ## Preparation
 

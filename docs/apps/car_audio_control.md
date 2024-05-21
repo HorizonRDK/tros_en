@@ -4,6 +4,11 @@ sidebar_position: 6
 
 # 4.6 Voice Control The Car
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 The function of voice-controlled car movement allows users to control the robot's movement forward, backward, left, and right using chinese voice commands. The process is as shown in the following diagram:
@@ -18,7 +23,7 @@ Code repository: <https://github.com/HorizonRDK/audio_control.git>
 
 | Platform | System | Function                    |
 | -------- | -------------- | ----------------------------------- |
-| RDK X3   | Ubuntu 20.04   | Start smart voice module, parse voice information, and control the car in Gazebo |
+| RDK X3   | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)   | Start smart voice module, parse voice information, and control the car in Gazebo |
 
 **Note: Only RDK X3 is supported, RDK X3 Module is not supported.**
 

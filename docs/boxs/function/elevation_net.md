@@ -12,8 +12,7 @@ Application Scenarios: The monocular elevation network detection algorithm parse
 
 | Platform                | System    | Function                        |
 | ----------------------- | ------------ | --------------------------------------- |
-| RDK X3, RDK X3 Module   | Ubuntu 20.04 | · Start local data offline and save inference rendering results locally |
-| X86                      | Ubuntu 20.04 | · Start local data offline and save inference rendering results locally |
+| RDK X3, RDK X3 Module   | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble) | · Start local data offline and save inference rendering results locally |
 
 ## Preparation
 
@@ -22,12 +21,6 @@ Application Scenarios: The monocular elevation network detection algorithm parse
 1. Horizon RDK has burned the Ubuntu 20.04 system image provided by Horizon.
 
 2. TogetheROS.Bot has been successfully installed on Horizon RDK.
-
-### X86
-
-1. X86 environment has configured Ubuntu 20.04 system image.
-
-2. The tros.b has been successfully installed in X86.
 
 ## Usage
 
@@ -43,19 +36,6 @@ source /opt/tros/setup.bash
 cp -r /opt/tros/lib/elevation_net/config/ .
 
 # Start the launch file
-ros2 launch elevation_net elevation_net.launch.py
-```
-
-### X86
-
-```shell
-# Configure ROS2 environment
-source /opt/tros/setup.bash
-
-# Copy the configuration files required for running the example from the installation path of tros.b.
-cp -r /opt/tros/lib/elevation_net/config/ .
-
-# Launch the launch file
 ros2 launch elevation_net elevation_net.launch.py
 ```
 

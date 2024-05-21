@@ -27,7 +27,6 @@ The supported object detection categories for the algorithm are as follows:
 | Platform         | System | Function                                             |
 | ---------------- | -------------- | ------------------------------------------------------------ |
 | RDK X3, RDK X3 Module | Ubuntu 20.04      | · Start MIPI/USB camera/local image inference, render and display results on the web/save locally |
-| X86              | Ubuntu 20.04      | · Start local image inference, render and display results on the web/save locally |
 
 ## Preparation
 
@@ -152,21 +151,6 @@ cp -r /opt/tros/lib/mono2d_trash_detection/config/ .
 
 # Launch the launch file
 ros2 launch dnn_node_example dnn_node_example_feedback.launch.py dnn_example_config_file:=config/ppyoloworkconfig.json dnn_example_image:=config/trashDet0028.jpg
-```
-
-### X86
-
-**Use A Local Image Offline**
-
-```shell
-# ROS2 Environment Configuration
-source /opt/tros/setup.bash
-
-# Copy the configuration files needed for running the example from the installation path of tros.
-cp -r /opt/tros/lib/mono2d_trash_detection/config/ .
-
-# Start the garbage detection pkg and save the rendered image to the local directory
-ros2 run dnn_node_example example --ros-args -p feed_type:=0 -p image:=config/trashDet0028.jpg -p image_type:=0 -p dump_render_img:=1 -p dnn_example_config_file:=config/ppyoloworkconfig.json
 ```
 
 ## Result Analysis

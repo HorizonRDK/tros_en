@@ -310,8 +310,7 @@ Code repository: <https://github.com/HorizonRDK/hobot_cv>
 
 | Platform  | System | Function              |
 | --------- | -------------- | ----------------------------- |
-| RDK X3, RDK X3 Module, RDK Ultra| Ubuntu 20.04  | Read image and resize |
-| X86       | Ubuntu 20.04   | Read image and resize |
+| RDK X3, RDK X3 Module | Ubuntu 20.04  | Read image and resize |
 
 ### Preparation
 
@@ -321,13 +320,9 @@ Code repository: <https://github.com/HorizonRDK/hobot_cv>
 
 2. TogetheROS.Bot has been successfully installed on the Horizon RDK.
 
-#### X86
-
-1. Confirm that the X86 platform system is Ubuntu 20.04 and TogetheROS.Bot has been successfully installed.
-
 ### Usage
 
-#### Horizon RDK / X86
+#### Horizon RDK
 
 ```shell
 # Configure the TogetheROS.Bot environment

@@ -15,7 +15,7 @@ Code Repository: <https://github.com/HorizonRDK/hobot_vio.git>
 
 | Platform                       | System | Function                                            |
 | ------------------------------ | ---------------- | ------------------------------------------------------------ |
-| RDK X3, RDK X3 Module, RDK Ultra | Ubuntu 20.04     | Use realsense camera images and IMU data as algorithm inputs; Algorithm outputs robot motion trajectory that can be visualized in rviz2 on PC. |
+| RDK X3, RDK X3 Module 20.04     | Use realsense camera images and IMU data as algorithm inputs; Algorithm outputs robot motion trajectory that can be visualized in rviz2 on PC. |
 
 ## Prerequisites
 

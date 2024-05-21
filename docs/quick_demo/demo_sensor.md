@@ -15,8 +15,7 @@ Code repository: <https://github.com/HorizonRDK/hobot_usb_cam.git>
 
 | Platform    | Operating Mode     |
 | ------- | ------------ |
-| RDK X3, RDK X3 Module, RDK Ultra| Ubuntu 20.04 |
-| X86     | Ubuntu 20.04 |
+| RDK X3, RDK X3 Module | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble) |
 
 ### Preparation
 
@@ -30,15 +29,9 @@ Code repository: <https://github.com/HorizonRDK/hobot_usb_cam.git>
 
 4. Confirm that the PC can access the Horizon RDK via the network.
 
-#### X86
-
-1. Confirm that the USB camera is working properly and connect it to the USB slot of the PC or server.
-
-2. Confirm that the X86 platform system is Ubuntu 20.04 and tros.b has been successfully installed.
-
 ### How to Use (default usb_pixel_format is mjpeg)
 
-The usage method is the same for Horizon RDK and X86. Taking Horizon RDK as an example:
+Taking Horizon RDK as an example:
 
 1. Log in to the Horizon RDK via SSH and confirm the device name of the USB camera. Here, let's take `/dev/video8` as an example.
 
@@ -89,7 +82,8 @@ The usage method is the same for Horizon RDK and X86. Taking Horizon RDK as an e
 ![image-usb-camera](./image/demo_sensor/usb_cam_pic.png)
 
 ### Usage Method 2 (usb_pixel_format is yuyv2rgb)
-The usage method for Horizon RDK and X86 is the same. Here is an example using the Horizon RDK platform:
+
+Here is an example using the Horizon RDK platform:
 
 1. SSH into the Horizon RDK and confirm the USB camera device name, for example `/dev/video8`.
 
@@ -160,8 +154,7 @@ The usage method for Horizon RDK and X86 is the same. Here is an example using t
    ros2 launch hobot_usb_cam hobot_usb_cam.launch.py usb_camera_calibration_file_path:=（actual calibration file absolute path）
    ```
 
-3. For X86 running Ubuntu 20.04 in a virtual machine, the `USB controller's USB compatibility` needs to be set to `USB 3.1` in the `Settings`.
-4. Changes to the pixel_format configuration:
+3. Changes to the pixel_format configuration:
 
    hobot_usb_cam supports the following configurations:
    "mjpeg", "mjpeg-compressed", "mjpeg2rgb", "rgb8", "yuyv", "yuyv2rgb", "uyvy", "uyvy2rgb", "m4202rgb", "mono8", "mono16", "y102mono8"
@@ -197,7 +190,7 @@ To achieve environmental perception capabilities, robots often carry cameras, To
 | ------ | ------ | ------ | ------ |
 | Camera | F37 | 200W | RDK X3, RDK X3 Module |
 | Camera | GC4663 | 400W | RDK X3, RDK X3 Module |
-| Camera | IMX219 | 200W | RDK X3, RDK X3 Module, RDK Ultra |
+| Camera | IMX219 | 200W | RDK X3, RDK X3 Module  |
 | Camera | IMX477 | 200W | RDK X3, RDK X3 Module |
 | Camera | OV5647 | 200W | RDK X3, RDK X3 Module |
 
@@ -207,7 +200,7 @@ Code repository: <https://github.com/HorizonRDK/hobot_mipi_cam.git>
 
 | Platform   | System      | Function                          |
 | ------ | ------------- | --------------------------------- |
-|RDK X3, RDK X3 Module, RDK Ultra| Ubuntu 20.04  | Start MIPI camera and display images through Web |
+|RDK X3, RDK X3 Module | Ubuntu 20.04  | Start MIPI camera and display images through Web |
 
 ### Preparation
 

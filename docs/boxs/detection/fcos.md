@@ -18,7 +18,6 @@ Application scenarios: FCOS is a one-stage object detection algorithm capable of
 | Platform          | System | Function                                       |
 | ----------------- | ---------------- | ----------------------------------------------------------- |
 | RDK X3, RDK X3 Module | Ubuntu 20.04       | - Launch MIPI/USB camera and display via web interface<br/>- Use local data to save results offline |
-| X86               | Ubuntu 20.04       | - Use local data to save results offline         |
 
 ## Preparation
 
@@ -31,12 +30,6 @@ Application scenarios: FCOS is a one-stage object detection algorithm capable of
 3. A MIPI or USB camera has been installed on the Horizon RDK platform. If no camera is available, the algorithm effects can be experienced through local data using JPEG/PNG format or MP4, H.264, and H.265 video.
 
 4. Ensure that the PC can access the Horizon RDK platform via the network.
-
-### X86
-
-1. The X86 has been configured with the Ubuntu 20.04 system image.
-
-2. The X86 has successfully installed tros.b.
 
 ## Usage
 
@@ -69,20 +62,6 @@ export CAM_TYPE=usb
 # Launch the launch file
 ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:=config/fcosworkconfig.json dnn_example_image_width:=480 dnn_example_image_height:=272
 ```
-
-#### Use local data offline
-
-The FCOS object detection algorithm example uses local JPEG/PNG format images. The inferred images with algorithm results are stored in the running path.
-
-```shell
-# Configure tros.b environment
-source /opt/tros/setup.bash
-
-# Launch the launch file
-ros2 launch dnn_node_example dnn_node_example_feedback.launch.py dnn_example_config_file:=config/fcosworkconfig.json dnn_example_image:=config/target.jpg
-```
-
-### X86
 
 #### Use local data offline
 

@@ -30,7 +30,7 @@ Code repository: <https://github.com/HorizonRDK/audio_tracking.git>
 
 | Platform | System | Function          |
 | -------- | ---------------- | ------------------------- |
-| RDK X3   | Ubuntu 20.04     | Start intelligent voice module, parse voice information, perform voice tracking, and display tracking results in Gazebo |
+| RDK X3   | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)     | Start intelligent voice module, parse voice information, perform voice tracking, and display tracking results in Gazebo |
 
 **Note: Only supports RDK X3, RDK X3 Module is not supported for now.**
 
