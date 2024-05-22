@@ -3,6 +3,11 @@ sidebar_position: 1
 ---
 # 2.1 Image Capture
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## USB camera
 
 ### Introduction
@@ -23,7 +28,7 @@ Code repository: <https://github.com/HorizonRDK/hobot_usb_cam.git>
 
 1. Confirm that the USB camera is working properly and connect it to the USB slot of the Horizon RDK.
 
-2. Horizon RDK has burned the Ubuntu 20.04 system image provided by Horizon.
+2. Horizon RDK has burned the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 3. Horizon RDK has successfully installed tros.b.
 
@@ -37,10 +42,29 @@ Taking Horizon RDK as an example:
 
 2. Start the USB camera using the following command:
 
+    <Tabs groupId="tros-distro">
+    <TabItem value="foxy" label="Foxy">
+
     ```bash
-    # Configure tros.b environment:
+    # Configure the tros.b environment
     source /opt/tros/setup.bash
-    # Start via launch:
+    ```
+
+    </TabItem>
+
+    <TabItem value="humble" label="Humble">
+
+    ```bash
+    # Configure the tros.b environment
+    source /opt/tros/humble/setup.bash
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+    ```bash
+    # Start the launch file
     ros2 launch hobot_usb_cam hobot_usb_cam.launch.py usb_video_device:=/dev/video8
     ```
 
@@ -71,10 +95,28 @@ Taking Horizon RDK as an example:
 
 4. Open another terminal to view the USB camera image on the web page:
 
+    <Tabs groupId="tros-distro">
+    <TabItem value="foxy" label="Foxy">
+
     ```bash
-    # Configure the tros.b environment:
+    # Configure the tros.b environment
     source /opt/tros/setup.bash
-    # Launch the websocket
+    ```
+
+    </TabItem>
+
+    <TabItem value="humble" label="Humble">
+
+    ```bash
+    # Configure the tros.b environment
+    source /opt/tros/humble/setup.bash
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+    ```bash
     ros2 launch websocket websocket.launch.py websocket_image_topic:=/image websocket_only_show_image:=true
     ```
 
@@ -89,10 +131,28 @@ Here is an example using the Horizon RDK platform:
 
 2. Start the USB camera using the following command:
 
+    <Tabs groupId="tros-distro">
+    <TabItem value="foxy" label="Foxy">
+
     ```bash
-    # Configure the tros.b environment:
+    # Configure the tros.b environment
     source /opt/tros/setup.bash
-    # Launch method:
+    ```
+
+    </TabItem>
+
+    <TabItem value="humble" label="Humble">
+
+    ```bash
+    # Configure the tros.b environment
+    source /opt/tros/humble/setup.bash
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+    ```bash
     ros2 launch hobot_usb_cam hobot_usb_cam.launch.py usb_video_device:=/dev/video8 usb_pixel_format:=yuyv2rgb usb_image_width:=640 usb_image_height:=480
     ```
 
@@ -123,19 +183,56 @@ Here is an example using the Horizon RDK platform:
 
 4. Encode to mjpeg with hobot codec
 
+    <Tabs groupId="tros-distro">
+    <TabItem value="foxy" label="Foxy">
+
     ```bash
-    # Configure TROS.b environment:
+    # Configure the tros.b environment
     source /opt/tros/setup.bash
-    # Launch method:
+    ```
+
+    </TabItem>
+
+    <TabItem value="humble" label="Humble">
+
+    ```bash
+    # Configure the tros.b environment
+    source /opt/tros/humble/setup.bash
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+    ```bash
+    # Start the launch file
     ros2 launch hobot_codec hobot_codec_encode.launch.py codec_in_mode:=ros codec_in_format:=rgb8 codec_out_mode:=ros codec_sub_topic:=/image codec_pub_topic:=/image_mjpeg
     ```
 
 5. View the USB camera image on the web side, open a new terminal:
 
+    <Tabs groupId="tros-distro">
+    <TabItem value="foxy" label="Foxy">
+
     ```bash
-    # Configure TROS.b environment:
+    # Configure the tros.b environment
     source /opt/tros/setup.bash
-    # Launch websocket
+    ```
+
+    </TabItem>
+
+    <TabItem value="humble" label="Humble">
+
+    ```bash
+    # Configure the tros.b environment
+    source /opt/tros/humble/setup.bash
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+    ```bash
     ros2 launch websocket websocket.launch.py websocket_image_topic:=/image_mjpeg websocket_only_show_image:=true
     ```
 
@@ -147,9 +244,28 @@ Here is an example using the Horizon RDK platform:
 1. USB cameras need to be calibrated and the camera calibration file path needs to be set in order to publish camera parameters. However, this does not affect other functionalities.
 2. To set the camera calibration file path, follow the steps below:
 
+    <Tabs groupId="tros-distro">
+    <TabItem value="foxy" label="Foxy">
+
+    ```bash
+    # Configure the tros.b environment
+    source /opt/tros/setup.bash
+    ```
+
+    </TabItem>
+
+    <TabItem value="humble" label="Humble">
+
+    ```bash
+    # Configure the tros.b environment
+    source /opt/tros/humble/setup.bash
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
    ```bash
-   # Configure tros.b environment:
-   source /opt/tros/setup.bash
    # Start with launch command
    ros2 launch hobot_usb_cam hobot_usb_cam.launch.py usb_camera_calibration_file_path:=（actual calibration file absolute path）
    ```
@@ -200,7 +316,7 @@ Code repository: <https://github.com/HorizonRDK/hobot_mipi_cam.git>
 
 | Platform   | System      | Function                          |
 | ------ | ------------- | --------------------------------- |
-|RDK X3, RDK X3 Module | Ubuntu 20.04  | Start MIPI camera and display images through Web |
+|RDK X3, RDK X3 Module | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)  | Start MIPI camera and display images through Web |
 
 ### Preparation
 
@@ -210,7 +326,7 @@ Code repository: <https://github.com/HorizonRDK/hobot_mipi_cam.git>
 
     ![image-X3-PI-Camera](./image/demo_sensor/image-X3-PI-Camera.png)
 
-2. Horizon RDK is flashed with the Ubuntu 20.04 system image provided by Horizon
+2. Horizon RDK is flashed with the  Ubuntu 20.04/22.04 system image provided by Horizon
 
 3. Horizon RDK has successfully installed tros.b
 
@@ -226,11 +342,30 @@ Take the F37 as an example to introduce the method of acquiring and previewing i
 
 2. Start the `hobot_sensor` node with the following command:
 
-    ```shell
-    # Configure the tros.b environment:
+    <Tabs groupId="tros-distro">
+    <TabItem value="foxy" label="Foxy">
+
+    ```bash
+    # Configure the tros.b environment
     source /opt/tros/setup.bash
-    # Start the node through launch:
-    ros2 launch mipi_cam mipi_cam.launch.py mipi_video_device:=F37 mipi_camera_calibration_file_path:=/opt/tros/lib/mipi_cam/config/F37_calibration.yaml
+    ```
+
+    </TabItem>
+
+    <TabItem value="humble" label="Humble">
+
+    ```bash
+    # Configure the tros.b environment
+    source /opt/tros/humble/setup.bash
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+    ```shell
+    # Start the launch file
+    ros2 launch mipi_cam mipi_cam.launch.py mipi_video_device:=F37 mipi_camera_calibration_file_path:=/opt/tros/${TROS_DISTRO}/lib/mipi_cam/config/F37_calibration.yaml
     ```
 
 3. If the following information is outputted, it means that the node has been successfully started:
@@ -243,14 +378,32 @@ Take the F37 as an example to introduce the method of acquiring and previewing i
     ```
 4. To view the F37 camera image on the web, as raw data needs to be encoded into JPEG images, two terminals need to be launched separately: one for subscribing to MIPI data and encoding it into JPEG, and one for publishing with a webservice.
 
-    ```shell
-    # Launch a terminal for encoding
+    <Tabs groupId="tros-distro">
+    <TabItem value="foxy" label="Foxy">
+
+    ```bash
+    # Configure the tros.b environment
     source /opt/tros/setup.bash
+    ```
+
+    </TabItem>
+
+    <TabItem value="humble" label="Humble">
+
+    ```bash
+    # Configure the tros.b environment
+    source /opt/tros/humble/setup.bash
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+    ```shell
     # Start encoding
     ros2 launch hobot_codec hobot_codec_encode.launch.py
 
     # Launch another terminal
-    source /opt/tros/setup.bash
     # Start websocket
     ros2 launch websocket websocket.launch.py websocket_image_topic:=/image_jpeg websocket_only_show_image:=true
     ```
@@ -260,8 +413,24 @@ Take the F37 as an example to introduce the method of acquiring and previewing i
 
 6. To query the camera's intrinsic parameters on the PC (the specific data may vary depending on the calibrated camera file), use the following command and view the results:
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+   ```shell
+   root@ubuntu:~# source /opt/ros/foxy/setup.bash
+   ```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+   ```shell
+   root@ubuntu:~# source /opt/ros/humble/setup.bash
+   ```
+
+</TabItem>
+</Tabs>
+
 ```shell
-    root@ubuntu:~# source /opt/ros/foxy/setup.bash
     root@ubuntu:~# ros2 topic echo /camera_info
         header:
     stamp:
@@ -324,12 +493,31 @@ Take the F37 as an example to introduce the method of acquiring and previewing i
 
 1. mipi_cam provides the calibration files for two types of cameras, F37 and GC4663. By default, it reads the calibration file for F37, `F37_calibration.yaml`. If you want to use GC4663, please change the path to the camera calibration file accordingly, as below:
 
-	```shell
-	# Set up the tros.b environment:
-	source /opt/tros/setup.bash
-	# Launch the node
-	ros2 launch mipi_cam mipi_cam.launch.py mipi_video_device:=GC4663 mipi_camera_calibration_file_path:=/opt/tros/lib/mipi_cam/config/GC4663_calibration.yaml
-	```
+    <Tabs groupId="tros-distro">
+    <TabItem value="foxy" label="Foxy">
+
+    ```bash
+    # Configure the tros.b environment
+    source /opt/tros/setup.bash
+    ```
+
+    </TabItem>
+
+    <TabItem value="humble" label="Humble">
+
+    ```bash
+    # Configure the tros.b environment
+    source /opt/tros/humble/setup.bash
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+    ```shell
+    # Start the launch file
+    ros2 launch mipi_cam mipi_cam.launch.py mipi_video_device:=GC4663 mipi_camera_calibration_file_path:=/opt/tros/${TROS_DISTRO}/lib/mipi_cam/config/GC4663_calibration.yaml
+    ```
 
 2. Caution when plugging/unplugging the camera:
 
@@ -356,7 +544,7 @@ Code Repository: <https://github.com/HorizonRDK/hobot_rgbd_cam.git>
 
 | Platform   | System      | Function                                           |
 | ------ | ------------- | -------------------------------------------------- |
-|RDK X3| Ubuntu 20.04  | Start RGBD camera and preview RGB and depth images on PC using rviz2 |
+|RDK X3| Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)  | Start RGBD camera and preview RGB and depth images on PC using rviz2 |
 
 **Note: Only supports RDK X3, RDK X3 Module is not supported yet.**
 
@@ -369,7 +557,7 @@ Code Repository: <https://github.com/HorizonRDK/hobot_rgbd_cam.git>
     ![hobot_rgbd](./image/demo_sensor/hobot_rgbd.png)
 
     **Note: The RGBD module needs an additional adapter board to connect to Horizon RDK X3**.
-2. Horizon RDK has been flashed with the Ubuntu 20.04 system image provided by Horizon.
+2. Horizon RDK has been flashed with the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 3. Horizon RDK has successfully installed tros.b.
 
@@ -388,9 +576,29 @@ Code Repository: <https://github.com/HorizonRDK/hobot_rgbd_cam.git>
 Taking CP3AM as an example, the method of acquiring and previewing camera data is introduced below:
 
 1. SSH into the Horizon RDK and start the hobot_sensor node with the following command:
+
+    <Tabs groupId="tros-distro">
+    <TabItem value="foxy" label="Foxy">
+
+    ```bash
+    # Configure the tros.b environment
+    source /opt/tros/setup.bash
+    ```
+
+    </TabItem>
+
+    <TabItem value="humble" label="Humble">
+
+    ```bash
+    # Configure the tros.b environment
+    source /opt/tros/humble/setup.bash
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
 ```shell
-# Configure tros.b environment:
-source /opt/tros/setup.bash
 cp -r /opt/tros/lib/rgbd_sensor/parameter .
 # Launch the node
 ros2 launch rgbd_sensor rgbd_sensor.launch.py
@@ -461,8 +669,25 @@ camera read reg: 0x3e val:0x40
 
 ```
 3. Query the current topic on the PC, and the command are as follows:
+
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+   ```shell
+   source /opt/ros/foxy/setup.bash
+   ```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+   ```shell
+   source /opt/ros/humble/setup.bash
+   ```
+
+</TabItem>
+</Tabs>
+
 ```bash
-source /opt/ros/foxy/setup.bash
 ros2 topic list
 ```
    The result are as follows:
@@ -486,8 +711,24 @@ ros2 topic list
 ```
 4. Subscribe to topics and preview camera data on a PC.
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+   ```shell
+   source /opt/ros/foxy/setup.bash
+   ```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+   ```shell
+   source /opt/ros/humble/setup.bash
+   ```
+
+</TabItem>
+</Tabs>
+
     ```bash
-    source /opt/ros/foxy/setup.bash
     ros2 run rviz2 rviz2
     ```
 
@@ -497,8 +738,24 @@ ros2 topic list
 
 5. Query camera intrinsics on a PC.
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+   ```shell
+   source /opt/ros/foxy/setup.bash
+   ```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+   ```shell
+   source /opt/ros/humble/setup.bash
+   ```
+
+</TabItem>
+</Tabs>
+
     ```bash
-    source /opt/ros/foxy/setup.bash
     ros2 topic echo /rgbd_CP3AM/color/camera_info
     ```
 

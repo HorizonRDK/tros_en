@@ -4,6 +4,11 @@ sidebar_position: 3
 
 # 4.3 Pose Detection
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 The Pose Detection subscribes to the image messages published by the camera, detects key points of the human body, analyzes the body posture, and publishes pose events.
@@ -24,7 +29,7 @@ Code Repository: <https://github.com/HorizonRDK/hobot_falldown_detection>
 
 ### Horizon RDK Platform
 
-1. Horizon RDK has flashed the Ubuntu 20.04 image provided by Horizon.
+1. Horizon RDK has flashed the  Ubuntu 20.04/22.04 image provided by Horizon.
 
 2. The TogetheROS.Bot has been successfully installed on the Horizon RDK.
 
@@ -42,33 +47,61 @@ Friendly reminder: When experiencing the app, rotate the camera by 90 degrees to
 
 **Publish images using MIPI camera**
 
-```shell
-# Configure the tros.b environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
-# Copy the required configuration files from the installation path of tros.b
-cp -r /opt/tros/lib/mono2d_body_detection/config/ .# Configure MIPI camera 
+```shell
+source /opt/tros/setup.bash
+cp -r /opt/tros/${TROS_DISTRO}/lib/mono2d_body_detection/config/ .
 export CAM_TYPE=mipi
 
-# Launch the launch file
 ros2 launch hobot_falldown_detection hobot_falldown_detection.launch.py
 ```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```shell
+source /opt/tros/humble/setup.bash
+cp -r /opt/tros/${TROS_DISTRO}/lib/mono2d_body_detection/config/ .
+export CAM_TYPE=mipi
+
+ros2 launch hobot_falldown_detection hobot_falldown_detection.launch.py
+```
+
+</TabItem>
+
+</Tabs>
 
 **Publish images using USB camera**
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```shell
-# Configure tros.b environment
 source /opt/tros/setup.bash
-
-# Copy the necessary configuration files from the installation path of tros.b for running the example.
-cp -r /opt/tros/lib/mono2d_body_detection/config/ .
-
-# Configure the USB camera
+cp -r /opt/tros/${TROS_DISTRO}/lib/mono2d_body_detection/config/ .
 export CAM_TYPE=usb
 
-# Launch the launch file
 ros2 launch hobot_falldown_detection hobot_falldown_detection.launch.py
 ```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```shell
+source /opt/tros/humble/setup.bash
+cp -r /opt/tros/${TROS_DISTRO}/lib/mono2d_body_detection/config/ .
+export CAM_TYPE=usb
+
+ros2 launch hobot_falldown_detection hobot_falldown_detection.launch.py
+```
+
+</TabItem>
+
+</Tabs>
 
 For the explanation of the parameters in the command, please refer to the README.md in the hobot_falldown_detection package source code.
 

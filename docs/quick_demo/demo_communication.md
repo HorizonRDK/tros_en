@@ -5,6 +5,11 @@ sidebar_position: 5
 
 ## Zero-copy
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ### Introduction
 
 TogetheROS.Bot provides a flexible and efficient zero-copy function that can significantly reduce the communication latency and CPU usage of large-sized data. By integrating the performance_test tool, tros.b can easily evaluate the performance difference before and after enabling zero-copy. The performance_test tool can configure parameters such as sub count, message size, and QoS to facilitate the evaluation of communication performance in different scenarios. The main performance indicators are as follows:
@@ -33,7 +38,26 @@ Code repositories: [https://github.com/HorizonRDK/rclcpp](https://github.com/Hor
    echo performance > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor 
    ```
 
-2. The performance_test package is already installed in Horizon RDK. Install it using the command: `apt update; apt install tros-performance-test`.
+2. The performance_test package is already installed in Horizon RDK. Install it using the command:
+
+   <Tabs groupId="tros-distro">
+   <TabItem value="foxy" label="Foxy">
+
+   ```bash
+   sudo apt update
+   sudo apt install tros-performance-test
+   ```
+
+   </TabItem>
+   <TabItem value="humble" label="Humble">
+
+   ```bash
+   sudo apt update
+   sudo apt install tros-humble-performance-test
+   ```
+
+   </TabItem>
+   </Tabs>
 
 ### Usage Guide
 
@@ -41,10 +65,25 @@ Code repositories: [https://github.com/HorizonRDK/rclcpp](https://github.com/Hor
 
 1. Test the transmission of 4M data without enabling zero-copy. Use the following command:
 
+ <Tabs groupId="tros-distro">
+ <TabItem value="foxy" label="Foxy">
+
     ```bash
     source /opt/tros/setup.bash
     ros2 run performance_test perf_test --reliable --keep-last --history-depth 10 -s 1 -m Array4m -r 100 --max-runtime 30
     ```
+
+ </TabItem>
+ <TabItem value="humble" label="Humble">
+
+    ```bash
+    source /opt/tros/humble/setup.bash
+    ros2 run performance_test perf_test --reliable --keep-last --history-depth 10 -s 1 -m Array4m -r 100 --max-runtime 30
+    ```
+
+ </TabItem>
+ </Tabs>
+
     **Test results are shown below**:
 
     ```dotnetcli
@@ -87,10 +126,28 @@ Code repositories: [https://github.com/HorizonRDK/rclcpp](https://github.com/Hor
 
 2. Start the 4M data transfer test with zero-copy (use --zero-copy parameter), the command is as follows:
 
-      ```bash
-      source /opt/tros/setup.bash
-      ros2 run performance_test perf_test --zero-copy --reliable --keep-last --history-depth 10 -s 1 -m Array4m -r 100 --max-runtime 30
-      ```
+ <Tabs groupId="tros-distro">
+ <TabItem value="foxy" label="Foxy">
+
+    ```bash
+    source /opt/tros/setup.bash
+    ros2 run performance_test perf_test --zero-copy --reliable --keep-last --history-depth 10 -s 1 -m Array4m -r 100 --max-runtime 30
+    ```
+
+ </TabItem>
+ <TabItem value="humble" label="Humble">
+
+    ```bash
+    source /opt/tros/humble/setup.bash
+    export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+    export FASTRTPS_DEFAULT_PROFILES_FILE=/opt/tros/humble/lib/hobot_shm/config/shm_fastdds.xml
+    export RMW_FASTRTPS_USE_QOS_FROM_XML=1
+    export ROS_DISABLE_LOANED_MESSAGES=0
+    ros2 run performance_test perf_test --zero-copy --reliable --keep-last --history-depth 10 -s 1 -m Array4m -r 100 --max-runtime 30
+    ```
+
+ </TabItem>
+ </Tabs>
 
     **Test results are shown below**:
 ```dotnetcli

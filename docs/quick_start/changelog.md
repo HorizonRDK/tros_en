@@ -4,7 +4,40 @@ sidebar_position: 6
 
 # 1.6 Version Release Notes
 
-## Version: v2.1.2
+## tros-humble
+
+### Version: 2.2.0
+
+Functionality changes:
+- Based on TROS Foxy 2.1.3 version, adapted to Ubuntu 22.04 system and ROS2 Humble.
+- The installation path of TROS has been changed from **`/opt/tros`** to **`/opt/tros/humble`**, which is consistent with the installation path level and naming of ROS2.
+- The `tros-ros-base` installation package (including ROS2 basic function packages such as rclcpp, rclpy, ros2cli, etc.) is no longer provided. The standard ROS2 distribution package is used. The dependent ROS2 Humble is automatically installed when installing TROS Humble.
+- Use the zero-copy communication function of ROS2 fastdds, which involves data collection, image encoding and decoding, algorithm examples and other modules that use image data.
+- The Reliability of QoS used in zero-copy communication has been changed from `RMW_QOS_POLICY_RELIABILITY_RELIABLE` (rclcpp::QoS()) to `RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT` (rclcpp::SensorDataQoS()) to avoid potential stability risks when using zero-copy.
+- Refactor `hobot_dnn` to use the lower-level board-side inference framework `libdnn` instead of `easydnn`.
+- `hobot_audio` upgrades the speech algorithm SDK and uses the lower-level board-side inference framework `libdnn` instead of `easydnn`.
+- `hobot_trigger` adapts to ROS2 Humble version rosbag2.
+
+New features:
+- `robot_dev_config` adds bloom compilation and packaging scripts, which are used to compile and package TROS for the ARM platform.
+- `hobot_mipi_cam` node adds frame_ts_type configuration item, which supports realtime (used to calculate communication delay) and sensor (default, used for sensor timestamp synchronization) configuration parameters.
+- Added `hobot_shm` node for configuring ROS2 zero-copy environment.
+
+Bug fixes:
+- Fixed compatibility issues introduced by compiler upgrade.
+- Fixed the path dependency problem in the ROS2 pkg compiled on the board end.
+
+## tros-foxy
+
+### Version: 2.1.3
+
+Functionality changes:
+
+- The data type used for jpeg compressed images has been changed from `sensor_msgs::msg::Image` to the standard `sensor_msgs::msg::CompressedImage`. It supports using tools such as foxglove and ros2 rqt to view jpeg format images released by TROS. Involving the hobot_websocket, hobot_codec, hobot_image_publisher, hobot_usb_cam modules.
+- Unify the use of jpeg/mjpeg configuration items to specify publishing/subscribing of jpeg compressed format images, and delete the jpeg-compressed/mjpeg-compressed configuration items, which involve the hobot_codec and hobot_usb_cam modules.
+- The environment variable TROS_DISTRO representing the TROS distribution is introduced. After executing the `source /opt/tros/setup.bash`/`source /opt/tros/local_setup.bash` command, the value of the environment variable `TROS_DISTRO` is empty. The configuration file path used by hobot_codec, hobot_audio, hobot_mipi_cam, hobot_usb_cam and other modules has been changed from `/opt/tros/lib` to `/opt/tros/${TROS_DISTRO}/lib`.
+  
+### Version: 2.1.2
 
 New features:
 
@@ -17,7 +50,7 @@ Bug fixes:
 - Updated the audio playback function call in hobot_tts to fix playback failure on the new version of the system.
 - Deleted the config device tree file in hobot_llm, and updated README; the new version of the system can now set the size of ION memory through command tools.
 
-## Version: 2.1.1
+### Version: 2.1.1
 
 New features:
 
@@ -27,7 +60,7 @@ Bug fixes:
 
 - Fixed an issue in the text-to-speech hobot_tts node where certain characters caused the application to exit.
 
-## Version: 2.1.0
+### Version: 2.1.0
 
 Functionality changes:
 
@@ -44,7 +77,7 @@ Bug fixes:
 
 - Fixed an issue in the MIPI image acquisition hobot_mipi_cam node where the step field of the RGB format data message was set incorrectly.
 
-## Version: 2.0.2
+### Version: 2.0.2
 
 Functionality changes:- Configured ROS2 source (`/etc/apt/sources.list.d/ros2.list`) during the installation of tros.b has been changed to the Tsinghua mirror source, resolving the issue of slow and failed installation of ROS2 packages.
 
@@ -60,7 +93,7 @@ Bug fixes:
 - Fixed the issue where error logs were output during the startup of the MIPI image acquisition `hobot_mipi_cam` node.
 - Fixed the issue where the launch file configuration of the data visualization message conversion `hobot_visualization` node was invalid.
 
-## Version: 2.0-Release (2.0.1)
+### Version: 2.0-Release (2.0.1)
 
 Function changes:
 
@@ -89,7 +122,7 @@ Other updates:
 - Optimized the human detection and tracking algorithm nodes to support adaptive output of algorithm perception results based on the input image resolution.
 - Fixed the compilation failure issue caused by incorrect path in the orb_slam3 algorithm compilation script.
 
-## Version: 2.0-Beta (2.0.0)
+### Version: 2.0-Beta (2.0.0)
 
 2.0-Beta (2.0.0) is the first 2.x version of tros.b, and it is recommended for users of the 1.x version of tros.b to upgrade to the 2.x version.Changes in Functionality:
 

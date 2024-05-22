@@ -31,17 +31,39 @@ Code repository: <https://github.com/HorizonRDK/audio_control.git>
 
 ### Horizon RDK
 
-1. The Horizon RDK is flashed with the Ubuntu 20.04 image provided by Horizon.
+1. The Horizon RDK is flashed with the  Ubuntu 20.04/22.04 image provided by Horizon.
 
 2. TogetheROS.Bot has been successfully installed on the Horizon RDK.
 
-3. The smart voice algorithm package has been successfully installed on the Horizon RDK. Installation command: `apt update; apt install tros-hobot-audio`.
+3. The smart voice algorithm package has been successfully installed on the Horizon RDK. Installation command: 
+   
+   <Tabs groupId="tros-distro">
+   <TabItem value="foxy" label="Foxy">
 
-4. The compatible audio board has been successfully connected to the Horizon RDK (refer to the [Smart Voice section](../boxs/box_adv#smart-voice) for more details).
+   ```bash
+   sudo apt update
+   sudo apt install tros-hobot-audio
+   ```
+
+   </TabItem>
+   <TabItem value="humble" label="Humble">
+
+   ```bash
+   sudo apt update
+   sudo apt install tros-humble-hobot-audio
+   ```
+
+   </TabItem>
+   </Tabs>
+
+4. The compatible audio board has been successfully connected to the Horizon RDK (refer to the [Smart Voice section](../boxs/function/hobot_audio.md) for more details).
 
 5. The PC is on the same network (either wired or connected to the same Wi-Fi network) as the Horizon RDK. The PC-side environment package requirements include:
 
-   - [ROS2 Foxy Desktop Full](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
+ <Tabs groupId="tros-distro">
+ <TabItem value="foxy" label="Foxy">
+
+   - Ubuntu 20.04 system and [ROS2 Foxy Desktop Full](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
    - Gazebo and Turtlebot3 related packages. Installation commands:
 
    ```shell
@@ -50,11 +72,44 @@ Code repository: <https://github.com/HorizonRDK/audio_control.git>
    sudo apt install ros-foxy-turtlebot3-simulations
    ```
 
+ </TabItem>
+ <TabItem value="humble" label="Humble">
+
+   - Ubuntu 22.04 system and [ROS2 Humble Desktop Full](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
+   - Gazebo and Turtlebot3 related packages. Installation commands:
+
+    ```shell
+    sudo apt-get install ros-humble-gazebo-*
+    sudo apt install ros-humble-turtlebot3
+    sudo apt install ros-humble-turtlebot3-simulations
+    ```
+
+ </TabItem>
+ </Tabs>
+
+
 ## Usage
 
 Start the simulation environment on the PC:
+
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```shell
 source /opt/ros/foxy/setup.bash
+```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+```shell
+source /opt/ros/humble/setup.bash
+```
+
+</TabItem>
+</Tabs>
+
+```shell
 export TURTLEBOT3_MODEL=burger
 ros2 launch turtlebot3_gazebo empty_world.launch.py
 ```
@@ -67,10 +122,27 @@ Horizon RDK startup program:
 
 1. Copy the audio configuration file
 
-    ```shell
-    # Copy the configuration file required for running the example from the installation path of tros.b.
-    cp -r /opt/tros/lib/hobot_audio/config/ .
+ <Tabs groupId="tros-distro">
+ <TabItem value="foxy" label="Foxy">
+
+    ```bash
+    source /opt/tros/setup.bash
     ```
+
+ </TabItem>
+ <TabItem value="humble" label="Humble">
+
+    ```bash
+    source /opt/tros/humble/setup.bash
+    ```
+
+ </TabItem>
+ </Tabs>
+
+    ```shell
+    cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_audio/config/ .
+    ```
+
 
 2. Check the microphone device
 
@@ -78,11 +150,26 @@ Horizon RDK startup program:
 
 3. Start the program
 
-    ```shell
-    # Configure the tros.b environment
-    source /opt/tros/setup.bash
+    <Tabs groupId="tros-distro">
+    <TabItem value="foxy" label="Foxy">
 
-    # Start the launch file
+    ```bash
+    source /opt/tros/setup.bash
+    ```
+
+    </TabItem>
+
+    <TabItem value="humble" label="Humble">
+
+    ```bash
+    source /opt/tros/humble/setup.bash
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+    ```shell
     ros2 launch audio_control audio_control.launch.py
     ```
 

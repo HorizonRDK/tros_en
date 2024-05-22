@@ -1,5 +1,10 @@
 # Gesture Recognition
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 The gesture recognition example subscription package includes algorithm messages containing hand bounding boxes and hand keypoint information. It uses BPU for inference and publishes algorithm result messages containing gesture information.
@@ -35,13 +40,13 @@ Example of game character control based on gesture recognition and human pose an
 
 | Platform                             | System | Function                                 |
 | ------------------------------------ | ---------------- | ------------------------------------------------ |
-| RDK X3, RDK X3 Module      | Ubuntu 20.04     | · Start MIPI/USB camera and display inference results via web |
+| RDK X3, RDK X3 Module      | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)     | Start MIPI/USB camera and display inference results via web |
 
 ## Preparations
 
 ### Horizon RDK
 
-1. Horizon RDK is flashed with Ubuntu 20.04 system image provided by Horizon.
+1. Horizon RDK is flashed with  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. TogetheROS.Bot has been successfully installed on Horizon RDK.3. The Horizon RDK is installed with a MIPI or USB camera.
 
@@ -53,37 +58,73 @@ The gesture recognition package (hand_gesture_detection) subscribes to the hand 
 
 **Use MIPI Camera to Publish Images**
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
 # Configure the tros.b environment
 source /opt/tros/setup.bash
+```
 
-# Copy the required configuration files from the installation path of tros.b
-cp -r /opt/tros/lib/mono2d_body_detection/config/ .
-cp -r /opt/tros/lib/hand_lmk_detection/config/ .
-cp -r /opt/tros/lib/hand_gesture_detection/config/ .
+</TabItem>
 
-# Configure the MIPI camera
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+# Copy the configuration file required for running the example from the installation path of tros.b.
+cp -r /opt/tros/${TROS_DISTRO}/lib/mono2d_body_detection/config/ .
+cp -r /opt/tros/${TROS_DISTRO}/lib/hand_lmk_detection/config/ .
+cp -r /opt/tros/${TROS_DISTRO}/lib/hand_gesture_detection/config/ .
+
+# Configuring MIPI camera
 export CAM_TYPE=mipi
 
-# Launch the launch file
+# Start the launch file
 ros2 launch hand_gesture_detection hand_gesture_detection.launch.py
 ```
 
 **Use USB Camera to Publish Images**
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
 # Configure the tros.b environment
 source /opt/tros/setup.bash
+```
 
-# Copy the required configuration files from the installation path of tros.b
-cp -r /opt/tros/lib/mono2d_body_detection/config/ .
-cp -r /opt/tros/lib/hand_lmk_detection/config/ .
-cp -r /opt/tros/lib/hand_gesture_detection/config/ .
+</TabItem>
 
-# Configure the USB camera
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+# Copy the configuration file required for running the example from the installation path of tros.b.
+cp -r /opt/tros/${TROS_DISTRO}/lib/mono2d_body_detection/config/ .
+cp -r /opt/tros/${TROS_DISTRO}/lib/hand_lmk_detection/config/ .
+cp -r /opt/tros/${TROS_DISTRO}/lib/hand_gesture_detection/config/ .
+
+# Configuring USB camera
 export CAM_TYPE=usb
 
-# Launch the launch file
+# Start the launch file
 ros2 launch hand_gesture_detection hand_gesture_detection.launch.py
 ```
 

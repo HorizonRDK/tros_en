@@ -4,6 +4,11 @@ sidebar_position: 2
 
 # 2.2 Display
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Web
 
 ### Introduction
@@ -16,7 +21,7 @@ Code Repository: <https://github.com/HorizonRDK/hobot_websocket>
 
 | Platform    | System      | Function                       |
 | ------- | ------------- | ------------------------------ |
-| RDK X3, RDK X3 Module | Ubuntu 20.04  | Start MIPI camera human detection and display images and algorithm results through web|
+| RDK X3, RDK X3 Module |  Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)  | Start MIPI camera human detection and display images and algorithm results through web|
 
 ### Preparation
 
@@ -36,24 +41,82 @@ Code Repository: <https://github.com/HorizonRDK/hobot_websocket>
 
     a. Launch mipi_cam
 
-    ```shell
-    source /opt/tros/setup.bash
+   <Tabs groupId="tros-distro">
+   <TabItem value="foxy" label="Foxy">
 
+   ```bash
+   # Configure the tros.b environment
+   source /opt/tros/setup.bash
+   ```
+
+   </TabItem>
+
+   <TabItem value="humble" label="Humble">
+
+   ```bash
+   # Configure the tros.b environment
+   source /opt/tros/humble/setup.bash
+   ```
+
+   </TabItem>
+
+   </Tabs>
+
+    ```shell
     ros2 launch mipi_cam mipi_cam.launch.py mipi_video_device:=F37
     ```
+
     b. Launch encoding
 
-    ```shell
-    source /opt/tros/setup.bash
+   <Tabs groupId="tros-distro">
+   <TabItem value="foxy" label="Foxy">
 
+   ```bash
+   # Configure the tros.b environment
+   source /opt/tros/setup.bash
+   ```
+
+   </TabItem>
+
+   <TabItem value="humble" label="Humble">
+
+   ```bash
+   # Configure the tros.b environment
+   source /opt/tros/humble/setup.bash
+   ```
+
+   </TabItem>
+
+   </Tabs>
+
+    ```shell
     ros2 launch hobot_codec hobot_codec_encode.launch.py
     ```
 
     c. Launch WebSocket
 
-    ```shell
-    source /opt/tros/setup.bash
+   <Tabs groupId="tros-distro">
+   <TabItem value="foxy" label="Foxy">
 
+   ```bash
+   # Configure the tros.b environment
+   source /opt/tros/setup.bash
+   ```
+
+   </TabItem>
+
+   <TabItem value="humble" label="Humble">
+
+   ```bash
+   # Configure the tros.b environment
+   source /opt/tros/humble/setup.bash
+   ```
+
+   </TabItem>
+
+   </Tabs>
+
+    ```shell
     ros2 launch websocket websocket.launch.py websocket_image_topic:=/image_jpeg websocket_only_show_image:=true
     ```
 
@@ -87,7 +150,7 @@ Code Repository: <https://github.com/HorizonRDK/hobot_hdmi>
 
 #### Horizon RDK
 
-1. Horizon RDK has been flashed with the Ubuntu 20.04 system image provided by Horizon.
+1. Horizon RDK has been flashed with the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. TogetheROS.Bot has been successfully installed on the Horizon RDK.
 
@@ -99,11 +162,28 @@ Code Repository: <https://github.com/HorizonRDK/hobot_hdmi>
 
 Log in to the development board via SSH and start the relevant programs on the board:
 
-```shell
-# Configure tros.b environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
-# HDMI image rendering
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 ros2 launch hobot_hdmi hobot_hdmi.launch.py device:=F37
 ```
 
@@ -137,7 +217,7 @@ TogetheROS.Bot is compatible with ROS2 Foxy version. To conveniently preview ima
 
 #### Horizon RDK
 
-1. Horizon RDK has flashed with the Ubuntu 20.04 system image provided by Horizon.
+1. Horizon RDK has flashed with the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. Horizon RDK has successfully installed tros.b.
 
@@ -153,9 +233,28 @@ TogetheROS.Bot is compatible with ROS2 Foxy version. To conveniently preview ima
 
 1. SSH into the development board and start the corresponding program on the board
 
-   ```shell
+   <Tabs groupId="tros-distro">
+   <TabItem value="foxy" label="Foxy">
+
+   ```bash
    # Configure the tros.b environment
    source /opt/tros/setup.bash
+   ```
+
+   </TabItem>
+
+   <TabItem value="humble" label="Humble">
+
+   ```bash
+   # Configure the tros.b environment
+   source /opt/tros/humble/setup.bash
+   ```
+
+   </TabItem>
+
+   </Tabs>
+
+   ```shell
    # Start the F37 camera to publish images in BGR8 format
    ros2 launch mipi_cam mipi_cam.launch.py mipi_out_format:=bgr8 mipi_image_width:=480 mipi_image_height:=272 mipi_io_method:=ros mipi_video_device:=F37
    ```
@@ -171,9 +270,28 @@ TogetheROS.Bot is compatible with ROS2 Foxy version. To conveniently preview ima
    ```
 3. A new window is created in the Horizon RDK to execute the topic query command and the results are as follows:
 
-   ```shell
+   <Tabs groupId="tros-distro">
+   <TabItem value="foxy" label="Foxy">
+
+   ```bash
    # Configure the tros.b environment
    source /opt/tros/setup.bash
+   ```
+
+   </TabItem>
+
+   <TabItem value="humble" label="Humble">
+
+   ```bash
+   # Configure the tros.b environment
+   source /opt/tros/humble/setup.bash
+   ```
+
+   </TabItem>
+
+   </Tabs>
+
+   ```shell
    # Query topics
    ros2 topic list
    ```
@@ -189,9 +307,24 @@ TogetheROS.Bot is compatible with ROS2 Foxy version. To conveniently preview ima
 
 4. On the PC, the current topics are queried using the following command and the results are as follows:
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
    ```shell
-   # Configure ROS2 environment
    source /opt/ros/foxy/setup.bash
+   ```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+   ```shell
+   source /opt/ros/humble/setup.bash
+   ```
+
+</TabItem>
+</Tabs>
+
+   ```shell
    ros2 topic list
    ```
 
@@ -206,9 +339,24 @@ TogetheROS.Bot is compatible with ROS2 Foxy version. To conveniently preview ima
 
 5. Subscribing to a topic and previewing camera data on the PC:
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
    ```shell
-   # Configure ROS2 environment
    source /opt/ros/foxy/setup.bash
+   ```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+   ```shell
+   source /opt/ros/humble/setup.bash
+   ```
+
+</TabItem>
+</Tabs>
+
+   ```shell
    ros2 run rviz2 rviz2
    ```
 
@@ -225,8 +373,28 @@ TogetheROS.Bot is compatible with ROS2 Foxy version. To conveniently preview ima
 
    - Check if RDK X3 is publishing images properly:
 
-      ```shell
+      <Tabs groupId="tros-distro">
+      <TabItem value="foxy" label="Foxy">
+
+      ```bash
+      # Configure the tros.b environment
       source /opt/tros/setup.bash
+      ```
+
+      </TabItem>
+
+      <TabItem value="humble" label="Humble">
+
+      ```bash
+      # Configure the tros.b environment
+      source /opt/tros/humble/setup.bash
+      ```
+
+      </TabItem>
+
+      </Tabs>
+
+      ```shell
       ros2 topic list
       ```
 
@@ -258,7 +426,7 @@ TogetheROS.Bot is compatible with ROS2 Foxy and supports previewing compressed f
 
 #### Horizon RDK
 
-1. Horizon RDK has been flashed with the provided Ubuntu 20.04 system image.
+1. Horizon RDK has been flashed with the provided  Ubuntu 20.04/22.04 system image.
 
 2. Horizon RDK has successfully installed tros.b.
 
@@ -276,18 +444,56 @@ TogetheROS.Bot is compatible with ROS2 Foxy and supports previewing compressed f
 
    a. Start F37 camera
 
-   ```shell
-   source /opt/tros/setup.bash
+   <Tabs groupId="tros-distro">
+   <TabItem value="foxy" label="Foxy">
 
+   ```bash
+   # Configure the tros.b environment
+   source /opt/tros/setup.bash
+   ```
+
+   </TabItem>
+
+   <TabItem value="humble" label="Humble">
+
+   ```bash
+   # Configure the tros.b environment
+   source /opt/tros/humble/setup.bash
+   ```
+
+   </TabItem>
+
+   </Tabs>
+
+   ```shell
    ros2 launch mipi_cam mipi_cam.launch.py mipi_image_width:=640 mipi_image_height:=480 mipi_video_device:=F37
    ```
 
    b. Start hobot_codec and publish compressed format images
 
-   ```shell
-   source /opt/tros/setup.bash
+   <Tabs groupId="tros-distro">
+   <TabItem value="foxy" label="Foxy">
 
-   ros2 launch hobot_codec hobot_codec_encode.launch.py codec_out_format:=jpeg-compressed codec_pub_topic:=/image_raw/compressed
+   ```bash
+   # Configure the tros.b environment
+   source /opt/tros/setup.bash
+   ```
+
+   </TabItem>
+
+   <TabItem value="humble" label="Humble">
+
+   ```bash
+   # Configure the tros.b environment
+   source /opt/tros/humble/setup.bash
+   ```
+
+   </TabItem>
+
+   </Tabs>
+
+   ```shell
+   ros2 launch hobot_codec hobot_codec_encode.launch.py codec_out_format:=jpeg codec_pub_topic:=/image_raw/compressed
    ```
 
 2. If the program output shows the following information, it means the nodes have been successfully launched
@@ -307,9 +513,24 @@ TogetheROS.Bot is compatible with ROS2 Foxy and supports previewing compressed f
 
 3. Subscribe to the topic on the PC and preview the camera data;
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
    ```shell
-   # Set up ROS2 environment
    source /opt/ros/foxy/setup.bash
+   ```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+   ```shell
+   source /opt/ros/humble/setup.bash
+   ```
+
+</TabItem>
+</Tabs>
+
+   ```shell
    ros2 run rqt_image_view rqt_image_view
    ```
 
@@ -323,8 +544,28 @@ TogetheROS.Bot is compatible with ROS2 Foxy and supports previewing compressed f
 
    - Check if the horizon RDK is publishing images correctly
 
-      ```shell
+      <Tabs groupId="tros-distro">
+      <TabItem value="foxy" label="Foxy">
+
+      ```bash
+      # Configure the tros.b environment
       source /opt/tros/setup.bash
+      ```
+
+      </TabItem>
+
+      <TabItem value="humble" label="Humble">
+
+      ```bash
+      # Configure the tros.b environment
+      source /opt/tros/humble/setup.bash
+      ```
+
+      </TabItem>
+
+      </Tabs>
+
+      ```shell
       ros2 topic list
       ```
 
@@ -358,7 +599,7 @@ Code repository: <https://github.com/HorizonRDK/hobot_visualization>
 
 | Platform | System | Function                                     |
 | -------- | -------------- | -------------------------------------------------------- |
-| RDK X3, RDK X3 Module      | Ubuntu 20.04   | Offline object detection, and display images and algorithm effects using Foxglove |
+| RDK X3, RDK X3 Module      |  Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)   | Offline object detection, and display images and algorithm effects using Foxglove |
 
 ### Preparation
 
@@ -374,9 +615,28 @@ Code repository: <https://github.com/HorizonRDK/hobot_visualization>
 
 1. Log in to the Horizon RDK via SSH and start the relevant programs on the board side:
 
-```shell
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 export CAM_TYPE=fb
 
 ros2 launch hobot_visualization hobot_vis_render.launch.py
@@ -384,9 +644,28 @@ ros2 launch hobot_visualization hobot_vis_render.launch.py
 
 At the same time, log in to another terminal using SSH and record topic information on the board side:
 
-```shell
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 # Record rosbag data, which will be generated in the current working directory
 ros2 bag record -a
 ```

@@ -3,6 +3,11 @@ sidebar_position: 1
 ---
 # FCOS
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 The FCOS detection algorithm example uses images as input and utilizes BPU for inference.The result in the messages contain target categories and detection boxes.
@@ -17,13 +22,13 @@ Application scenarios: FCOS is a one-stage object detection algorithm capable of
 
 | Platform          | System | Function                                       |
 | ----------------- | ---------------- | ----------------------------------------------------------- |
-| RDK X3, RDK X3 Module | Ubuntu 20.04       | - Launch MIPI/USB camera and display via web interface<br/>- Use local data to save results offline |
+| RDK X3, RDK X3 Module | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)       | - Launch MIPI/USB camera and display via web interface<br/>- Use local data to save results offline |
 
 ## Preparation
 
 ### Horizon RDK
 
-1. The Horizon RDK platform is flashed with the Ubuntu 20.04 system image provided by Horizon.
+1. The Horizon RDK platform is flashed with the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. TogetheROS.Bot has been successfully installed on the Horizon RDK platform.
 
@@ -39,27 +44,63 @@ Application scenarios: FCOS is a one-stage object detection algorithm capable of
 
 The FCOS target detection algorithm example subscribes to images published by the sensor package, performs inference, and publishes algorithm messages. The WebSocket package is used to display the published images and corresponding algorithm results on a PC web browser.
 
-```shell
-# Configure tros.b environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
-# Configure MIPI camera
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+# Configuring MIPI camera
 export CAM_TYPE=mipi
 
-# Launch the launch file
+# Start the launch file
 ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:=config/fcosworkconfig.json dnn_example_image_width:=480 dnn_example_image_height:=272
 ```
 
 #### Use a USB camera to publish images
 
-```shell
-# Configure tros.b environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
-# Configure USB camera
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+# Configuring USB camera
 export CAM_TYPE=usb
 
-# Launch the launch file
+# Start the launch file
 ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:=config/fcosworkconfig.json dnn_example_image_width:=480 dnn_example_image_height:=272
 ```
 
@@ -67,11 +108,29 @@ ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:
 
 The FCOS object detection algorithm example uses local JPEG/PNG format images. The inferred images with algorithm results are stored in the running path.
 
-```shell
-# Configure tros.b environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
-# Launch the launch file
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+# Start the launch file
 ros2 launch dnn_node_example dnn_node_example_feedback.launch.py dnn_example_config_file:=config/fcosworkconfig.json dnn_example_image:=config/target.jpg
 ```
 

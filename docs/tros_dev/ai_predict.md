@@ -15,7 +15,7 @@ By reading this chapter, users can use the models provided by Horizon to create 
 ### Preparation
 
 1. Horizon RDK development board with relevant software installed, including:
-   - Ubuntu 20.04 system image provided by Horizon.
+   -  Ubuntu 20.04/22.04 system image provided by Horizon.
    - tros.b software package.
    - ROS2 software package build system ament_cmake. Installation command: `apt update; apt-get install python3-catkin-pkg; pip3 install empy`
    - ROS2 build tools colcon. Installation command: `pip3 install -U colcon-common-extensions`
@@ -29,6 +29,10 @@ For detailed instructions on how to use `hobot_dnn`, please refer to the [README
 ![](./image/ai_predict/dnnnode_workflow.jpg)
 
 Without understanding the workflow of using `hobot_dnn`, users can also follow the steps in this chapter to develop a model inference example using `hobot_dnn`.
+
+:::info Hint
+The following content in this chapter uses the tros.b Foxy version as an example. If you are using the tros.b Humble version, just replace the `source /opt/tros/setup.bash` command with `source /opt/tros/humble/ setup.bash`.
+:::
 
 ### Usage
 
@@ -932,7 +936,7 @@ source ./install/setup.bash
 
 # Copy the necessary configuration files for running the example from the tros.b installation path
 # Model file
-mkdir -p config && cp /opt/tros/lib/dnn_benchmark_example/config/multitask_body_kps_960x544.hbm config/
+mkdir -p config && cp /opt/tros/lib/dnn_benchmark_example/config/X3/multitask_body_kps_960x544.hbm config/
 # Multi-object tracking configuration file
 cp -r /opt/tros/lib/hobot_mot/config/iou2_method_param.json config/
 
@@ -961,7 +965,7 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(
 ```os.path.join(
                 get_package_share_directory('websocket'),
-                'launch/hobot_websocket_service.launch.py'))
+                'launch/websocket_service.launch.py'))
     )
 
     return LaunchDescription([
@@ -1172,7 +1176,7 @@ By reading this chapter, users can use the sensing nodes, human bounding box det
 
 1. Horizon RDK development board with the following software installed:
 
-- Horizon-provided Ubuntu 20.04 system image
+- Horizon-provided  Ubuntu 20.04/22.04 system image
 
 - `tros.b` software package
 
@@ -1180,7 +1184,7 @@ By reading this chapter, users can use the sensing nodes, human bounding box det
 
 3. A PC in the same network segment (wired or connected to the same wireless network, with the first three segments of the IP address consistent with Horizon RDK). The PC needs to have the following environment installed:
 
-  - Ubuntu 20.04 system
+  -  Ubuntu 20.04/22.04 system
 
   - [ROS2 Foxy Desktop](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
 

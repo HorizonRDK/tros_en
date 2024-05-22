@@ -1,5 +1,11 @@
 # Hand Keypoint Detection
 
+
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 The hand keypoint detection example subscribes to images and algorithm messages containing hand bounding box information. It uses BPU for inference and publishes messages containing hand keypoint.
@@ -26,7 +32,7 @@ Application scenarios: The hand keypoint detection algorithm is mainly used to c
 
 ### Horizon RDK
 
-1. The Horizon RDK has been flashed with the Ubuntu 20.04 system image provided by Horizon.
+1. The Horizon RDK has been flashed with the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. TogetheROS.Bot has been successfully installed on the Horizon RDK.
 
@@ -40,35 +46,71 @@ The hand keypoint detection (hand_lmk_detection) package subscribes to images pu
 
 **Use MIPI Camera to Publish Images**
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
 # Configure the tros.b environment
 source /opt/tros/setup.bash
+```
 
-# Copy the required configuration files from the installation path of tros.b
-cp -r /opt/tros/lib/mono2d_body_detection/config/ .
-cp -r /opt/tros/lib/hand_lmk_detection/config/ .
+</TabItem>
 
-# Configure MIPI camera
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+# Copy the configuration file required for running the example from the installation path of tros.b.
+cp -r /opt/tros/${TROS_DISTRO}/lib/mono2d_body_detection/config/ .
+cp -r /opt/tros/${TROS_DISTRO}/lib/hand_lmk_detection/config/ .
+
+# Configuring MIPI camera
 export CAM_TYPE=mipi
 
-# Launch the launch file
+# Start the launch file
 ros2 launch hand_lmk_detection hand_lmk_detection.launch.py
 ```
 
 **Use USB Camera to Publish Images**
 
-```shell
-# Configure tros.b environment
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
+# Configure the tros.b environment
 source /opt/tros/setup.bash
+```
 
-# Copy the required configuration files for the example from the installation path of tros.b.
-cp -r /opt/tros/lib/mono2d_body_detection/config/ .
-cp -r /opt/tros/lib/hand_lmk_detection/config/ .
+</TabItem>
 
-# Configure USB camera
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+# Copy the configuration file required for running the example from the installation path of tros.b.
+cp -r /opt/tros/${TROS_DISTRO}/lib/mono2d_body_detection/config/ .
+cp -r /opt/tros/${TROS_DISTRO}/lib/hand_lmk_detection/config/ .
+
+# Configuring USB camera
 export CAM_TYPE=usb
 
-# Launch the launch file
+# Start the launch file
 ros2 launch hand_lmk_detection hand_lmk_detection.launch.py
 ```
 

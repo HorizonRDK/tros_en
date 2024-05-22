@@ -3,6 +3,12 @@ sidebar_position: 1
 ---
 # mobilenet_unet
 
+
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 The mobilenet_unet segmentation algorithm example uses images as input and performs algorithm inference using BPU. It publishes segmentation result messages.
@@ -23,7 +29,7 @@ Applications: mobilenet_unet, composed of MobileNet and UNet, can segment images
 
 ### Horizon RDK
 
-1. The Horizon RDK platform has been flashed with the provided Ubuntu 20.04 system image.
+1. The Horizon RDK platform has been flashed with the provided  Ubuntu 20.04/22.04 system image.
 
 2. TogetheROS.Bot has been successfully installed on the Horizon RDK platform.
 
@@ -39,27 +45,63 @@ Applications: mobilenet_unet, composed of MobileNet and UNet, can segment images
 
 The mobilenet_unet segmentation example subscribes to images published by the sensor package. After inference, it publishes algorithm messages and saves the rendered images automatically in the running directory. The saved images are named in the format of `render_frameid_timestampInSeconds_timestampInNanoseconds.jpg`.
 
-```shell
-# Configure tros.b environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
-# Configure MIPI camera
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+# Configuring MIPI camera
 export CAM_TYPE=mipi
 
-# Start launch file
+# Start the launch file
 ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_dump_render_img:=1 dnn_example_config_file:=config/mobilenet_unet_workconfig.json dnn_example_image_width:=1920 dnn_example_image_height:=1080
 ```
 
 ##### Use a USB Camera to Publish Images 
 
-```shell
-# Configure tros.b environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
-# Configure USB camera
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+# Configuring USB camera
 export CAM_TYPE=usb
 
-# Start launch file
+# Start the launch file
 ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_dump_render_img:=1 dnn_example_config_file:=config/mobilenet_unet_workconfig.json dnn_example_image_width:=1920 dnn_example_image_height:=1080
 ```
 
@@ -67,11 +109,30 @@ ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_dump_render_
 
 The mobilenet_unet segmentation example uses local JPEG/PNG format images for feedback. After inference, the rendered images of the algorithm results are stored in the local running path.
 
-```shell
-# Configure tros.b environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
-# Start launch file
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+
+```shell
+# Start the launch file
 ros2 launch dnn_node_example dnn_node_example_feedback.launch.py dnn_example_config_file:=config/mobilenet_unet_workconfig.json dnn_example_image:=config/raw_unet.jpeg
 ```
 

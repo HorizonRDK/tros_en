@@ -1,5 +1,10 @@
 # Monocular Elevation Network
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 elevation_net is a monocular elevation network detection algorithm example developed based on the hobot_dnn package. It uses an elevation network model and indoor data with BPU for model inference on the horizon RDK to obtain algorithm inference results.
@@ -18,7 +23,7 @@ Application Scenarios: The monocular elevation network detection algorithm parse
 
 ### Horizon RDK
 
-1. Horizon RDK has burned the Ubuntu 20.04 system image provided by Horizon.
+1. Horizon RDK has burned the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. TogetheROS.Bot has been successfully installed on Horizon RDK.
 
@@ -28,16 +33,38 @@ The monocular elevation network detection algorithm example package uses the for
 
 ### Horizon RDK
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```shell
-# Configure ROS2 environment
+# Configure the tros.b environment
 source /opt/tros/setup.bash
 
-# Copy the required configuration file for running the example from the installation path of tros.b
-cp -r /opt/tros/lib/elevation_net/config/ .
+# Copy the configuration file required for running the example from the installation path of tros.b.
+cp -r /opt/tros/${TROS_DISTRO}/lib/elevation_net/config/ .
 
 # Start the launch file
 ros2 launch elevation_net elevation_net.launch.py
 ```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```shell
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+
+# Copy the configuration file required for running the example from the installation path of tros.b.
+cp -r /opt/tros/${TROS_DISTRO}/lib/elevation_net/config/ .
+
+# Start the launch file
+ros2 launch elevation_net elevation_net.launch.py
+```
+
+</TabItem>
+
+</Tabs>
 
 ## Result Analysis
 

@@ -4,6 +4,11 @@ sidebar_position: 7
 
 # 4.7 Robot Follows the Voice's DOA And Command
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 The voice tracking control car movement function controls the robot to rotate towards the direction of the sound source based on the DOA angle information of the sound source localization, and controls the robot to move forward. This function needs to be used together with the intelligent voice module of the Horizon Robot Operating System. When the user speaks the wake-up word configured by the intelligent voice recognition module to wake up the device, the voice tracking control car function will be activated. After that, when the user speaks the wake-up word or the configured command word, the intelligent voice recognition module will output the DOA angle information of the sound source. After receiving the DOA angle information, this module will control the robot to turn towards the direction of the sound source and move forward a certain distance.
@@ -38,23 +43,62 @@ Code repository: <https://github.com/HorizonRDK/audio_tracking.git>
 
 ### Horizon RDK
 
-1. The Horizon RDK has been burned with the Ubuntu 20.04 system image provided by Horizon.
+1. The Horizon RDK has been burned with the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. TogetheROS.Bot has been successfully installed on the Horizon RDK.
 
-3. The intelligent voice algorithm package has been successfully installed on the Horizon RDK. Install command: `apt update; apt install tros-hobot-audio`.
+3. The intelligent voice algorithm package has been successfully installed on the Horizon RDK. Install command:
 
-4. The compatible audio board has been successfully connected to the Horizon RDK (refer to the [Intelligent Voice section](../boxs/box_adv#智能语音) for details).
+   <Tabs groupId="tros-distro">
+   <TabItem value="foxy" label="Foxy">
 
-5. The PC that is in the same network segment as the Horizon RDK (either wired or connected to the same wireless network) needs to have the following environment packages installed:- Ubuntu 20.04 system
-   - [ROS2 Foxy Desktop Edition](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
-   - Installation method for Gazebo and Turtlebot3 related packages:
+   ```bash
+   sudo apt update
+   sudo apt install tros-hobot-audio
+   ```
 
-     ```shell
-     sudo apt-get install ros-foxy-gazebo-*
-     sudo apt install ros-foxy-turtlebot3
-     sudo apt install ros-foxy-turtlebot3-simulations
-     ```
+   </TabItem>
+   <TabItem value="humble" label="Humble">
+
+   ```bash
+   sudo apt update
+   sudo apt install tros-humble-hobot-audio
+   ```
+
+   </TabItem>
+   </Tabs>
+
+4. The compatible audio board has been successfully connected to the Horizon RDK (refer to the [Intelligent Voice section](../boxs/function/hobot_audio.md) for details).
+
+5. The PC that is in the same network segment as the Horizon RDK (either wired or connected to the same wireless network) needs to have the following environment packages installed:
+
+ <Tabs groupId="tros-distro">
+ <TabItem value="foxy" label="Foxy">
+
+   - Ubuntu 20.04 system and [ROS2 Foxy Desktop Full](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
+   - Gazebo and Turtlebot3 related packages. Installation commands:
+
+   ```shell
+   sudo apt-get install ros-foxy-gazebo-*
+   sudo apt install ros-foxy-turtlebot3
+   sudo apt install ros-foxy-turtlebot3-simulations
+   ```
+
+ </TabItem>
+ <TabItem value="humble" label="Humble">
+
+   - Ubuntu 22.04 system and [ROS2 Humble Desktop Full](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
+   - Gazebo and Turtlebot3 related packages. Installation commands:
+
+    ```shell
+    sudo apt-get install ros-humble-gazebo-*
+    sudo apt install ros-humble-turtlebot3
+    sudo apt install ros-humble-turtlebot3-simulations
+    ```
+
+ </TabItem>
+ </Tabs>
+   
 
 ## Usage
 
@@ -64,8 +108,24 @@ After running the voice tracking function, the voice tracking control module wil
 
 Start the simulation environment on the PC:
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```shell
 source /opt/ros/foxy/setup.bash
+```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+```shell
+source /opt/ros/humble/setup.bash
+```
+
+</TabItem>
+</Tabs>
+
+```shell
 export TURTLEBOT3_MODEL=burger
 ros2 launch turtlebot3_gazebo empty_world.launch.py
 ```
@@ -78,9 +138,25 @@ Startup program for the Horizon RDK:
 
 1. Copy the audio configuration file and load the audio driver
 
+ <Tabs groupId="tros-distro">
+ <TabItem value="foxy" label="Foxy">
+
+    ```bash
+    source /opt/tros/setup.bash
+    ```
+
+ </TabItem>
+ <TabItem value="humble" label="Humble">
+
+    ```bash
+    source /opt/tros/humble/setup.bash
+    ```
+
+ </TabItem>
+ </Tabs>
+
     ```shell
-    # Copy the configuration file required for running the example from the installation path of tros.b.
-    cp -r /opt/tros/lib/hobot_audio/config/ .
+    cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_audio/config/ .
     ```
 
 2. Confirm the microphone device
@@ -89,10 +165,26 @@ Startup program for the Horizon RDK:
 
 3. Start the program
 
-    ```shell
-    # Configure the tros.b environment
-    source /opt/tros/setup.bash
+    <Tabs groupId="tros-distro">
+    <TabItem value="foxy" label="Foxy">
 
+    ```bash
+    source /opt/tros/setup.bash
+    ```
+
+    </TabItem>
+
+    <TabItem value="humble" label="Humble">
+
+    ```bash
+    source /opt/tros/humble/setup.bash
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+    ```shell
     # Start the launch file and specify the voice DOA angle corresponding to the front of the car, taking 90 as an example
     ros2 launch audio_tracking audio_tracking.launch.py car_front_audio_angle:=90
     ```

@@ -4,6 +4,11 @@ sidebar_position: 4
 
 # 5.4 Performance Flame Graph
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 A flame graph is a graphical representation of performance data collected by tools like perf. It provides statistical analysis of the data to identify performance hotspots.

@@ -3,6 +3,11 @@ sidebar_position: 4
 ---
 # EfficientNet_Det
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 EfficientNet_Det is an detection algorithm that takes images as input and utilizes BPU for algorithm inference. It publishes algorithm messages containing object categories and detection boxes.
@@ -17,13 +22,13 @@ Applications: EfficientNet_Det can be used for tasks such as vehicle detection a
 
 | Platform               | System | Function                                        |
 | ---------------------- | ---------------- | ------------------------------------------------------------ |
-| RDK X3, RDK X3 Module  | Ubuntu 20.04     | · Start MIPI/USB camera and display inference results through web<br/>· Use local data to save rendering results offline |
+| RDK X3, RDK X3 Module  | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)     | · Start MIPI/USB camera and display inference results through web<br/>· Use local data to save rendering results offline |
 
 ## Preparations
 
 ### Horizon RDK
 
-1. The Horizon RDK has been pre-installed with the Ubuntu 20.04 system image provided by Horizon.
+1. The Horizon RDK has been pre-installed with the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. TogetheROS.Bot has been successfully installed on the Horizon RDK.
 
@@ -39,39 +44,104 @@ Applications: EfficientNet_Det can be used for tasks such as vehicle detection a
 
 EfficientNet_Det subscribes to images published by the sensor package, performs inference, and publishes algorithm messages. WebSocket package is used to render and display the published images and corresponding algorithm results on a PC browser.
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```shell
 # Configure the tros.b environment
 source /opt/tros/setup.bash
 
-# Configure the MIPI camera
-export CAM_TYPE=mipi# Launch launch file
+# Configuring MIPI camera
+export CAM_TYPE=mipi
+
+# Start the launch file
 ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:=config/efficient_det_workconfig.json dnn_example_image_width:=480 dnn_example_image_height:=272
 ```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```shell
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+
+# Configuring MIPI camera
+export CAM_TYPE=mipi
+
+# Start the launch file
+ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:=config/efficient_det_workconfig.json dnn_example_image_width:=480 dnn_example_image_height:=272
+```
+
+</TabItem>
+
+</Tabs>
 
 #### Use USB Camera to Publish Images
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```shell
-# Configure tros.b environment
+# Configure the tros.b environment
 source /opt/tros/setup.bash
 
-# Configure USB camera
+# Configuring USB camera
 export CAM_TYPE=usb
 
-# Launch launch file
+# Start the launch file
 ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:=config/efficient_det_workconfig.json dnn_example_image_width:=480 dnn_example_image_height:=272
 ```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```shell
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+
+# Configuring USB camera
+export CAM_TYPE=usb
+
+# Start the launch file
+ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:=config/efficient_det_workconfig.json dnn_example_image_width:=480 dnn_example_image_height:=272
+```
+
+</TabItem>
+
+</Tabs>
 
 #### Use Local Images Offline
 
 The EfficientNet_Det detection algorithm example uses local JPEG/PNG images for rendering the algorithm results after inference, which are stored in the local path.
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```shell
-# Configure tros.b environment
+# Configure the tros.b environment
 source /opt/tros/setup.bash
 
-# Launch launch file
+# Start the launch file
 ros2 launch dnn_node_example dnn_node_example_feedback.launch.py dnn_example_config_file:=config/efficient_det_workconfig.json dnn_example_image:=config/target.jpg
 ```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```shell
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+
+# Start the launch file
+ros2 launch dnn_node_example dnn_node_example_feedback.launch.py dnn_example_config_file:=config/efficient_det_workconfig.json dnn_example_image:=config/target.jpg
+```
+
+</TabItem>
+
+</Tabs>
 
 ## Result Analysis
 

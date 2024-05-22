@@ -4,6 +4,11 @@ sidebar_position: 4
 
 # 4.4 Robot Follows the Human Body
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 The app is used to control the robot to follow the movement of the human body. The app consists of MIPI image acquisition, body detection and tracking, body tracking strategy, image coding and decoding, and a web display interface. The workflow is shown in the following diagram:
@@ -24,7 +29,7 @@ Code Repository: <https://github.com/HorizonRDK/body_tracking>
 
 ### Horizon RDK
 
-1. Horizon RDK has been flashed with the Ubuntu 20.04 system image provided by Horizon.
+1. Horizon RDK has been flashed with the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. TogetheROS.Bot has been successfully installed on Horizon RDK.
 
@@ -32,15 +37,32 @@ Code Repository: <https://github.com/HorizonRDK/body_tracking>
 
 4. The PC used for Horizon RDK should be in the same network segment (either wired or connected to the same wireless network, with the first three parts of the IP address being consistent). The PC should have the following environment installed:
 
-   - Ubuntu 20.04 system
-   - [ROS2 Foxy Desktop](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
-   - Gazebo and Turtlebot3 related packages can be installed using the following commands:
+ <Tabs groupId="tros-distro">
+ <TabItem value="foxy" label="Foxy">
+
+   - Ubuntu 20.04 system and [ROS2 Foxy Desktop Full](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
+   - Gazebo and Turtlebot3 related packages. Installation commands:
+
+   ```shell
+   sudo apt-get install ros-foxy-gazebo-*
+   sudo apt install ros-foxy-turtlebot3
+   sudo apt install ros-foxy-turtlebot3-simulations
+   ```
+
+ </TabItem>
+ <TabItem value="humble" label="Humble">
+
+   - Ubuntu 22.04 system and [ROS2 Humble Desktop Full](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
+   - Gazebo and Turtlebot3 related packages. Installation commands:
 
     ```shell
-    sudo apt-get install ros-foxy-gazebo-*
-    sudo apt install ros-foxy-turtlebot3
-    sudo apt install ros-foxy-turtlebot3-simulations
+    sudo apt-get install ros-humble-gazebo-*
+    sudo apt install ros-humble-turtlebot3
+    sudo apt install ros-humble-turtlebot3-simulations
     ```
+
+ </TabItem>
+ </Tabs>
 
 ## Usage
 
@@ -50,8 +72,24 @@ After running the app, the car motion control package will select the human body
 
 Launch the simulation environment on the PC side:
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```shell
 source /opt/ros/foxy/setup.bash
+```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+```shell
+source /opt/ros/humble/setup.bash
+```
+
+</TabItem>
+</Tabs>
+
+```shell
 export TURTLEBOT3_MODEL=burger
 ros2 launch turtlebot3_gazebo empty_world.launch.py
 ```
@@ -63,35 +101,69 @@ After successful launch, the car effect in the simulation environment is as foll
 
 **Publish images using MIPI camera**
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```shell
-# Configure the tros.b environment
 source /opt/tros/setup.bash
 
-# Copy the configuration file needed for running the example from the installation path of TogetheROS.
-cp -r /opt/tros/lib/mono2d_body_detection/config/ .
+cp -r /opt/tros/${TROS_DISTRO}/lib/mono2d_body_detection/config/ .
 
-# Configure the MIPI camera
 export CAM_TYPE=mipi
 
-# Launch the launch file
 ros2 launch body_tracking body_tracking_without_gesture.launch.py
 ```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```shell
+source /opt/tros/humble/setup.bash
+
+cp -r /opt/tros/${TROS_DISTRO}/lib/mono2d_body_detection/config/ .
+
+export CAM_TYPE=mipi
+
+ros2 launch body_tracking body_tracking_without_gesture.launch.py
+```
+
+</TabItem>
+
+</Tabs>
 
 **Publish images using USB camera**
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```shell
-# Configure the tros.b environment
 source /opt/tros/setup.bash
 
-# Copy the configuration file needed for running the example from the installation path of tros.b.
-cp -r /opt/tros/lib/mono2d_body_detection/config/ .
+cp -r /opt/tros/${TROS_DISTRO}/lib/mono2d_body_detection/config/ .
 
-# Configure the USB camera
 export CAM_TYPE=usb
 
-# Launch the launch file
 ros2 launch body_tracking body_tracking_without_gesture.launch.py
 ```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```shell
+source /opt/tros/humble/setup.bash
+
+cp -r /opt/tros/${TROS_DISTRO}/lib/mono2d_body_detection/config/ .
+
+export CAM_TYPE=usb
+
+ros2 launch body_tracking body_tracking_without_gesture.launch.py
+```
+
+</TabItem>
+
+</Tabs>
 
 ## Result Analysis
 

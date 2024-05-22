@@ -3,6 +3,11 @@ sidebar_position: 5
 ---
 # 2.7 Tools
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Image Publishing Tool
 
 ### Introduction
@@ -25,7 +30,7 @@ Code repository: <https://github.com/HorizonRDK/hobot_image_publisher.git>
 
 #### Horizon RDK
 
-1. The Horizon RDK has been burned with the Ubuntu 20.04 system image provided by Horizon.
+1. The Horizon RDK has been burned with the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. The Horizon RDK has successfully installed tros.b.
 
@@ -37,12 +42,30 @@ Read a local NV12 image in a loop and publish it. Use the image codec module to 
 
 #### Horizon RDK
 
-```bash
-# Configure tros.b environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
-# Copy the image files needed for the example from the installation path of tros.b
-cp -r /opt/tros/lib/hobot_image_publisher/config/ .
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+# Copy the configuration file required for running the example from the installation path of tros.b.
+cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_image_publisher/config/ .
 
 # Start the launch file
 ros2 launch hobot_image_publisher hobot_image_publisher_demo.launch.py
@@ -73,10 +96,28 @@ Read the video.list file locally, obtain the paths of the video files in the lis
 
 #### Horizon RDK
 
-```shell
-# Configure tros.b environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 # Copy the image files needed for the example from the installation path of tros.b
 cp -r /opt/tros/lib/hobot_image_publisher/config/ .
 
@@ -198,7 +239,7 @@ struct Config {
 
 #### Horizon RDK
 
-1. Horizon RDK has burned the Ubuntu 20.04 system image provided by Horizon.
+1. Horizon RDK has burned the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. Horizon RDK has successfully installed TogetheROS.Bot.
 
@@ -208,10 +249,30 @@ struct Config {
 
 **Publish Images with MIPI Camera**
 
-```shell
-# Configure ROS2 environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+apt install ros-humble-rosbag2-storage-mcap
+
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 # Copy the necessary configuration files for the example to run from the installation path of tros
 cp -r /opt/tros/lib/mono2d_trash_detection/config/ .
 cp -r /opt/tros/lib/trigger_node_example/config/ .
@@ -225,10 +286,28 @@ ros2 launch trigger_node_example hobot_trigger_example.launch.py
 
 **Publishing Images using a USB Camera**
 
-```shell
-# Configure ROS2 environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 # Copy the necessary configuration files from the installation path of tros.
 cp -r /opt/tros/lib/mono2d_trash_detection/config/ .
 cp -r /opt/tros/lib/trigger_node_example/config/ .
@@ -303,10 +382,29 @@ The Trigger module supports receiving Trigger tasks from other nodes to control 
 ##### Running
 
 Based on starting the Trigger node earlier, in another terminal, publish a topic message named "/hobot_agent" using std_msgs.
-```shell
-# Set up tros.b environment
-source /opt/tros/setup.bash
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 # Publish a topic message named "/hobot_agent" using std_msgs
 ros2 topic pub /hobot_agent std_msgs/String "data: '{\"version\":\"v0.0.1_20230421\",\"trigger_status\":true,\"strategy\":[{\"src_module_id\":203,\"trigger_type\":1110,\"status\":true,\"level\":1,\"desc\":\"test\",\"duration_ts_back\":5000,\"duration_ts_front\":3000}]}'"
 ```

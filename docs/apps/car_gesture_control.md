@@ -4,6 +4,11 @@ sidebar_position: 5
 
 # 4.5 Gesture Control The Car
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 The app allows you to control a robot's movements using hand gestures, including left and right rotation and forward and backward translation. The app consists of MIPI image capture, human detection and tracking, hand keypoint detection, gesture recognition, gesture control strategy, image encoding and decoding, and web display. The workflow is shown in the following diagram:
@@ -33,7 +38,7 @@ Code repository: <https://github.com/HorizonRDK/gesture_control>
 
 ### Horizon RDK
 
-1. Horizon RDK is flashed the Ubuntu 20.04 system image.
+1. Horizon RDK is flashed the  Ubuntu 20.04/22.04 system image.
 
 2. TogetheROS.Bot successfully installed on Horizon RDK.
 
@@ -41,15 +46,32 @@ Code repository: <https://github.com/HorizonRDK/gesture_control>
 
 4. PC on the same network segment as Horizon RDK (wired or connected to the same wireless network with the first three segments of the IP address matching). The PC needs to have the following software installed:
 
-   - Ubuntu 20.04 system
-   - [ROS2 Foxy desktop](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
-   - Gazebo and Turtlebot3 related packages can be installed using the following commands:
+ <Tabs groupId="tros-distro">
+ <TabItem value="foxy" label="Foxy">
 
-```shell
-    sudo apt-get install ros-foxy-gazebo-*
-    sudo apt install ros-foxy-turtlebot3
-    sudo apt install ros-foxy-turtlebot3-simulations
- ```
+   - Ubuntu 20.04 system and [ROS2 Foxy Desktop Full](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
+   - Gazebo and Turtlebot3 related packages. Installation commands:
+
+   ```shell
+   sudo apt-get install ros-foxy-gazebo-*
+   sudo apt install ros-foxy-turtlebot3
+   sudo apt install ros-foxy-turtlebot3-simulations
+   ```
+
+ </TabItem>
+ <TabItem value="humble" label="Humble">
+
+   - Ubuntu 22.04 system and [ROS2 Humble Desktop Full](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
+   - Gazebo and Turtlebot3 related packages. Installation commands:
+
+    ```shell
+    sudo apt-get install ros-humble-gazebo-*
+    sudo apt install ros-humble-turtlebot3
+    sudo apt install ros-humble-turtlebot3-simulations
+    ```
+
+ </TabItem>
+ </Tabs>
 
 ## Instructions
 
@@ -98,7 +120,7 @@ source /opt/tros/setup.bash
 # Copy the necessary configuration files for running the example from the installation path of tros.b.
 cp -r /opt/tros/lib/mono2d_body_detection/config/ .
 cp -r /opt/tros/lib/hand_lmk_detection/config/ .
-```cp -r /opt/tros/lib/hand_gesture_detection/config/ .
+cp -r /opt/tros/lib/hand_gesture_detection/config/ .
 
 # Configure USB camera
 export CAM_TYPE=usb

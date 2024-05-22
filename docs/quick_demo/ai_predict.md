@@ -3,6 +3,12 @@ sidebar_position: 6
 ---
 # 2.6 Model Inference
 
+
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 This section introduces the usage of the model inference function. You can input a local image for inference, and get the rendered image saved locally.
@@ -19,7 +25,7 @@ Code repository: [https://github.com/HorizonRDK/hobot_dnn](https://github.com/Ho
 
 ### Horizon RDK
 
-1. The Horizon RDK is already burned with the provided Ubuntu 20.04 system image.
+1. The Horizon RDK is already burned with the provided  Ubuntu 20.04/22.04 system image.
 
 2. The TogetheROS.Bot has been successfully installed on the Horizon RDK.
 
@@ -27,12 +33,28 @@ Code repository: [https://github.com/HorizonRDK/hobot_dnn](https://github.com/Ho
 
 Use the local JPEG image and model in the hobot_dnn configuration file (FCOS object detection model, supporting 80 types of object detection including human, animal, fruit, and transportation, etc.), perform inference through offline, and save the rendered image.
 
-```shell
-# Configure the tros.b environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
+```bash
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 # Copy the configuration file needed for the example to run from the installation path of tros.b. config contains the model used by the example and the local image used for feedback
-cp -r /opt/tros/lib/dnn_node_example/config/ .
+cp -r /opt/tros/${TROS_DISTRO}/lib/dnn_node_example/config/ .
 
 # Perform feedback prediction using the local jpg format image and save the rendered image
 ros2 launch dnn_node_example dnn_node_example_feedback.launch.py dnn_example_config_file:=config/fcosworkconfig.json dnn_example_image:=config/target.jpg

@@ -3,6 +3,11 @@ sidebar_position: 3
 ---
 # 1.3 Source Code Installation
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 This section explains how to install TogetheROS.Bot on the Horizon RDK using source code.
 
 ## Horizon RDK Platform
@@ -18,6 +23,9 @@ Prerequisites:
 
 All the following operations are performed within the Docker environment on the development machine.
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```shell
 ## Create a directory
 cd /mnt/data/kairui.wang/test
@@ -29,10 +37,30 @@ sudo docker load --input pc_tros_v1.0.5.tar.gz
 ## Check the corresponding image ID for pc_tros
 sudo docker images
 ## Launch Docker and mount the directory
-sudo docker run -it --entrypoint="/bin/bash" -v PC local directory: Docker directory imageID, 
-here is an example using:
+sudo docker run -it --entrypoint="/bin/bash" -v PC local directory: Docker directory imageID, here is an example using:
 sudo docker run -it --entrypoint="/bin/bash" -v /mnt/data/kairui.wang/test:/mnt/test 9c2ca340973e
 ```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+```shell
+## Create a directory
+cd /mnt/data/kairui.wang/test
+mkdir -p cc_ws/tros_ws/src
+## Obtain the Docker for cross-compilation
+wget http://sunrise.horizon.cc/TogetheROS/cross_compile_docker/pc_tros_ubuntu22.04_v1.0.0.tar.gz
+## Load the Docker image
+sudo docker load --input pc_tros_ubuntu22.04_v1.0.0.tar.gz 
+## Check the corresponding image ID for pc_tros
+sudo docker images
+## Launch Docker and mount the directory
+sudo docker run -it --entrypoint="/bin/bash" -v PC local directory: Docker directory imageID, here is an example using:
+sudo docker run -it --entrypoint="/bin/bash" -v /mnt/data/kairui.wang/test:/mnt/test 9c2ca340973e
+```
+
+</TabItem>
+</Tabs>
 
 #### 2 Obtain the Code
 
@@ -40,15 +68,36 @@ All the following operations are performed within the Docker environment on the 
 
 Here, we take the /mnt/test directory in Docker as an example.
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```shell
 cd /mnt/test/cc_ws/tros_ws
 ## Obtain the configuration file
-git clone https://github.com/HorizonRDK/robot_dev_config.git -b develop
+git clone https://github.com/HorizonRDK/robot_dev_config.git -b foxy
 ## Execute cd robot_dev_config and use the "git tag --list" command to view the available release versions
 ## Use the "git reset --hard [tag number]" command to specify the release version. For detailed instructions, refer to the "Compile Specific Version tros.b" section on this page
 ## Pull the source code
 vcs-import src < ./robot_dev_config/ros2_release.repos
 ```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+
+```shell
+cd /mnt/test/cc_ws/tros_ws
+## Obtain the configuration file
+git clone https://github.com/HorizonRDK/robot_dev_config.git -b develop 
+## Execute cd robot_dev_config and use the "git tag --list" command to view the available release versions
+## Use the "git reset --hard [tag number]" command to specify the release version. For detailed instructions, refer to the "Compile Specific Version tros.b" section on this page
+## Pull the source code
+vcs-import src < ./robot_dev_config/ros2_release.repos 
+```
+
+</TabItem>
+</Tabs>
+
 The directory structure of the entire project is as follows:
 
 ```text

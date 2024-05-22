@@ -4,6 +4,11 @@ sidebar_position: 2
 
 # 4.2 Navigation2
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 Nav2 (Navigation2) is a built-in navigation framework in ROS2, aimed at finding a safe way for a mobile robot to move from point A to point B. Nav2 can also be applied to other robot navigation applications, such as dynamic point tracking, which requires dynamic path planning, motor speed calculation, and obstacle avoidance.
@@ -14,17 +19,20 @@ Nav2 (Navigation2) is a built-in navigation framework in ROS2, aimed at finding 
 
 | Platform                | Execution      | Function             |
 | ----------------------- | -------------- | --------------------------------- |
-| RDK X3, RDK X3 Module    | Ubuntu 20.04   | Start the simulation environment on the PC and start the navigation function on the Horizon RDK, and finally display the navigation effect through Rviz2 |
+| RDK X3, RDK X3 Module    | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)   | Start the simulation environment on the PC and start the navigation function on the Horizon RDK, and finally display the navigation effect through Rviz2 |
 
 ## Preparation
 
 ### Horizon RDK
 
-1. The Horizon RDK has been flashed with the Ubuntu 20.04 image provided by Horizon.
+1. The Horizon RDK has been flashed with the  Ubuntu 20.04/22.04 image provided by Horizon.
 
 2. The Horizon RDK has successfully installed tros.b.
 
 3. After tros.b is successfully installed, install Nav2.
+
+ <Tabs groupId="tros-distro">
+ <TabItem value="foxy" label="Foxy">
 
    ```shell
    sudo apt update 
@@ -32,19 +40,48 @@ Nav2 (Navigation2) is a built-in navigation framework in ROS2, aimed at finding 
    sudo apt install ros-foxy-nav2-bringup
    ```
 
-4. The PC on the same network segment as the Horizon RDK has installed Ubuntu 20.04 system, ROS2 Foxy desktop version, simulation environment Gazebo, and data visualization tool Rviz2.
-
-   Reference for ROS2 Foxy installation: https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html
-
-   After successful installation of ROS2 Foxy on the PC, install the Gazebo and Turtlebot3 related packages as well as navigation2, using the following commands:
+ </TabItem>
+ <TabItem value="humble" label="Humble">
 
    ```shell
-   sudo apt install ros-foxy-gazebo-*
-   sudo apt install ros-foxy-turtlebot3*
-   
-   sudo apt install ros-foxy-navigation2
-   sudo apt install ros-foxy-nav2-bringup
+   sudo apt update 
+   sudo apt install ros-humble-navigation2
+   sudo apt install ros-humble-nav2-bringup
    ```
+
+ </TabItem>
+ </Tabs>
+
+4. The PC on the same network segment as the Horizon RDK has installed Ubuntu 20.04/22.04 system, ROS2 desktop version, simulation environment Gazebo, and data visualization tool Rviz2.
+
+ <Tabs groupId="tros-distro">
+ <TabItem value="foxy" label="Foxy">
+
+   - Ubuntu 20.04 system and [ROS2 Foxy Desktop Full](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
+   - Gazebo and Turtlebot3 related packages. Installation commands:
+
+    ```bash
+    sudo apt-get install ros-foxy-gazebo-*
+    sudo apt install ros-foxy-turtlebot3*
+    sudo apt install ros-foxy-navigation2
+    sudo apt install ros-foxy-nav2-bringup
+    ```
+
+ </TabItem>
+ <TabItem value="humble" label="Humble">
+
+   - Ubuntu 22.04 system and [ROS2 Humble Desktop Full](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
+   - Gazebo and Turtlebot3 related packages. Installation commands:
+
+    ```bash
+    sudo apt-get install ros-humble-gazebo-*
+    sudo apt install ros-humble-turtlebot3*
+    sudo apt install ros-humble-navigation2
+    sudo apt install ros-humble-nav2-bringup
+    ```
+
+ </TabItem>
+ </Tabs>
 
 ## User Guide
 
@@ -54,8 +91,24 @@ This section describes how to set up a simulation environment on the PC, how to 
 
 1. Start the gazebo simulation environment on the **PC**.
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
    ```shell
    source /opt/ros/foxy/setup.bash
+   ```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+   ```shell
+   source /opt/ros/humble/setup.bash
+   ```
+
+</TabItem>
+</Tabs>
+
+   ```shell
    export TURTLEBOT3_MODEL=waffle
    ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
    ```
@@ -66,16 +119,47 @@ This section describes how to set up a simulation environment on the PC, how to 
 
 2. Start the navigation function on the **Horizon RDK**.
 
-   ```shell
-   source /opt/tros/setup.bash
+   <Tabs groupId="tros-distro">
+   <TabItem value="foxy" label="Foxy">
 
+   ```bash
+   source /opt/tros/setup.bash
    ros2 launch nav2_bringup bringup_launch.py use_sim_time:=True map:=/opt/ros/foxy/share/nav2_bringup/maps/turtlebot3_world.yaml
    ```
 
+   </TabItem>
+
+   <TabItem value="humble" label="Humble">
+
+   ```bash
+   source /opt/tros/humble/setup.bash
+   ros2 launch nav2_bringup bringup_launch.py use_sim_time:=True map:=/opt/ros/humble/share/nav2_bringup/maps/turtlebot3_world.yaml
+   ```
+
+   </TabItem>
+
+   </Tabs>
+
 3. Start the Rviz2 tool on the **PC**.
+
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
    ```shell
    source /opt/ros/foxy/setup.bash
+   ```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+   ```shell
+   source /opt/ros/humble/setup.bash
+   ```
+
+</TabItem>
+</Tabs>
+
+   ```shell
    ros2 launch nav2_bringup rviz_launch.py
    ```
 

@@ -1,5 +1,11 @@
 # Monocular 3D Indoor Detection
 
+
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 The mono3d_indoor_detection package is an example of indoor object 3D detection algorithm based on the hobot_dnn package. It uses the 3D detection model and indoor data on the Horizon's Horizon RDK to perform model inference using BPU and obtain the inference results.
@@ -24,13 +30,13 @@ Applications: The monocular 3D indoor detection algorithm can directly identify 
 
 | Platform              | System | Function                                       |
 | --------------------- | ---------------- | ----------------------------------------------------- |
-| RDK X3, RDK X3 Module | Ubuntu 20.04     | · Start MIPI/USB camera/local data and save the inference rendering result locally |
+| RDK X3, RDK X3 Module | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)     | · Start MIPI/USB camera/local data and save the inference rendering result locally |
 
 ## Preparation
 
 ### Horizon RDK
 
-1. Horizon RDK has been flashed with the Ubuntu 20.04 system image provided by Horizon.
+1. Horizon RDK has been flashed with the  Ubuntu 20.04/22.04 system system image provided by Horizon.
 
 2. TogetheROS.Bot has been successfully installed on the Horizon RDK.
 
@@ -42,14 +48,32 @@ The mono3d_indoor_detection algorithm package uses local image input for inferen
 
 ### Horizon RDK
 
-```shell
-# Configure tros environment
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
+# Configure the tros.b environment
 source /opt/tros/setup.bash
+```
 
-# Copy the required configuration files from the installation path of tros.b.
-cp -r /opt/tros/lib/mono3d_indoor_detection/config/ .
+</TabItem>
 
-# Launch the launch file
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+# Copy the configuration file required for running the example from the installation path of tros.b.
+cp -r /opt/tros/${TROS_DISTRO}/lib/mono3d_indoor_detection/config/ .
+
+# Start the launch file
 ros2 launch mono3d_indoor_detection mono3d_indoor_detection.launch.py 
 ```
 

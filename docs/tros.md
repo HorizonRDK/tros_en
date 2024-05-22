@@ -13,7 +13,7 @@ Horizon Robotics Developer Kits, referred to as [Horizon RDK](https://developer.
 The code of TogetheROS.Bot is hosted on GitHub under the HorizonRDK organization link: [HorizonRDK](https://github.com/HorizonRDK).
 
 ## Communication
-Communication is Horizon's optimized and extended communication component on ROS2 Foxy version.
+Communication is Horizon's optimized and extended communication component on ROS2 Foxy/Humble version.
 
 Main Features include:
 
@@ -26,7 +26,7 @@ The blue sections indicate the modules optimized and added by Horizon, and the m
 - Provide "hobot Render" for web-based and HDMI dynamic visualization, real-time rendering of algorithm results (limited to web-based), facilitating display and debugging.
 - Add "zero-copy" inter-process zero-copy communication mechanism to reduce data transmission latency and system resource consumption.
 - Enhance middleware software debugging and performance tuning tools, improve problem localization efficiency, and facilitate system performance optimization.
-- Fully compatible with ROS2 Foxy version, facilitating the reuse of ROS2 toolkits and speeding up prototype verification.
+- Fully compatible with ROS2 Foxy/Humble version, facilitating the reuse of ROS2 toolkits and speeding up prototype verification.
 - Support minimal and modular pruning, facilitating deployment in resource-constrained embedded products as needed.
 
 ## Boxs

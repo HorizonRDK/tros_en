@@ -1,5 +1,11 @@
 # Visual SLAM
 
+
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 SLAM stands for Simultaneous Localization and Mapping. ORB-SLAM3 is one of the most researched algorithms in this field. TogetheROS.Bot integrates, improves, and optimizes ORB-SLAM3 to facilitate the development of visual SLAM-based applications.
@@ -24,17 +30,36 @@ SLAM Mapping Example: [4.1 SLAM Mapping](../../apps/slam)
 
 | Platform                      | System |
 | ----------------------------- | -------------- |
-| RDK X3, RDK X3 Module  | Ubuntu 20.04  |
+| RDK X3, RDK X3 Module  | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)  |
 
 **Note**: SuperPoint optimization only supports RDK X3 and RDK X3 Module platforms.
 
 ## Preparation
 
-1. Horizon RDK is flashed with the provided Ubuntu 20.04 system image.
+1. Horizon RDK is flashed with the provided  Ubuntu 20.04/22.04 system image.
 
 2. TogetheROS.Bot is successfully installed on Horizon RDK.
 
-3. ORB-SLAM3 algorithm package is successfully installed on Horizon RDK using the command: `apt update; apt install tros-orb-slam3 tros-orb-slam3-example-ros2`.
+3. ORB-SLAM3 algorithm package is successfully installed on Horizon RDK using the command:
+
+   <Tabs groupId="tros-distro">
+   <TabItem value="foxy" label="Foxy">
+
+   ```bash
+   sudo apt update
+   sudo apt install tros-orb-slam3 tros-orb-slam3-example-ros2
+   ```
+
+   </TabItem>
+   <TabItem value="humble" label="Humble">
+
+   ```bash
+   sudo apt update
+   sudo apt install tros-humble-orb-slam3 tros-humble-orb-slam3-example-ros2
+   ```
+
+   </TabItem>
+   </Tabs>
 
 4. RealSense D435i camera is installed on Horizon RDK.
 
@@ -52,15 +77,32 @@ Dataset URL: <http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/vicon
 
 Command to run:
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```bash
-# Configure the tros.b environment
 source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```bash
 # Overclock X3 CPU to 1.5GHz
 sudo bash -c 'echo 1 > /sys/devices/system/cpu/cpufreq/boost'
 # Enable X3 CPU performance mode
 sudo bash -c 'echo performance > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor'
 # Go to the ORB_SLAM3 project directory
-cd /opt/tros/share/orb_slam3
+cd /opt/tros/${TROS_DISTRO}/share/orb_slam3
 # Unzip the dataset - V2_01_easy.zip needs to be downloaded separately!
 unzip V2_01_easy.zip -d V2_01_easy
 # Extract the bag-of-words library
@@ -80,12 +122,28 @@ The tros.b has developed a set of sample programs based on ORB-SLAM3 and ROS2, w
 
 The latest version of the image has applied UVC and HID driver patches for the RealSense series camera to the kernel. After installing the RealSense SDK and ROS2 package using the apt command, you can directly use the test program. The installation method for ROS2 package coexisting with tros.b can be found in [1.5 Using ROS2 package](../../quick_start/ros_pkg.md).
 
+ <Tabs groupId="tros-distro">
+ <TabItem value="foxy" label="Foxy">
+
+ ```bash
+ # Configure the tros.b environment
+ source /opt/tros/setup.bash
+ ```
+
+ </TabItem>
+ <TabItem value="humble" label="Humble">
+
+ ```bash
+ # Configure the tros.b environment
+ source /opt/tros/humble/setup.bash
+ ```
+
+ </TabItem>
+ </Tabs>
+
 ```bash
-# Display the current ROS version. If it is empty, please source /opt/tros/setup.bash
-echo $ROS_DISTRO
-# Install RealSense SDK
-sudo apt-get install ros-$ROS_DISTRO-librealsense2* -y
-# Install RealSense ROS wrapper
+echo $ROS_DISTRO 
+sudo apt-get install ros-$ROS_DISTRO-librealsense2* -y 
 sudo apt-get install ros-$ROS_DISTRO-realsense2-camera -y
 sudo apt-get install ros-$ROS_DISTRO-realsense2-description -y
 ```
@@ -94,27 +152,63 @@ After installation, we start the Realsense camera as an image publishing node an
 
 Next, we log in to RDK using the root account (password: root) and start the Realsense D435i camera. Otherwise, insufficient permissions will prevent the camera from starting correctly.
 
-```bash
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
-# Start D435i and publish image data
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```bash
 ros2 launch realsense2_camera rs_launch.py enable_depth:=false enable_color:=false enable_infra1:=true depth_module.profile:=640x480x15 
 ```
+
 
 After the camera is started, you can observe the following logs from the console:
 ![](./image/box_adv/realsense.png)
 
 Next, we start the visual SLAM node:
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```bash
-# Configure tros.b environment
 source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```bash
 # Overclock X3 CPU to 1.5GHz
 sudo bash -c 'echo 1 > /sys/devices/system/cpu/cpufreq/boost'
 # Enable X3 CPU performance mode
 sudo bash -c 'echo performance > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor'
 # Enter working directory
-cd /opt/tros/share/orb_slam3
+cd /opt/tros/${TROS_DISTRO}/share/orb_slam3
 # Unzip the bag-of-words library
 tar -xvf ./Vocabulary/ORBvoc.txt.tar.gz
 # Start ORB-SLAM3 monocular processing node

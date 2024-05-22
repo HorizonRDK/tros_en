@@ -3,6 +3,12 @@ sidebar_position: 1
 ---
 # Human Detection and Tracking
 
+
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 The human detection and tracking algorithm example subscribes to images and utilizes BPU for inference. It publishes messages containing detection results for human bodies, heads, faces, hand boxes, and body keypoints, and achieves tracking of detection boxes through the multi-target tracking (MOT).
@@ -34,13 +40,13 @@ Game Character Control Example based on Human Pose Analysis and Gesture Recognit
 
 | Platform                            | System | Function                                     |
 | ----------------------------------- | -------------- | -------------------------------------------------------- |
-| RDK X3, RDK X3 Module tu 20.04   | · Start MIPI/USB camera/local video and display inference rendering results via web      |
+| RDK X3, RDK X3 Module | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble) | Start MIPI/USB camera/local video and display inference rendering results via web      |
 
 ## Preparation
 
 ### Horizon RDK
 
-1. Horizon RDK has flashed the Ubuntu 20.04 system image provided by Horizon.
+1. Horizon RDK has flashed the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. Horizon RDK has successfully installed TogetheROS.Bot.
 
@@ -56,48 +62,105 @@ The mono2d_body_detection package for human detection and tracking subscribes to
 
 **Use MIPI Camera to Publish Images**
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
 # Configure the tros.b environment
 source /opt/tros/setup.bash
+```
 
-# Copy the required configuration files from the installation path of tros.b
-cp -r /opt/tros/lib/mono2d_body_detection/config/ .
+</TabItem>
 
-# Configure the MIPI camera
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+# Copy the configuration file required for running the example from the installation path of tros.b.
+cp -r /opt/tros/${TROS_DISTRO}/lib/mono2d_body_detection/config/ .
+
+# Configuring MIPI camera
 export CAM_TYPE=mipi
 
-# Launch the launch file
+# Start the launch file
 ros2 launch mono2d_body_detection mono2d_body_detection.launch.py
 ```
 
 **Use USB Camera to Publish Images**
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
 # Configure the tros.b environment
 source /opt/tros/setup.bash
+```
 
-# Copy the required configuration files from the installation path of tros.b
-cp -r /opt/tros/lib/mono2d_body_detection/config/ .
+</TabItem>
 
-# Configure the USB camera
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+
+# Copy the configuration file required for running the example from the installation path of tros.b.
+cp -r /opt/tros/${TROS_DISTRO}/lib/mono2d_body_detection/config/ .
+
+# Configuring USB camera
 export CAM_TYPE=usb
 
-# Launch the launch file
+# Start the launch file
 ros2 launch mono2d_body_detection mono2d_body_detection.launch.py
 ```
 
 **Use Local Image Offline**
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
 # Configure the tros.b environment
-source /opt/tros/setup.bash# Copy the configuration files required for running the example from the installation path of tros.b.
-cp -r /opt/tros/lib/mono2d_body_detection/config/ .
-cp -r /opt/tros/lib/dnn_node_example/config/ .
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+# Copy the configuration file required for running the example from the installation path of tros.b.
+cp -r /opt/tros/${TROS_DISTRO}/lib/mono2d_body_detection/config/ .
+cp -r /opt/tros/${TROS_DISTRO}/lib/dnn_node_example/config/ .
 
 # Configure the local playback image.
 export CAM_TYPE=fb
 
-# Start the launch file.
+# Start the launch file
 ros2 launch mono2d_body_detection mono2d_body_detection.launch.py
 ```
 

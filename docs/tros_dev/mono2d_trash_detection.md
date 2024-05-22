@@ -4,6 +4,11 @@ sidebar_position: 5
 
 # 5.5 Garbage Detection
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 The mono2d_trash_detection package is an example of 2D garbage object detection algorithm developed based on the hobot_dnn package. Unlike previous functionality demonstrations, this example will demonstrate how to train models based on open-source frameworks, convert models using the Horizon toolchain, and deploy the algorithm in the Horizon Robot Operating System.
@@ -26,7 +31,7 @@ The supported object detection categories for the algorithm are as follows:
 
 | Platform         | System | Function                                             |
 | ---------------- | -------------- | ------------------------------------------------------------ |
-| RDK X3, RDK X3 Module | Ubuntu 20.04      | · Start MIPI/USB camera/local image inference, render and display results on the web/save locally |
+| RDK X3, RDK X3 Module | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble) | · Start MIPI/USB camera/local image inference, render and display results on the web/save locally |
 
 ## Preparation
 
@@ -40,7 +45,7 @@ If the pre-processing and post-processing steps are different from the above mod
 
 ### Horizon RDK
 
-1. The Horizon RDK has been flashed with the Ubuntu 20.04 system image provided by Horizon.
+1. The Horizon RDK has been flashed with the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. TogetheROS.Bot has been successfully installed on the Horizon RDK.
 
@@ -110,10 +115,28 @@ The package publishes algorithm messages that include semantic segmentation and 
 
 **Publish Images using MIPI camera**
 
-```shell
-# Configure ROS2 environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 # Copy the required configuration files from the tros installation path.
 cp -r /opt/tros/lib/mono2d_trash_detection/config/ .
 
@@ -126,10 +149,28 @@ ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:
 
 **Publish Images using USB camera**
 
-```shell
-# Configure ROS2 environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 # Copy the required configuration files from the tros installation path.
 cp -r /opt/tros/lib/mono2d_trash_detection/config/ .
 
@@ -142,10 +183,28 @@ ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:
 
 **Use A Local Image Offline**
 
-```shell
-# ROS2 Environment Configuration
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 # Copy the configuration files needed for running the example from the installation path of tros.
 cp -r /opt/tros/lib/mono2d_trash_detection/config/ .
 

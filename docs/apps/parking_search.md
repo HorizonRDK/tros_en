@@ -4,6 +4,11 @@ sidebar_position: 8
 
 # 4.8 Car Parking Space Search
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 The Car Parking Space Search control app guides the robot to move to a parking space using parking detection algorithms, including left and right rotation and forward and backward translation. The app consists of MIPI image acquisition, parking detection algorithm, parking search control strategy, image encoding and decoding, and web display end. The process is shown in the following image:
@@ -18,7 +23,7 @@ Code repository: <https://github.com/HorizonRDK/parking_search.git>
 
 | Platform         | System | Function                            |
 | ---------------- | -------------- | ------------------------------------------- |
-| RDK X3, RDK X3 Module | Ubuntu 20.04   | Start MIPI/USB camera to capture images, and perform parking area detection and parking space search, finally demonstrating the search effect through the motion of the actual car. |
+| RDK X3, RDK X3 Module | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)   | Start MIPI/USB camera to capture images, and perform parking area detection and parking space search, finally demonstrating the search effect through the motion of the actual car. |
 
 ## Design Description
 
@@ -52,7 +57,7 @@ Note: In actual detection, due to the fact that the detection accuracy of the al
 
 ### Horizon RDK
 
-1. The Horizon RDK has been flashed with the Ubuntu 20.04 system image provided by Horizon.
+1. The Horizon RDK has been flashed with the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. The Horizon RDK has successfully installed TogetheROS.Bot.
 
@@ -74,11 +79,28 @@ Open the Web interface and click on the settings in the upper right corner of th
 
 Start the car and run the control node on the Horizon RDK:
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```shell
 source /opt/tros/setup.bash
 source /userdata/originbot/local_setup.bash
 ros2 run originbot_base originbot_base
 ```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```shell
+source /opt/tros/humle/setup.bash
+source /userdata/originbot/local_setup.bash
+ros2 run originbot_base originbot_base
+```
+
+</TabItem>
+
+</Tabs>
 
 After the startup is successful, the Horizon RDK will output log information:
 
@@ -94,34 +116,61 @@ Loading parameters:
 
 **Publishing Images Using MIPI Camera**
 
-```shell
-# Configure the tros.b environment
-source /opt/tros/setup.bash
-```# Copy the configuration files needed to run the example from the installation path of tros.b.
-cp -r /opt/tros/lib/parking_perception/config/ .
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
-# Configure the MIPI camera
+```shell
+source /opt/tros/setup.bash
+cp -r /opt/tros/${TROS_DISTRO}/lib/parking_perception/config/ .
 export CAM_TYPE=mipi
 
-# Launch the launch file
 ros2 launch parking_search parking_search.launch.py
 ```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```shell
+source /opt/tros/humble/setup.bash
+cp -r /opt/tros/${TROS_DISTRO}/lib/parking_perception/config/ .
+export CAM_TYPE=mipi
+
+ros2 launch parking_search parking_search.launch.py
+```
+
+</TabItem>
+
+</Tabs>
 
 **Publishing images using a USB camera**
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```shell
-# Configure the tros.b environment
 source /opt/tros/setup.bash
-
-# Copy the configuration files needed to run the example from the installation path of tros.b.
-cp -r /opt/tros/lib/parking_perception/config/ .
-
-# Configure the USB camera
+cp -r /opt/tros/${TROS_DISTRO}/lib/parking_perception/config/ .
 export CAM_TYPE=usb
 
-# Launch the launch file
 ros2 launch parking_search parking_search.launch.py
 ```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```shell
+source /opt/tros/humble/setup.bash
+cp -r /opt/tros/${TROS_DISTRO}/lib/parking_perception/config/ .
+export CAM_TYPE=usb
+
+ros2 launch parking_search parking_search.launch.py
+```
+
+</TabItem>
+
+</Tabs>
 
 ## Result Analysis
 

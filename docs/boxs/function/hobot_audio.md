@@ -1,5 +1,11 @@
 # Intelligent Voice
 
+
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 The Horizon intelligent voice algorithm adopts a local offline mode, subscribes to audio data and sends it to BPU for processing, and then publishes messages such as **wake-up, command word recognition**, **DOA（Direction of Arrival）**, and **ASR（Automatic Speech Recognition）**. The implementation of intelligent voice function corresponds to the **hobot_audio** package of TogetheROS.Bot, which is suitable for the circular and linear four-microphone arrays supported by Horizon RDK.
@@ -20,9 +26,29 @@ Example of voice-controlled car movement: [4.6 Voice-controlled car movement](..
 
 ## Preparation
 
-1. The Horizon RDK has been burned with the Ubuntu 20.04 system image provided by Horizon.
+1. The Horizon RDK has been burned with the  Ubuntu 20.04/22.04 system image provided by Horizon.
 2. The TogetheROS.Bot has been successfully installed on the Horizon RDK.
-3. The intelligent voice algorithm package has been successfully installed on the Horizon RDK, installation command: `apt update; apt install tros-hobot-audio`.
+3. The intelligent voice algorithm package has been successfully installed on the Horizon RDK, installation command:
+
+   <Tabs groupId="tros-distro">
+   <TabItem value="foxy" label="Foxy">
+
+   ```bash
+   sudo apt update
+   sudo apt install tros-hobot-audio
+   ```
+
+   </TabItem>
+   <TabItem value="humble" label="Humble">
+
+   ```bash
+   sudo apt update
+   sudo apt install tros-humble-hobot-audio
+   ```
+
+   </TabItem>
+   </Tabs>
+
 4. Connect the circular or linear four-microphone audio board to the Horizon RDK according to the following method.
 
 ### Connect the audio board
@@ -123,9 +149,28 @@ To run the hobot_audio package on the Horizon RDK:
 
 1. Copy the configuration file
 
+ <Tabs groupId="tros-distro">
+ <TabItem value="foxy" label="Foxy">
+
+    ```bash
+    # Configure the tros.b environment
+    source /opt/tros/setup.bash
+    ```
+
+ </TabItem>
+ <TabItem value="humble" label="Humble">
+
+    ```bash
+    # Configure the tros.b environment
+    source /opt/tros/humble/setup.bash
+    ```
+
+ </TabItem>
+ </Tabs>
+
    ```shell
-   # Copy the configuration file required for running the example from the TROS.B installation path. Ignore this step if you have already copied it.
-   cp -r /opt/tros/lib/hobot_audio/config/ .
+   # Copy the configuration file required for running the example from the installation path of tros.b.
+   cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_audio/config/ .
    ```
 
 2. Confirm the configuration file
@@ -156,6 +201,9 @@ To run the hobot_audio package on the Horizon RDK:
 
 3. Configure the tros.b environment and launch the application
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
    ```shell
    # Configure the tros.b environment
    source /opt/tros/setup.bash
@@ -163,9 +211,28 @@ To run the hobot_audio package on the Horizon RDK:
    # Disable debug print information
    export GLOG_minloglevel=3
 
-   # Launch the launch file
+   # Start the launch file
    ros2 launch hobot_audio hobot_audio.launch.py
    ```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+   ```shell
+   # Configure the tros.b environment
+   source /opt/tros/humble/setup.bash
+
+   # Disable debug print information
+   export GLOG_minloglevel=3
+
+   # Start the launch file
+   ros2 launch hobot_audio hobot_audio.launch.py
+   ```
+
+</TabItem>
+
+</Tabs>
 
 ## Result Analysis
 

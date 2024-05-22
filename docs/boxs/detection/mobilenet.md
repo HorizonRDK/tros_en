@@ -3,6 +3,11 @@ sidebar_position: 3
 ---
 # MobileNet_SSD
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 The MobileNet_SSD detection algorithm uses images as input, performs inference using BPU, and publishes messages that include target categories and detection boxes.
@@ -17,13 +22,13 @@ Application scenarios: MobileNet_SSD is an object detection algorithm based on M
 
 | Platform                 | System | Function                                             |
 | ------------------------ | ---------------- | ------------------------------------------------------------ |
-| RDK X3, RDK X3 Module    | Ubuntu 20.04     | · Start the MIPI/USB camera and display the inference through the web<br/>· Use local data to save the results offline |
+| RDK X3, RDK X3 Module    | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)     | · Start the MIPI/USB camera and display the inference through the web<br/>· Use local data to save the results offline |
 
 ## Preparation
 
 ### Horizon RDK
 
-1. Horizon RDK has burned the Ubuntu 20.04 system image provided by Horizon.
+1. Horizon RDK has burned the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. Horizon RDK has successfully installed TogetheROS.Bot.
 
@@ -39,11 +44,29 @@ Application scenarios: MobileNet_SSD is an object detection algorithm based on M
 
 The MobileNet_SSD detection algorithm subscribes to the images published by the sensor package, performs inference, and publishes algorithm messages. The algorithm messages and corresponding images are displayed on the PC browser using the websocket package.
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
 # Configure the tros.b environment
 source /opt/tros/setup.bash
+```
 
-# Configure the MIPI camera
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+# Configuring MIPI camera
 export CAM_TYPE=mipi
 
 # Start the launch file
@@ -52,11 +75,29 @@ ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:
 
 #### Use USB Camera to Publish Images
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
 # Configure the tros.b environment
 source /opt/tros/setup.bash
+```
 
-# Configure the USB camera
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+# Configuring USB camera
 export CAM_TYPE=usb
 
 # Start the launch file
@@ -67,10 +108,28 @@ ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:
 
 The MobileNet_SSD detection algorithm example uses local JPEG/PNG images offline. After inference, the results are stored in the local path.
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
 # Configure the tros.b environment
 source /opt/tros/setup.bash
+```
 
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 # Start the launch file
 ros2 launch dnn_node_example dnn_node_example_feedback.launch.py dnn_example_config_file:=config/mobilenet_ssd_workconfig.json dnn_example_image:=config/target.jpg
 ```

@@ -3,6 +3,12 @@ sidebar_position: 8
 ---
 # Road Structuring
 
+
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 The parking_perception package is a road structuring algorithm based on hobot_dnn package, which uses BPU for model inference to obtain algorithm results.
@@ -41,13 +47,13 @@ Car parking space search case: [4.8. Car Parking Space Search](../../apps/parkin
 
 | Platform             | System | Function                                            |
 | -------------------- | ---------------- | ------------------------------------------------------------|
-| RDK X3, RDK X3 Module| Ubuntu 20.04     | · Start MIPI/USB camera/local image offline, inference rendering results displayed/saved locally on the Web| 
+| RDK X3, RDK X3 Module| Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble) | Start MIPI/USB camera/local image offline, inference rendering results displayed/saved locally on the Web| 
 
 ## Preparation
 
 ### Horizon RDK
 
-1. The Horizon RDK has burned the Ubuntu 20.04 system image provided by Horizon.
+1. The Horizon RDK has burned the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. The Horizon RDK has successfully installed TogetheROS.Bot.
 
@@ -59,51 +65,126 @@ The package publishes algorithm messages that include semantic segmentation and 
 
 **Publishing images from MIPI camera**
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```shell
-# Set up ROS2 environment
+# Configure the tros.b environment
 source /opt/tros/setup.bash
 
-# Copy the required configuration files from the installation path of tros.b
-cp -r /opt/tros/lib/parking_perception/config/ .
+# Copy the configuration file required for running the example from the installation path of tros.b.
+cp -r /opt/tros/${TROS_DISTRO}/lib/parking_perception/config/ .
 
-# Configure MIPI camera
+# Configuring MIPI camera
 export CAM_TYPE=mipi
 
-# Launch the launch file
+# Start the launch file
 ros2 launch parking_perception parking_perception.launch.py 
 ```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```shell
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+
+# Copy the configuration file required for running the example from the installation path of tros.b.
+cp -r /opt/tros/${TROS_DISTRO}/lib/parking_perception/config/ .
+
+# Configuring MIPI camera
+export CAM_TYPE=mipi
+
+# Start the launch file
+ros2 launch parking_perception parking_perception.launch.py 
+```
+
+</TabItem>
+
+</Tabs>
 
 **Publishing images from USB camera**
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```shell
-# Set up ROS2 environment
+# Configure the tros.b environment
 source /opt/tros/setup.bash
 
-# Copy the required configuration files from the installation path of tros
-cp -r /opt/tros/lib/parking_perception/config/ .
+# Copy the configuration file required for running the example from the installation path of tros.b.
+cp -r /opt/tros/${TROS_DISTRO}/lib/parking_perception/config/ .
 
-# Configure USB camera
+# Configuring USB camera
 export CAM_TYPE=usb
 
-# Launch the launch file
+# Start the launch file
 ros2 launch parking_perception parking_perception.launch.py 
 ```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```shell
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+
+# Copy the configuration file required for running the example from the installation path of tros.b.
+cp -r /opt/tros/${TROS_DISTRO}/lib/parking_perception/config/ .
+
+# Configuring USB camera
+export CAM_TYPE=usb
+
+# Start the launch file
+ros2 launch parking_perception parking_perception.launch.py 
+```
+
+</TabItem>
+
+</Tabs>
 
 **Using a single image offline**
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```shell
-# Configuring ROS2 environment
+# Configure the tros.b environment
 source /opt/tros/setup.bash
 
-# Copying the required configuration files for running the example from the installation path of tros.
-cp -r /opt/tros/lib/parking_perception/config/ .
+# Copy the configuration file required for running the example from the installation path of tros.b.
+cp -r /opt/tros/${TROS_DISTRO}/lib/parking_perception/config/ .
 
-# Configuring the image for feedback
+# Configure the local playback image.
 export CAM_TYPE=fb
 
-# Launching the launch file
+# Start the launch file
 ros2 launch parking_perception parking_perception.launch.py 
 ```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```shell
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+
+# Copy the configuration file required for running the example from the installation path of tros.b.
+cp -r /opt/tros/${TROS_DISTRO}/lib/parking_perception/config/ .
+
+# Configure the local playback image.
+export CAM_TYPE=fb
+
+# Start the launch file
+ros2 launch parking_perception parking_perception.launch.py 
+```
+
+</TabItem>
+
+</Tabs>
 
 ## Result Analysis
 

@@ -3,6 +3,12 @@ sidebar_position: 12
 ---
 # Visual Inertial Odometry Algorithm
 
+
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 Visual Inertial Odometry (VIO) is an algorithm that combines camera and Inertial Measurement Unit (IMU) data to achieve robot localization. VIO positioning algorithm has the advantages of low cost and wide applicability. It can effectively compensate for the failure scenarios such as obstruction and multi-path interference in satellite positioning in outdoor environments. Excellent and robust VIO algorithm is the key to achieve high-precision outdoor navigation positioning.
@@ -15,11 +21,11 @@ Code Repository: <https://github.com/HorizonRDK/hobot_vio.git>
 
 | Platform                       | System | Function                                            |
 | ------------------------------ | ---------------- | ------------------------------------------------------------ |
-| RDK X3, RDK X3 Module 20.04     | Use realsense camera images and IMU data as algorithm inputs; Algorithm outputs robot motion trajectory that can be visualized in rviz2 on PC. |
+| RDK X3, RDK X3 Module | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble) | Use realsense camera images and IMU data as algorithm inputs; Algorithm outputs robot motion trajectory that can be visualized in rviz2 on PC. |
 
 ## Prerequisites
 
-1. RDK has been flashed with the Ubuntu 20.04 system image provided by Horizon.
+1. RDK has been flashed with the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. TogetheROS.Bot and Realsense ROS2 Package have been successfully installed on RDK.
 
@@ -31,10 +37,28 @@ Code Repository: <https://github.com/HorizonRDK/hobot_vio.git>
 
 The algorithm subscribes to the images and IMU data from the realsense camera as inputs. After processing, it calculates the trajectory information of the camera and publishes the camera's motion trajectory using the ROS2 topic mechanism. The trajectory result can be viewed in the rviz2 software on the PC. 
 
-```shell
-# Configure the tros.b environment
-```source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 ros2 launch hobot_vio hobot_vio.launch.py 
 ```
 

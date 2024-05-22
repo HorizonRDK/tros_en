@@ -3,9 +3,14 @@ sidebar_position: 5
 ---
 # 1.5 Using ROS2 package
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 Prerequisite: TogetheROS.Bot installed successfully
 
-tros.b foxy version interface is fully compatible and able to reuse the ROS2 toolset. Here, we use the installation and usage of ROS2 foxy version ros-foxy-image-transport as an example to introduce how to use ROS2 package in tros.b.
+The interfaces of tros.b and the ROS2 Foxy/Humble version are fully compatible and can reuse the ROS2 rich tool package. Here we take the installation and use of the ROS2 foxy version ros-foxy-image-transport as an example to introduce how to use the ROS package in tros.b.
 
 ## Installing ROS2 package
 

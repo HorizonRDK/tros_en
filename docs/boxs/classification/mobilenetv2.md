@@ -3,6 +3,11 @@ sidebar_position: 1
 ---
 # mobilenetv2
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 The mobilenetv2 image classification algorithm example uses images as input and utilizes the BPU for inference. It publishes messages containing object categories.
@@ -23,7 +28,7 @@ Applications: mobilenetv2 is capable of predicting the category of a given image
 
 ### Horizon RDK
 
-1. Horizon RDK has been flashed with the provided Ubuntu 20.04 system image.
+1. Horizon RDK has been flashed with the provided  Ubuntu 20.04/22.04 system image.
 
 2. The tros.b has been successfully installed on Horizon RDK.
 
@@ -39,27 +44,55 @@ Subscribe to the images published by the sensor package for mobilenetv2 image cl
 
 #### Use MIPI Camera to Publish Images
 
-```shell
-# Configure TogetheROS environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
-# Configure MIPI camera
+```bash
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 export CAM_TYPE=mipi
 
-# Launch the launch file
 ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:=config/mobilenetv2workconfig.json dnn_example_image_width:=480 dnn_example_image_height:=272
-
 ```
+
 #### Use USB Camera to Publish Images
 
-```shell
-# Configure TogetheROS environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
-# Configure USB camera
+```bash
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 export CAM_TYPE=usb
 
-# Launch the launch file
 ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:=config/mobilenetv2workconfig.json dnn_example_image_width:=480 dnn_example_image_height:=272
 ```
 
@@ -67,11 +100,26 @@ ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:
 
 The mobilenetv2 image classification algorithm example can use local JPEG/PNG format images offline. After inference, the algorithm renders the resulting image and saves it in the local path.
 
-```shell
-# Configure TogetheROS environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
-# Launch the launch file
+```bash
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 ros2 launch dnn_node_example dnn_node_example_feedback.launch.py dnn_example_config_file:=config/mobilenetv2workconfig.json dnn_example_image:=config/target_class.jpg
 ```
 

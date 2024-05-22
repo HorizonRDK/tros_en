@@ -4,6 +4,11 @@ sidebar_position: 6
 
 # 5.6 Line Following
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 ![](./image/line_follower/demo.png)
 
@@ -27,7 +32,7 @@ Code repository: <https://github.com/HorizonRDK/line_follower>
 
 ### Horizon RDK
 
-1. Horizon RDK has been flashed with the Ubuntu 20.04 system image provided by Horizon.
+1. Horizon RDK has been flashed with the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. TogetheROS.Bot has been successfully installed on the Horizon RDK.
 
@@ -35,8 +40,19 @@ Code repository: <https://github.com/HorizonRDK/line_follower>
 
 4. The PC is in the same network segment (wired or connected to the same wireless network) as the Horizon RDK. The following environment needs to be installed on the PC:
 
-   - Ubuntu 20.04 system
-   - [ROS2 Foxy Desktop Full](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+   - Ubuntu 20.04 system and [ROS2 Foxy Desktop Full](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+   - Ubuntu 22.04 system and [ROS2 Humble Desktop Full](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
+
+</TabItem>
+</Tabs>
+
    - Algorithm toolchain for OE package (obtain by running the following command):
 `wget -c ftp://vrftp.horizon.ai/Open_Explorer_gcc_9.3.0/2.3.3/horizon_xj3_open_explorer_v2.3.3_20220727.tar.gz`
    - Algorithm toolchain for Docker (obtain by running the following command):
@@ -78,18 +94,53 @@ Data collection and annotation are essential for model training. Here, we utiliz
 
 On the Horizon RDK, start mipi_cam. The selected camera module is F37, and the output image format is BGR8 with a resolution of 960x544. The communication method is non-zero copy.
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
 ```shell
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-source /opt/tros/setup.bash
-
 ros2 launch mipi_cam mipi_cam.launch.py mipi_out_format:=bgr8 mipi_io_method:=mmap
 ```
 
 On the PC, run
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
+source  /opt/ros/foxy/setup.bash
+```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+```bash
+source  /opt/ros/humble/setup.bash
+```
+
+</TabItem>
+</Tabs>
+
 ```shell
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-source /opt/ros/foxy/setup.bash
 # Build line_follower_model, go to the line_follower_model directory
 colcon build --packages-select line_follower_model
 # Load the compiled line_follower_model
@@ -127,8 +178,24 @@ The code that completes this function is located in line_follower/line_follower_
 
 Running on the PC:
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
 source  /opt/ros/foxy/setup.bash
+```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+```bash
+source  /opt/ros/humble/setup.bash
+```
+
+</TabItem>
+</Tabs>
+
+```shell
 # Compile line_follower_model and enter the line_follower_model directory
 colcon build --packages-select line_follower_model
 # Load the compiled line_follower_model
@@ -227,8 +294,28 @@ For the complete code, please refer to: line_follower/line_follower_perception/s
 
 Copy the line_follower_perception folder and the compiled fixed-point model to the board for execution.
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
+# Configure the tros.b environment
 source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 # Execute in the line_follower_perception folder path
 clocon build --packages-select line_follower_perception
 ```
@@ -242,8 +329,28 @@ ros2 run line_follower_perception line_follower_perception --ros-args -p model_p
 
 Run mipi_cam.
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
+# Configure the tros.b environment
 source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 ros2 launch mipi_cam mipi_cam.launch.py &
 ```
 

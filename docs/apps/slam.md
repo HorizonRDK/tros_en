@@ -4,6 +4,11 @@ sidebar_position: 1
 
 # 4.1 SLAM
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 SLAM (Simultaneous Localization and Mapping) is a technique used to simultaneously estimate the location of a robot and create a map of its environment. In this chapter, we will use ROS2 SLAM-Toolbox to perform mapping on a simulated car in Gazebo, and observe the mapping results through Rviz2. The SLAM-Toolbox runs on the Horizon RDK, while Gazebo and Rviz2 run on a PC in the same network as the Horizon RDK.
@@ -18,29 +23,77 @@ SLAM (Simultaneous Localization and Mapping) is a technique used to simultaneous
 
 ### Horizon RDK
 
-1. The Horizon RDK has been flashed with the Ubuntu 20.04 image provided by Horizon.
+1. The Horizon RDK has been flashed with the  Ubuntu 20.04/22.04 image provided by Horizon.
 
 2. TogetheROS.Bot has been successfully installed on the Horizon RDK.
 
 3. After the successful installation of tros.b, install the SLAM-Toolbox:
 
+ <Tabs groupId="tros-distro">
+ <TabItem value="foxy" label="Foxy">
+
     ```bash
     sudo apt-get install ros-foxy-slam-toolbox
     ```
 
-4. The PC, which is in the same network as the Horizon RDK, has been installed with Ubuntu 20.04, ROS2 Foxy Desktop version, Gazebo simulation environment, and the data visualization tool Rviz2.
-
-    Installation documentation for ROS2 Foxy: https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html
-
-    After successful installation of ROS2 on the PC, install the Gazebo and Turtlebot3 related packages as follows:
+ </TabItem>
+ <TabItem value="humble" label="Humble">
 
     ```bash
+    sudo apt-get install ros-humble-slam-toolbox
+    ```
+
+ </TabItem>
+ </Tabs>
+
+:::caution
+If the installation fails and the error is as follows:
+
+ ```bash
+   The following packages have unmet dependencies:
+    ros-foxy-slam-toolbox : Depends: ros-foxy-nav2-map-server but it is not going to be installed
+   E: Unable to correct problems, you have held broken packages.
+ ```
+
+Please execute the following command before installing:
+ 
+   apt update
+
+   sudo apt install libwebp6=0.6.1-2ubuntu0.20.04.3
+:::
+
+4. The PC, which is in the same network as the Horizon RDK, has been installed with Ubuntu 20.04, ROS2 Foxy Desktop version, Gazebo simulation environment, and the data visualization tool Rviz2.
+
+ <Tabs groupId="tros-distro">
+ <TabItem value="foxy" label="Foxy">
+
+   - Ubuntu 20.04 system and [ROS2 Foxy Desktop Full](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
+   - Gazebo and Turtlebot3 related packages. Installation commands:
+
+   ```shell
     sudo apt-get install ros-foxy-gazebo-*
     sudo apt install ros-foxy-turtlebot3
     sudo apt install ros-foxy-turtlebot3-bringup
     sudo apt install ros-foxy-turtlebot3-simulations
     sudo apt install ros-foxy-teleop-twist-keyboard
+   ```
+
+ </TabItem>
+ <TabItem value="humble" label="Humble">
+
+   - Ubuntu 22.04 system and [ROS2 Humble Desktop Full](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
+   - Gazebo and Turtlebot3 related packages. Installation commands:
+
+    ```shell
+    sudo apt-get install ros-humble-gazebo-*
+    sudo apt install ros-humble-turtlebot3
+    sudo apt install ros-humble-turtlebot3-bringup
+    sudo apt install ros-humble-turtlebot3-simulations
+    sudo apt install ros-humble-teleop-twist-keyboard
     ```
+
+ </TabItem>
+ </Tabs>
 
 ## Usage
 
@@ -50,8 +103,24 @@ This section introduces how to use Horizon RDK to run SLAM and observe mapping e
 
 Start the simulation environment on the PC:
 
-```bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```shell
 source /opt/ros/foxy/setup.bash
+```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+```shell
+source /opt/ros/humble/setup.bash
+```
+
+</TabItem>
+</Tabs>
+
+```bash
 export TURTLEBOT3_MODEL=burger
 ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
 ```
@@ -61,8 +130,24 @@ The simulation environment is shown in the figure below:
 
 Open another console on the PC and start Rviz2 to observe the mapping effect:
 
-```bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```shell
 source /opt/ros/foxy/setup.bash
+```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+```shell
+source /opt/ros/humble/setup.bash
+```
+
+</TabItem>
+</Tabs>
+
+```bash
 ros2 launch turtlebot3_bringup rviz2.launch.py
 ```
 
@@ -71,18 +156,49 @@ After opening Rviz2, the "map" visualization option needs to be added to display
 
 Run SLAM-Toolbox on the Horizon RDK:
 
-```bash
-# Configure tros.b environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
-# Start the SLAM launch file
+```bash
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```bash
 ros2 launch slam_toolbox online_sync_launch.py
 ```
 
 Open another console on the PC and start the control tool to control the movement of the robot car with the keyboard. The control method can be found in the log printed on the console:
 
-```bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```shell
 source /opt/ros/foxy/setup.bash
+```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+```shell
+source /opt/ros/humble/setup.bash
+```
+
+</TabItem>
+</Tabs>
+
+```bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
 

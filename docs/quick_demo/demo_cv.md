@@ -3,6 +3,11 @@ sidebar_position: 4
 ---
 # 2.4 Image Processing Acceleration
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Gaussian Filtering
 
 ### Introduction
@@ -15,13 +20,13 @@ Code repository: <https://github.com/HorizonRDK/hobot_cv>
 
 | Platform               | System | Function                |
 | ---------------------- | -------------- | ------------------------------- |
-| RDK X3, RDK X3 Module   | Ubuntu 20.04   | Read ToF images and perform Gaussian filtering |
+| RDK X3, RDK X3 Module   | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)   | Read ToF images and perform Gaussian filtering |
 
 ### Preparation
 
 #### Horizon RDK
 
-1. Horizon RDK has burned Horizon's provided Ubuntu 20.04 system image.
+1. Horizon RDK has burned Horizon's provided  Ubuntu 20.04/22.04 system image.
 
 2. Horizon RDK has successfully installed TogetheROS.Bot.
 
@@ -59,12 +64,30 @@ The package provides a simple test program that takes a local ToF image and uses
 
 #### Horizon RDK
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
 # Configure the tros.b environment
 source /opt/tros/setup.bash
+```
 
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 # Copy the models and configuration files needed for running the examples from the installation path of tros.b.
-cp -r /opt/tros/lib/hobot_cv/config/ .
+cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_cv/config/ .
 
 # Launch the BPU acceleration test program package
 ros2 launch hobot_cv hobot_cv_gaussian_blur.launch.py
@@ -175,13 +198,13 @@ Code repository: <https://github.com/HorizonRDK/hobot_cv>
 
 | Platform            | System | Function          |
 | ------------------- | -------------- | ------------------------------ |
-| RDK X3, RDK X3 Module | Ubuntu 20.04   | Read ToF images, perform Mean Filtering |
+| RDK X3, RDK X3 Module | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)   | Read ToF images, perform Mean Filtering |
 
 ### Preparation
 
 #### Horizon RDK
 
-1. Horizon RDK has flashed the Ubuntu 20.04 system image provided by Horizon.
+1. Horizon RDK has flashed the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. Horizon RDK has successfully installed TogetheROS.Bot.
 
@@ -197,12 +220,30 @@ The package provides a simple test program. The input is a offline ToF image, an
 
 #### Horizon RDK
 
-```shell
-# Configure TogetheROS.Bot environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 # Copy the required configuration files from the installation path of TogetheROS.
-cp -r /opt/tros/lib/hobot_cv/config/ .
+cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_cv/config/ .
 
 # Launch the test program pkg
 ros2 launch hobot_cv hobot_cv_neon_blur.launch.py
@@ -254,13 +295,13 @@ Code repository: <https://github.com/HorizonRDK/hobot_cv>
 
 | Platform    | System      | Function                       |
 | ------- | ------------- | ------------------------------ |
-| RDK X3, RDK X3 Module| Ubuntu 20.04  | Read an image and crop it  |
+| RDK X3, RDK X3 Module| Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)  | Read an image and crop it  |
 
 ### Preparation
 
 #### Horizon RDK Platform
 
-1. Horizon RDK has already burned Horizon's provided Ubuntu 20.04 system image.
+1. Horizon RDK has already burned Horizon's provided  Ubuntu 20.04/22.04 system image.
 
 2. Horizon RDK has successfully installed TogetheROS.Bot.
 
@@ -268,12 +309,30 @@ Code repository: <https://github.com/HorizonRDK/hobot_cv>
 
 #### Horizon RDK
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
 # Configure the tros.b environment
 source /opt/tros/setup.bash
+```
 
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 # Copy the required models and configuration files from the installation path of tros.b.
-cp -r /opt/tros/lib/hobot_cv/config/ .
+cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_cv/config/ .
 
 # Launch the launch file
 ros2 launch hobot_cv hobot_cv_crop.launch.py
@@ -310,13 +369,13 @@ Code repository: <https://github.com/HorizonRDK/hobot_cv>
 
 | Platform  | System | Function              |
 | --------- | -------------- | ----------------------------- |
-| RDK X3, RDK X3 Module | Ubuntu 20.04  | Read image and resize |
+| RDK X3, RDK X3 Module |  Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)  | Read image and resize |
 
 ### Preparation
 
 #### Horizon RDK
 
-1. The Horizon RDK has been burned with the Ubuntu 20.04 system image provided by Horizon.
+1. The Horizon RDK has been burned with the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. TogetheROS.Bot has been successfully installed on the Horizon RDK.
 
@@ -324,12 +383,30 @@ Code repository: <https://github.com/HorizonRDK/hobot_cv>
 
 #### Horizon RDK
 
-```shell
-# Configure the TogetheROS.Bot environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
+```bash
+# Configure the tros.b environment
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 # Copy the required models and configuration files from the TogetheROS installation path.
-cp -r /opt/tros/lib/hobot_cv/config/ .
+cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_cv/config/ .
 
 # Launch the file 
 ros2 launch hobot_cv hobot_cv_resize.launch.py
@@ -392,13 +469,13 @@ Code repository: <https://github.com/HorizonRDK/hobot_cv>
 
 | Platform    | System      | Function                       |
 | ------- | ------------- | ------------------------------ |
-| RDK X3, RDK X3 Module| Ubuntu 20.04  | Read and rotate images |
+| RDK X3, RDK X3 Module|  Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)  | Read and rotate images |
 
 ### Preparation
 
 #### Horizon RDK Platform
 
-1. Horizon RDK has been flashed with the Ubuntu 20.04 system image provided by the Horizon team.
+1. Horizon RDK has been flashed with the  Ubuntu 20.04/22.04 system image provided by the Horizon team.
 
 2. The TogetheROS.Bot has been successfully installed on the Horizon RDK.
 
@@ -406,12 +483,28 @@ Code repository: <https://github.com/HorizonRDK/hobot_cv>
 
 #### Horizon RDK
 
-```shell
-# Configure the tros.b environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
+```bash
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 # Copy the required models and configuration files from the installation path of tros.b.
-cp -r /opt/tros/lib/hobot_cv/config/ .
+cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_cv/config/ .
 
 # Launch the launch file
 ros2 launch hobot_cv hobot_cv_rotate.launch.py
@@ -471,24 +564,40 @@ Code repository: <https://github.com/HorizonRDK/hobot_cv>
 
 | Platform      | System | Function        |
 | ------------- | -------------- | --------------------------- |
-| RDK X3, RDK X3 Module| Ubuntu 20.04  | Read image and perform image pyramid scaling |
+| RDK X3, RDK X3 Module|  Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)  | Read image and perform image pyramid scaling |
 
 ### Preparation
 
 #### Horizon RDK Platform
 
-1. The Horizon RDK is pre-loaded with Ubuntu 20.04 system image.
+1. The Horizon RDK is pre-loaded with  Ubuntu 20.04/22.04 system image.
 
 2. TogetheROS.Bot has been successfully installed on the Horizon RDK.### User Guide
 
 #### Horizon RDK
 
-```shell
-# Configure the tros.b environment
-source /opt/tros/setup.bash
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
+```bash
+source /opt/tros/setup.bash
+```
+
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
 # Copy the necessary models and configuration files for running the example from the installation path of tros.b
-cp -r /opt/tros/lib/hobot_cv/config/ .
+cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_cv/config/ .
 
 # Launch the launch file
 ros2 launch hobot_cv hobot_cv_pyramid.launch.py

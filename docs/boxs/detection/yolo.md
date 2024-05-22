@@ -3,6 +3,11 @@ sidebar_position: 2
 ---
 # YOLO
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Introduction
 
 YOLO detection algorithm example uses images as input, performs algorithm inference using BPU, and publishes algorithm messages containing object categories and detection boxes. Currently, it supports four versions: yolov2, yolov3, yolov5, and yolov5x.
@@ -17,13 +22,13 @@ Use cases: As a representative algorithm in single-stage object detection, the Y
 
 | Platform              | System | Supported Algorithms | Function                                            |
 | --------------------- | ---------------- | -------------------- | ------------------------------------------------------------ |
-| RDK X3, RDK X3 Module | Ubuntu 20.04     | yolov2/yolov3/yolov5 | · Start MIPI/USB cameras and display results through web<br/>· Use local data offline, and save results |
+| RDK X3, RDK X3 Module | Ubuntu 20.04 (Foxy), Ubuntu 22.04 (Humble)     | yolov2/yolov3/yolov5 | · Start MIPI/USB cameras and display results through web<br/>· Use local data offline, and save results |
 
 ## Preparations
 
 ### Horizon RDK
 
-1. Horizon RDK has been burned with the Ubuntu 20.04 system image provided by Horizon.
+1. Horizon RDK has been burned with the  Ubuntu 20.04/22.04 system image provided by Horizon.
 
 2. Horizon RDK has successfully installed TogetheROS.Bot.
 
@@ -39,14 +44,32 @@ Use cases: As a representative algorithm in single-stage object detection, the Y
 
 YOLOv2 object detection algorithm example subscribes to images published by a MIPI camera and publish algorithm msg after inference. It displays published images and corresponding results on PC browsers through the websocket package.
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
 # Configure the tros.b environment
 source /opt/tros/setup.bash
+```
 
-# Configure the MIPI camera
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+# Configuring MIPI camera
 export CAM_TYPE=mipi
 
-# Launch the launch file
+# Start the launch file
 ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:=config/yolov2workconfig.json dnn_example_image_width:=480 dnn_example_image_height:=272
 ```
 
@@ -54,14 +77,32 @@ ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:
 
 YOLOv2 object detection algorithm example subscribes to images published by a USB camera, publishes algorithm msg after inference, and displays published images and corresponding results on PC browsers through the websocket package.
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
 # Configure the tros.b environment
 source /opt/tros/setup.bash
+```
 
-# Configure the USB camera
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+# Configuring USB camera
 export CAM_TYPE=usb
 
-# Launch the launch file
+# Start the launch file
 ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:=config/yolov2workconfig.json dnn_example_image_width:=480 dnn_example_image_height:=272
 ```
 
@@ -69,11 +110,29 @@ ros2 launch dnn_node_example dnn_node_example.launch.py dnn_example_config_file:
 
 YOLOv2 object detection algorithm uses local JPEG/PNG images offline. After inference, the rendered images of the results are stored in the local path.
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
 # Configure the tros.b environment
 source /opt/tros/setup.bash
+```
 
-# Launch the launch file
+</TabItem>
+
+<TabItem value="humble" label="Humble">
+
+```bash
+# Configure the tros.b environment
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+
+</Tabs>
+
+```shell
+# Start the launch file
 ros2 launch dnn_node_example dnn_node_example_feedback.launch.py dnn_example_config_file:=config/yolov2workconfig.json dnn_example_image:=config/target.jpg
 ```
 

@@ -3,9 +3,19 @@ sidebar_position: 1
 ---
 # 5.1 Using "zero-copy"
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+```
+
 ## Background
 
 Communication is a fundamental function of the robot development engine. When using native ROS for large-scale data communication, there may be issues such as high latency and system load. TogetheROS.Bot implements the "zero-copy" feature based on the Horizon Systems software library hbmem, which enables zero-copy transmission of data across processes, greatly reducing transmission latency and system resource usage for large data blocks. This section explains how to use the tros.b hbmem interface to create a publisher and subscriber node for large-scale data transmission, and calculate transmission latency.
+
+:::info Lint
+- The tros.b Foxy version adds a "zero-copy" function based on ROS2 Foxy.
+- The tros.b Humble version uses the "zero-copy" function of ROS2 Humble. For specific usage, please refer to the ROS2 official [document]([https://docs.ros.org/en/humble/Tutorials/Advanced/FastDDS- Configuration.html#](https://docs.ros.org/en/humble/Tutorials/Advanced/FastDDS-Configuration.html#)) and [code](https://github.com/ros2/demos/blob/humble/demo_nodes_cpp/src/topics/talker_loaned_message.cpp).
+:::
 
 ## Prerequisites
 
@@ -20,9 +30,22 @@ Communication is a fundamental function of the robot development engine. When us
 
 Open a new terminal and source the tros.b setup script to ensure that the `ros2` command can be run.
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
 source /opt/tros/setup.bash
 ```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+```bash
+source /opt/tros/humble/setup.bash
+```
+
+</TabItem>
+</Tabs>
 
 Create a workspace using the following command. For detailed instructions, refer to the ROS2 official tutorial [Creating a workspace](https://docs.ros.org/en/foxy/Tutorials/Workspace/Creating-A-Workspace.html).
 
@@ -84,6 +107,9 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 #### 3.1 Create a New Message Publishing Node File
 
 In the `~/dev_ws/src/hbmem_pubsub/src` directory, create a new file named `publisher_hbmem.cpp`. This file is used to create the publisher node. The code and explanation are as follows:
+
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
 ```c++
 #include <chrono>
@@ -158,6 +184,67 @@ int main(int argc, char * argv[])
 
 ```
 
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+```c++
+#include <chrono>
+#include <functional>
+#include <memory>
+#include <string>
+
+#include "rclcpp/rclcpp.hpp"
+#include "hbmem_pubsub/msg/sample_message.hpp"
+
+using namespace std::chrono_literals;
+
+class MinimalHbmemPublisher  : public rclcpp::Node {
+ public:
+  MinimalHbmemPublisher () : Node("minimal_hbmem_publisher"), count_(0) {
+    publisher_ = this->create_publisher<hbmem_pubsub::msg::SampleMessage>(
+        "topic", rclcpp::SensorDataQoS());
+
+    timer_ = this->create_wall_timer(
+        40ms, std::bind(&MinimalHbmemPublisher ::timer_callback, this));
+  }
+
+ private:
+  void timer_callback() {
+    auto loanedMsg = publisher_->borrow_loaned_message();
+    if (loanedMsg.is_valid()) {
+      auto& msg = loanedMsg.get();
+      
+      auto time_now =
+          std::chrono::duration_cast<std::chrono::microseconds>(
+              std::chrono::steady_clock::now().time_since_epoch()).count();
+      
+      msg.index = count_;
+      msg.time_stamp = time_now;
+      
+      RCLCPP_INFO(this->get_logger(), "message: %d", msg.index);
+      publisher_->publish(std::move(loanedMsg));
+      count_++;
+    } else {
+      RCLCPP_INFO(this->get_logger(), "Failed to get LoanMessage!");
+    }
+  }
+  
+  rclcpp::TimerBase::SharedPtr timer_;
+  rclcpp::Publisher<hbmem_pubsub::msg::SampleMessage>::SharedPtr publisher_;
+  size_t count_;
+};
+
+int main(int argc, char * argv[])
+{
+  rclcpp::init(argc, argv);
+  rclcpp::spin(std::make_shared<MinimalHbmemPublisher>());
+  rclcpp::shutdown();
+  return 0;
+}
+```
+
+</TabItem>
+</Tabs>
 
 #### 3.2 Compilation Dependencies
 
@@ -189,6 +276,9 @@ install(TARGETS
 #### 4.1 Create a New Message Reception Node File
 
 Create a new file `subscriber_hbmem.cpp` in the `~/dev_ws/src/hbmem_pubsub/src` directory to establish a subscriber node. The specific code and explanation are as follows:
+
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
 ```c++
 #include <memory>
@@ -240,6 +330,54 @@ int main(int argc, char * argv[])
 
 ```
 
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+```c++
+#include <memory>
+
+#include "rclcpp/rclcpp.hpp"
+#include "hbmem_pubsub/msg/sample_message.hpp"
+
+class MinimalHbmemSubscriber  : public rclcpp::Node {
+ public:
+  MinimalHbmemSubscriber () : Node("minimal_hbmem_subscriber") {
+    subscription_ =
+        this->create_subscription<hbmem_pubsub::msg::SampleMessage>(
+            "topic", rclcpp::SensorDataQoS(),
+            std::bind(&MinimalHbmemSubscriber ::topic_callback, this,
+                      std::placeholders::_1));
+  }
+
+ private:
+  void topic_callback(
+      const hbmem_pubsub::msg::SampleMessage::SharedPtr msg) const {
+    auto time_now =
+        std::chrono::duration_cast<std::chrono::microseconds>(
+            std::chrono::steady_clock::now().time_since_epoch())
+            .count();
+    RCLCPP_INFO(this->get_logger(), "msg %d, time cost %dus", msg->index,
+                time_now - msg->time_stamp);
+  }
+  
+  // hbmem subscription
+  rclcpp::Subscription<hbmem_pubsub::msg::SampleMessage>::SharedPtr
+      subscription_;
+};
+
+
+int main(int argc, char * argv[])
+{
+  rclcpp::init(argc, argv);
+  rclcpp::spin(std::make_shared<MinimalHbmemSubscriber>());
+  rclcpp::shutdown();
+  return 0;
+}
+```
+
+</TabItem>
+</Tabs>
+
 #### 4.2 Build script
 
 Go back to the `~/dev_ws/src/hbmem_pubsub` directory, as we have added the `rclcpp` dependency in the `package.xml`, there is no need to modify it.
@@ -258,7 +396,7 @@ install(TARGETS
 ```
 
 
-### 5. Build and Run
+### 5. Build
 
 The directory structure of the entire workspace is as follows:
 
@@ -385,19 +523,36 @@ If the `colcon` command is not installed, use the following command to install i
 pip3 install -U colcon-common-extensions
 ```
 
+### 6. Run
+
 Open a new terminal, cd to the dev_ws directory, source tros.b and the current workspace setup file:
 
-```shell
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
+```bash
 source /opt/tros/setup.bash
 cd ~/dev_ws
 . install/setup.bash
-```
-
-Launch the talker node:
-
-```bash
 ros2 run hbmem_pubsub talker
 ```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+```bash
+source /opt/tros/humble/setup.bash
+cd ~/dev_ws
+. install/setup.bash
+export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+export FASTRTPS_DEFAULT_PROFILES_FILE=/opt/tros/humble/lib/hobot_shm/config/shm_fastdds.xml
+export RMW_FASTRTPS_USE_QOS_FROM_XML=1
+export ROS_DISABLE_LOANED_MESSAGES=0
+ros2 run hbmem_pubsub talker
+```
+
+</TabItem>
+</Tabs>
 
 On the terminal, the following prints will appear:
 
@@ -412,6 +567,9 @@ On the terminal, the following prints will appear:
 
 Open another terminal and `cd` to the `dev_ws` directory, then source the setup file and run the listener node:
 
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
+
 ```bash
 source /opt/tros/setup.bash
 cd ~/dev_ws
@@ -419,6 +577,23 @@ cd ~/dev_ws
 
 ros2 run hbmem_pubsub listener
 ```
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+```bash
+source /opt/tros/humble/setup.bash
+cd ~/dev_ws
+. install/setup.bash
+export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+export FASTRTPS_DEFAULT_PROFILES_FILE=/opt/tros/humble/lib/hobot_shm/config/shm_fastdds.xml
+export RMW_FASTRTPS_USE_QOS_FROM_XML=1
+export ROS_DISABLE_LOANED_MESSAGES=0
+ros2 run hbmem_pubsub listener
+```
+
+</TabItem>
+</Tabs>
 
 On the terminal, the following prints will appear, indicating that the subscriber has successfully received the messages sent by the publisher:
 
@@ -433,7 +608,10 @@ On the terminal, the following prints will appear, indicating that the subscribe
 
 You can use `Ctrl+C` to end the execution of each node.
 
-Summary of this section:
+## Summary of this section
+
+<Tabs groupId="tros-distro">
+<TabItem value="foxy" label="Foxy">
 
 If you have learned how to use ROS2 publishers and subscribers, it is easy to switch to using hbmem publishers and subscribers. You just need to make the following changes:
 
@@ -447,6 +625,18 @@ If you have learned how to use ROS2 publishers and subscribers, it is easy to sw
 Note:- Using zero-copy based on hbmem will occupy ion memory. If multiple large messages publishers are created, there may be insufficient ion memory, resulting in creation failure issues.
 
 - When creating a publisher, ion memory that is three times the size of KEEPLAST multiplied by the number of messages will be requested at one time (up to 256MB maximum), which is used for message transmission and will not be dynamically allocated afterwards. If there is an error in message handling on the subscriber side or if it is not processed in a timely manner, the message buffer may be fully occupied, causing the publisher to continuously fail to obtain available messages.
+
+</TabItem>
+<TabItem value="humble" label="Humble">
+
+If you have mastered how to use ROS2 publisher and subscriber, it is easy to switch to using zero-copy publisher and subscriber. You only need to make the following changes when using it:
+
+- **publisher** must first call **borrow_loaned_message** to obtain the message before sending it, and then **confirm whether the message is available**. If it is available, assign it and send it.
+- **subscription** processes the received message in the callback function, and **the received message can only be used** in the callback function. After the callback function is executed, the message will be released
+- Before **running** the program, use the export command to configure a zero-copy environment in the running terminal.
+
+</TabItem>
+</Tabs>
 
 ## Limitations
 
