@@ -413,24 +413,24 @@ Take the F37 as an example to introduce the method of acquiring and previewing i
 
 6. To query the camera's intrinsic parameters on the PC (the specific data may vary depending on the calibrated camera file), use the following command and view the results:
 
-<Tabs groupId="tros-distro">
-<TabItem value="foxy" label="Foxy">
+   <Tabs groupId="tros-distro">
+   <TabItem value="foxy" label="Foxy">
+
+      ```shell
+      root@ubuntu:~# source /opt/ros/foxy/setup.bash
+      ```
+
+   </TabItem>
+   <TabItem value="humble" label="Humble">
+
+      ```shell
+      root@ubuntu:~# source /opt/ros/humble/setup.bash
+      ```
+
+   </TabItem>
+   </Tabs>
 
    ```shell
-   root@ubuntu:~# source /opt/ros/foxy/setup.bash
-   ```
-
-</TabItem>
-<TabItem value="humble" label="Humble">
-
-   ```shell
-   root@ubuntu:~# source /opt/ros/humble/setup.bash
-   ```
-
-</TabItem>
-</Tabs>
-
-```shell
     root@ubuntu:~# ros2 topic echo /camera_info
         header:
     stamp:
@@ -487,7 +487,7 @@ Take the F37 as an example to introduce the method of acquiring and previewing i
    width: 0
    do_rectify: false
 
-```
+   ```
 
 ### Caution
 
@@ -598,11 +598,11 @@ Taking CP3AM as an example, the method of acquiring and previewing camera data i
 
     </Tabs>
 
-```shell
-cp -r /opt/tros/lib/rgbd_sensor/parameter .
-# Launch the node
-ros2 launch rgbd_sensor rgbd_sensor.launch.py
-```
+   ```shell
+   cp -r /opt/tros/lib/rgbd_sensor/parameter .
+   # Launch the node
+   ros2 launch rgbd_sensor rgbd_sensor.launch.py
+   ```
 
 2. If the program outputs the following information, it indicates that the node has been successfully launched:
 
@@ -761,7 +761,7 @@ ros2 topic list
 
     The output result is as follows:
 
-```text
+   ```text
     header:
     stamp:
         sec: 119811
@@ -817,7 +817,7 @@ ros2 topic list
    height: 0
    width: 0
    do_rectify: false
-```
+   ```
 
 ### Instructions
 

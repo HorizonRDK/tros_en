@@ -572,7 +572,7 @@ Code repository: <https://github.com/HorizonRDK/hobot_cv>
 
 1. The Horizon RDK is pre-loaded with  Ubuntu 20.04/22.04 system image.
 
-2. TogetheROS.Bot has been successfully installed on the Horizon RDK.### User Guide
+2. TogetheROS.Bot has been successfully installed on the Horizon RDK.
 
 #### Horizon RDK
 

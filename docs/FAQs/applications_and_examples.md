@@ -267,7 +267,7 @@ sudo apt install python3-catkin-pkg
 
 After installing tros.b, log in to the system and use the command `apt show tros` to check the tros.b version.
 
-For version 2.x (taking 2.0.0 version as an example), the tros.b information is as follows:
+Taking 2.0.0 version as an example, the tros.b information is as follows:
 
 ```shell
 root@ubuntu:~# apt show tros

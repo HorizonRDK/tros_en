@@ -30,7 +30,7 @@ For detailed instructions on how to use `hobot_dnn`, please refer to the [README
 
 Without understanding the workflow of using `hobot_dnn`, users can also follow the steps in this chapter to develop a model inference example using `hobot_dnn`.
 
-:::info Hint
+:::info
 The following content in this chapter uses the tros.b Foxy version as an example. If you are using the tros.b Humble version, just replace the `source /opt/tros/setup.bash` command with `source /opt/tros/humble/ setup.bash`.
 :::
 
@@ -1184,7 +1184,7 @@ By reading this chapter, users can use the sensing nodes, human bounding box det
 
 3. A PC in the same network segment (wired or connected to the same wireless network, with the first three segments of the IP address consistent with Horizon RDK). The PC needs to have the following environment installed:
 
-  -  Ubuntu 20.04/22.04 system
+  - Ubuntu 20.04/22.04 system
 
   - [ROS2 Foxy Desktop](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
 

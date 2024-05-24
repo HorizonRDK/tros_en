@@ -212,7 +212,9 @@ When users develop based on `Trigger_node`, they only need to instantiate a stru
 
 Based on this, users can develop custom Trigger modules. For more information, please refer to the implementation method of `trigger_node_example` in the code repository.
 
-Code repository: <https://github.com/HorizonRDK/hobot_trigger.git>The structure information is as follows:
+Code repository: <https://github.com/HorizonRDK/hobot_trigger.git>
+
+The structure information is as follows:
 
 ```c++
 struct Config {
@@ -411,8 +413,8 @@ ros2 topic pub /hobot_agent std_msgs/String "data: '{\"version\":\"v0.0.1_202304
 
 ##### Log
 ```shell
-   [WARN] [1691670626.026737642] [hobot_trigger]: TriggerNode Init Succeed!
-   [WARN] [1691670626.026859316] [example]: TriggerExampleNode Init.
-   [INFO] [1691670626.517232775] [TriggerNode]: Updated Trigger Config: {"domain":"robot","desc":"trigger lane","duration_ts_back":5000,"duration_ts_front":3000,"gps_pos":{"latitude":-1,"longitude":-1},"level":1,"rosbag_path":"","src_module_id":203,"strategy_version":"Robot_sweeper_V1.0_20230526","timestamp":0,"topic":["/image_raw/compressed","/ai_msg_mono2d_trash_detection","/hobot_visualization"],"trigger_type":1110,"unique_id":"OriginBot002","version":"v0.0.1_20230421","extra_kv":[]}
+[WARN] [1691670626.026737642] [hobot_trigger]: TriggerNode Init Succeed!
+[WARN] [1691670626.026859316] [example]: TriggerExampleNode Init.
+[INFO] [1691670626.517232775] [TriggerNode]: Updated Trigger Config: {"domain":"robot","desc":"trigger lane","duration_ts_back":5000,"duration_ts_front":3000,"gps_pos":{"latitude":-1,"longitude":-1},"level":1,"rosbag_path":"","src_module_id":203,"strategy_version":"Robot_sweeper_V1.0_20230526","timestamp":0,"topic":["/image_raw/compressed","/ai_msg_mono2d_trash_detection","/hobot_visualization"],"trigger_type":1110,"unique_id":"OriginBot002","version":"v0.0.1_20230421","extra_kv":[]}
 ```
 Analysis: When sending configuration tasks to the Trigger module, the configuration of the Trigger node can be successfully updated (the log of the Trigger node shows INFO to see the log update).

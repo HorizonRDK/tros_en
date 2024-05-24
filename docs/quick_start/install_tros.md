@@ -15,7 +15,7 @@ This section introduces how to use apt to install TogetheROS.Bot on Horizon RDK.
 Prerequisites
 
 - The environment preparation in section 1.1 has been completed.
-- The Horizon RDK system has been installed with version 2.x.
+- The Horizon RDK system has been installed.
 - The Horizon RDK can access the internet normally.
 - The Horizon RDK can be accessed remotely via SSH.
 

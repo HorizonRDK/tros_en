@@ -15,7 +15,7 @@ Horizon Robotics Developer Kit [RDK](https://developer.horizon.cc/documents_rdk/
 
 After the system installation, log in to the system and use the command `apt list --installed | grep hobot` to check the version of the system's core function packages. Use the command `cat /etc/version` to check the major version number of the system.
 
-The system information for version 2.x (using version 2.0.0 as an example) is as follows:
+The system information for version 2.0.0 is as follows:
 
 ```shell
 root@ubuntu:~# apt list --installed | grep hobot

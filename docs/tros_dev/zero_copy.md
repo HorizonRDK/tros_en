@@ -12,9 +12,9 @@ import TabItem from '@theme/TabItem';
 
 Communication is a fundamental function of the robot development engine. When using native ROS for large-scale data communication, there may be issues such as high latency and system load. TogetheROS.Bot implements the "zero-copy" feature based on the Horizon Systems software library hbmem, which enables zero-copy transmission of data across processes, greatly reducing transmission latency and system resource usage for large data blocks. This section explains how to use the tros.b hbmem interface to create a publisher and subscriber node for large-scale data transmission, and calculate transmission latency.
 
-:::info Lint
+:::info
 - The tros.b Foxy version adds a "zero-copy" function based on ROS2 Foxy.
-- The tros.b Humble version uses the "zero-copy" function of ROS2 Humble. For specific usage, please refer to the ROS2 official [document]([https://docs.ros.org/en/humble/Tutorials/Advanced/FastDDS- Configuration.html#](https://docs.ros.org/en/humble/Tutorials/Advanced/FastDDS-Configuration.html#)) and [code](https://github.com/ros2/demos/blob/humble/demo_nodes_cpp/src/topics/talker_loaned_message.cpp).
+- The tros.b Humble version uses the "zero-copy" function of ROS2 Humble. For specific usage, please refer to the ROS2 official [document](https://docs.ros.org/en/humble/Tutorials/Advanced/FastDDS-Configuration.html#) and [code](https://github.com/ros2/demos/blob/humble/demo_nodes_cpp/src/topics/talker_loaned_message.cpp).
 :::
 
 ## Prerequisites
