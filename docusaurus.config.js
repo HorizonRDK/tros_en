@@ -14,11 +14,11 @@ const config = {
   url: 'https://your-docusaurus-test-site.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/tros_en',
+  baseUrl: '/tros_doc_en',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'horizon', // Usually your GitHub org/user name.
+  organizationName: 'D-Robotics', // Usually your GitHub org/user name.
   projectName: 'docusaurus', // Usually your repo name.
 
   onBrokenLinks: 'throw',
@@ -51,14 +51,14 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/HorizonRDK/tros_doc/blob/develop/',
+            'https://github.com/D-Robotics/tros_doc_en/blob/develop/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/HorizonRDK/tros_doc/blob/develop/',
+            'https://github.com/D-Robotics/tros_doc_en/blob/develop/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -93,12 +93,12 @@ const config = {
             label: 'User Guide',
           },
           {
-            href: 'https://developer.horizon.cc/',
-            label: 'Horizon Developer Community',
+            href: 'https://developer.d-robotics.cc',
+            label: 'D-Robotics Developer Community',
             position: 'left',
           },
           {
-            href: 'https://github.com/HorizonRDK',
+            href: 'https://github.com/D-Robotics',
             label: 'Github',
             position: 'right',
           },
@@ -106,7 +106,7 @@ const config = {
       },
       footer: {
         style: 'dark',
-        copyright: `© Copyright ${new Date().getFullYear()}, Horizon Robotics`,
+        copyright: `© Copyright ${new Date().getFullYear()}, D-Robotics`,
       },
       prism: {
         theme: lightCodeTheme,
